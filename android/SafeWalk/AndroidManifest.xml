@@ -4,6 +4,15 @@
       android:versionCode="1"
       android:versionName="1.0">
     <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="18" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+<!-- The following two permissions are not required to use
+     Google Maps Android API v2, but are recommended. -->
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>  
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>  
     <application android:label="@string/app_name" >
         <activity android:name="SafeWalk"
                   android:label="@string/app_name">
@@ -12,5 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+       <meta-data
+    android:name="com.google.android.maps.v2.API_KEY"
+    android:value="AIzaSyBKkhqw7HWVV-Jt7c7GgKmAKZvK8R2wzQk"/>
     </application>
 </manifest>
