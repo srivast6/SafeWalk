@@ -6,13 +6,18 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 
-public class SafeWalk extends Activity
+public class SafeWalk extends Activity implements
+	GooglePlayServicesClient.ConnectionCallbacks,
+	GooglePlayServicesClient.OnConnectionFailedListener
 {
 	private GoogleMap mMap;
 	private LocationClient mLocationClient;
@@ -32,6 +37,10 @@ public class SafeWalk extends Activity
         	GooglePlayServicesUtil.getErrorDialog(googlePlayServicesAvailable, this, CONNECTION_FAILURE_RESOLUTION_REQUEST).show();
         }
         
+        mLocationClient = new LocationClient(this, this, this);
+        mLocationClient.disconnect();
+        mLocationClient.connect();
+        
         mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();        
         if(mMap != null) {
         	mMap.setMyLocationEnabled(true);
@@ -48,4 +57,23 @@ public class SafeWalk extends Activity
         	alertBuilder.show();
         }
     }
+
+	@Override
+	public void onConnectionFailed(ConnectionResult res) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void onConnected(Bundle bun) {
+		CameraPosition.Builder cameraPositionBuilder = new CameraPosition.Builder();
+        cameraPositionBuilder.target(new LatLng(mLocationClient.getLastLocation().getLatitude(), mLocationClient.getLastLocation().getLongitude()));
+        cameraPositionBuilder.zoom(12);
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPositionBuilder.build()));
+        mLocationClient.disconnect();
+	}
+
+	@Override
+	public void onDisconnected() {
+		// TODO Auto-generated method stub
+	}
 }
