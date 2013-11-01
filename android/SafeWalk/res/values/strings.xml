@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SafeWalk</string>
+    <string name="error_no_maps">Can\'t create a Map view. Please check that you have Google Play Services installed</string>
 </resources>
