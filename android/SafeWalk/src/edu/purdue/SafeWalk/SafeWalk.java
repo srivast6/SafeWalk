@@ -1,15 +1,17 @@
 package edu.purdue.SafeWalk;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
+
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.*;
-
-import android.app.Activity;
-import android.os.Bundle;
 
 public class SafeWalk extends Activity
 {
 	private GoogleMap mMap;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -17,6 +19,20 @@ public class SafeWalk extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-        mMap.setMyLocationEnabled(true);
+        
+        if(mMap != null) {
+        	mMap.setMyLocationEnabled(true);
+        } else {
+        	AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        	alertBuilder.setTitle("Error!");
+        	alertBuilder.setMessage(this.getResources().getText(R.string.error_no_maps));
+        	alertBuilder.setPositiveButton("Close " + this.getResources().getText(R.string.app_name), new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					SafeWalk.this.finish();
+				}
+        	});
+        	alertBuilder.show();
+        }
     }
 }
