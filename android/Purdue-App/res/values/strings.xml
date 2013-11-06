@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">PurdueApp</string>
     <string name="map_window_label">Campus Map</string>
     <string name="prev_button">Prev</string>
@@ -8,4 +9,13 @@
     <string name="date_tf">Date:</string>
     <string name="tickets_tf">Tickets:</string>
     <string name="additional_tf">Additional Info:</string>
+    <string name="title_activity_dining_courts">DiningCourts</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_search">Search</string>
+    <string name="Earhart">Earhart</string>
+    <string name="Ford">Ford</string>
+	<string name="Hillenbrand">Hillenbrand</string>
+	<string name="Windsor">Windsor</string>
+	<string name="Wiley">Wiley</string>
 </resources>
