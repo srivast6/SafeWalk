@@ -28,3 +28,6 @@ proguard/
 *.ipr
 *.iws
 .idea/
+
+# DS_Store files produced by OSX for some reason
+.DS_Store
