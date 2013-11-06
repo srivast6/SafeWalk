@@ -8,4 +8,8 @@
     <string name="date_tf">Date:</string>
     <string name="tickets_tf">Tickets:</string>
     <string name="additional_tf">Additional Info:</string>
+    <string name="hourly_button">Hourly</string>
+    <string name="weekly_button">Weekly</string>
+    <string name="radar_button">Radar</string>
+    <string name="forecast_text_view">Forecast:</string>
 </resources>
