@@ -1,5 +1,10 @@
 package edu.purdue.app.map;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.*;
+
 import edu.purdue.app.R;
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,6 +17,8 @@ public class MapActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map_mainview);
 		
+		GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(40.427231,-86.916683), 14.7f));
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
