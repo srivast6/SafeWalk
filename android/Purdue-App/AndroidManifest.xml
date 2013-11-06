@@ -53,6 +53,12 @@
     	    android:label="@string/map_window_label" >
     	</activity>
     	
+    	<activity
+    	    android:name=".EventsPageActivity"
+    	    android:label="@string/app_name">
+    	    
+    	</activity>
+    	
     </application>
     
 </manifest>
