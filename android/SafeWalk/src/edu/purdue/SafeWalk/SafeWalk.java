@@ -3,6 +3,8 @@ package edu.purdue.SafeWalk;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -76,4 +78,10 @@ public class SafeWalk extends Activity implements
 	public void onDisconnected() {
 		// TODO Auto-generated method stub
 	}
+	public void onClick(){
+		System.out.print("Bitch");
+			Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse("tel:3174573102"));
+			startActivity(intent);
+}
 }
