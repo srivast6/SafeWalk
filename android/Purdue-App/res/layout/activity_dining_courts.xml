@@ -11,34 +11,39 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/Earhart" />
+        android:text="@string/Earhart" 
+        android:onClick="earhartInfo" />
     <Button
         android:id="@+id/Ford"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/Ford" />
+        android:text="@string/Ford"
+        android:onClick="fordInfo" />
     <Button
         android:id="@+id/Hillenbrand"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/Hillenbrand" />
+        android:text="@string/Hillenbrand"
+        android:onClick="hillenbrandInfo" />
     <Button
         android:id="@+id/Windsor"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/Windsor" />
+        android:text="@string/Windsor"
+        android:onClick="windsorInfo" />
     <Button
         android:id="@+id/Wiley"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="@string/Wiley" />
+        android:text="@string/Wiley"
+        android:onClick="wileyInfo" />
 
     </LinearLayout>
