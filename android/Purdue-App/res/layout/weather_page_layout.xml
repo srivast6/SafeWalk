@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/weeklyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/hourlyButton"
+        android:layout_alignBottom="@+id/hourlyButton"
+        android:layout_centerHorizontal="true"
+        android:text="@string/weekly_button" />
+
+    <Button
+        android:id="@+id/radarButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/weeklyButton"
+        android:layout_alignBottom="@+id/weeklyButton"
+        android:layout_marginLeft="21dp"
+        android:layout_toRightOf="@+id/weeklyButton"
+        android:text="@string/radar_button" />
+
+    <Button
+        android:id="@+id/hourlyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="46dp"
+        android:layout_toLeftOf="@+id/weeklyButton"
+        android:text="@string/hourly_button" />
+
+    <TextView
+        android:id="@+id/forecastTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/weeklyButton"
+        android:layout_marginBottom="14dp"
+        android:text="@string/forecast_text_view" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_below="@+id/hourlyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="180dp"
+        android:src="@drawable/clouds" />
+
+</RelativeLayout>
