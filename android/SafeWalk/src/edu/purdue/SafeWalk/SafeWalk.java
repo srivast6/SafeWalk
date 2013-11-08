@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -78,10 +79,16 @@ public class SafeWalk extends Activity implements
 	public void onDisconnected() {
 		// TODO Auto-generated method stub
 	}
-	public void onClick(){
-		System.out.print("Bitch");
-			Intent intent = new Intent(Intent.ACTION_VIEW);
-			intent.setData(Uri.parse("tel:3174573102"));
-			startActivity(intent);
-}
+	
+	public void onClickSafeWalk(View view){
+		Uri number = Uri.parse("tel:7654947233");
+		Intent dial = new Intent(Intent.ACTION_DIAL, number);
+		startActivity(dial);
+	}
+
+	public void onClickPolice(View view){
+		Uri number = Uri.parse("tel:911");
+		Intent dial = new Intent(Intent.ACTION_DIAL, number);
+		startActivity(dial);
+	}
 }

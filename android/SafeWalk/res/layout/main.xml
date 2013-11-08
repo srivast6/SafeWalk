@@ -41,14 +41,15 @@
                   android:id="@+id/button1"
                   android:layout_width="201dp"
                   android:layout_height="fill_parent"
-                  android:text="Call SafeWalk" />
+                  android:text="Call SafeWalk" 
+                  android:onClick="onClickSafeWalk"/>
 
               <Button
                   android:id="@+id/button2"
                   android:layout_width="fill_parent"
                   android:layout_height="fill_parent"
                   android:text="Call Police" 
-                  android:onClick="onClick" />
+                  android:onClick="onClickPolice" />
 
           </LinearLayout>
 
