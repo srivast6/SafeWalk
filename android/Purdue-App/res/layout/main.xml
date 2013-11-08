@@ -1,13 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:text="Hello World, MainActivity"
+	
+    <Button
+        android:id="@+id/tempMapButton"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text="Map"
     />
-</LinearLayout>
+    
+    <Button
+        android:id="@+id/tempDiningButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tempMapButton"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text = "Dining"
+    />
+	
+    <Button
+        android:id="@+id/tempEventsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tempDiningButton"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text = "Events"
+    />
+    
+    <Button
+        android:id="@+id/tempWeatherButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tempEventsButton"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text = "Weather"
+    />
+	
+	
+</RelativeLayout>
 
