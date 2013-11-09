@@ -25,5 +25,11 @@
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
     <string name="hello_world">Hello world!</string>
+    <string name="Map">Map</string>
+    <string name="Weather">Weather</string>
+    <string name="Email">Email</string>
+    <string name="CoRec">Co-Rec</string>
+    <string name="DiningCourts">Dining Courts</string>
+    <string name="Events">Events</string>
 
 </resources>
