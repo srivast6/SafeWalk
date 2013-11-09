@@ -13,33 +13,47 @@ public class PurdueAppActivity extends Activity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+    Button mapbutton = (Button) findViewById(R.id.MapButton);
+        mapbutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Do something in response to button click
+            }
+        });
+        Button weatherbutton = (Button) findViewById(R.id.WeatherButton);
+        weatherbutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Do something in response to button click
+            }
+        });
+        Button emailbutton = (Button) findViewById(R.id.EmailButton);
+        emailbutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Do something in response to button click
+            }
+        });
+        Button corecbutton = (Button) findViewById(R.id.CoRecButton);
+        corecbutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Do something in response to button click
+            }
+        });
+        Button diningcourtsbutton = (Button) findViewById(R.id.DiningCourtsButton);
+        diningcourtsbutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Do something in response to button click
+            }
+        });
+        Button eventsbutton = (Button) findViewById(R.id.EventsButton);
+        eventsbutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Do something in response to button click
+            }
+        });
         
-        ((Button) findViewById(R.id.tempMapButton)).setOnClickListener(this);
-        ((Button) findViewById(R.id.tempDiningButton)).setOnClickListener(this);
-        ((Button) findViewById(R.id.tempEventsButton)).setOnClickListener(this);
-        ((Button) findViewById(R.id.tempWeatherButton)).setOnClickListener(this);
+        
     }
 
-	@Override
-	public void onClick(View arg0) {
-		switch (arg0.getId()) {
-		case R.id.tempMapButton:
-			Intent i = new Intent(this, edu.purdue.app.map.MapActivity.class);
-			startActivity(i);
-			break;
-		case R.id.tempDiningButton:
-			Intent j = new Intent(this, edu.purdue.app.DiningCourts.class);
-			startActivity(j);
-			break;
-		case R.id.tempEventsButton:
-			Intent k = new Intent(this, edu.purdue.app.EventsPageActivity.class);
-			startActivity(k);
-			break;
-		case R.id.tempWeatherButton:
-			Intent l = new Intent(this, edu.purdue.app.WeatherActivity.class);
-			startActivity(l);
-			break;
-		}
-	}
+	
     
 }
