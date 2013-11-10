@@ -29,43 +29,28 @@ public class DiningCourts extends Activity {
 	Intent intent;
 	
 	public void earhartInfo(View view){
-		// how to get the info about Earhart
 		intent = new Intent(this, DiningInfo.class);
-		String name = "Earhart Dining Court";
-		intent.putExtra(EXTRA_MESSAGE, name);
 		startActivity(intent);
 	}
 	
 	public void fordInfo(View view){
-		// how to get the info about Ford
-		String name = "Ford Dining Court";
 		intent = new Intent(this, DiningInfo.class);
-		intent.putExtra(EXTRA_MESSAGE, name);
 		startActivity(intent);
 		
 	}
 	
 	public void hillenbrandInfo(View view){
-		// how to get the info about Hillenbrand
-		String name = "Hillenbrand Dining Court";
 		intent = new Intent(this, DiningInfo.class);
-		intent.putExtra(EXTRA_MESSAGE, name);
 		startActivity(intent);
 	}
 	
 	public void windsorInfo(View view){
-		// how to get the info about Windsor
-		String name = "Windsor Dining Court";
 		intent = new Intent(this, DiningInfo.class);
-		intent.putExtra(EXTRA_MESSAGE, name);
 		startActivity(intent);
 	}
 	
 	public void wileyInfo(View view){
-		// how to get the info about Wiley
-		String name = "Wiley Dining Court";
 		intent = new Intent(this, DiningInfo.class);
-		intent.putExtra(EXTRA_MESSAGE, name);
 		startActivity(intent);
 	}
 	

@@ -58,4 +58,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="14dp" />
 
+    <Button
+        android:id="@+id/sendData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/numberPicker1"
+        android:layout_alignParentBottom="true"
+        android:text="Submit" />
+
 </RelativeLayout>
