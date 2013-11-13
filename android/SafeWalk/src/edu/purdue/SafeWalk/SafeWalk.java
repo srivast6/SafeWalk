@@ -2,8 +2,10 @@ package edu.purdue.SafeWalk;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender.SendIntentException;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -60,9 +62,27 @@ public class SafeWalk extends Activity implements
         }
     }
 
+    /**
+     * Called when we fail to connect to the mLocationClient.
+     */
 	@Override
 	public void onConnectionFailed(ConnectionResult res) {
-		// TODO Auto-generated method stub
+		if(res.isSuccess() == true)
+			return;
+		
+		if(res.hasResolution() == true) {
+			try {
+				res.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+			} catch (SendIntentException e) {
+				e.printStackTrace();
+				//this.onConnectionFailed(res); //HACK: Possible stack overflow.
+			}
+		} else {
+			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+			alertBuilder.setTitle("Error connection to GPS");
+			alertBuilder.setMessage("Connection result: " + res.toString());
+			alertBuilder.show();
+		}
 	}
 
 	@Override
@@ -76,12 +96,11 @@ public class SafeWalk extends Activity implements
 
 	@Override
 	public void onDisconnected() {
-		// TODO Auto-generated method stub
+		mLocationClient.connect();
 	}
 	
 	
 	public void onClick(){
-		System.out.print("Bitch");
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setData(Uri.parse("tel:3174573102"));
 		startActivity(intent);
