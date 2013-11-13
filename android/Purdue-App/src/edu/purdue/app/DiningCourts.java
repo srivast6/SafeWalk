@@ -1,7 +1,5 @@
 package edu.purdue.app;
 
-import edu.purdue.app.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,31 +24,31 @@ public class DiningCourts extends Activity {
 	    return super.onCreateOptionsMenu(menu);
 	}
 	
-	Intent intent;
+	//Intent intent;
 	
 	public void earhartInfo(View view){
-		intent = new Intent(this, DiningInfo.class);
+		Intent intent = new Intent(this, DiningInfo.class);
 		startActivity(intent);
 	}
 	
 	public void fordInfo(View view){
-		intent = new Intent(this, DiningInfo.class);
+		Intent intent = new Intent(this, DiningInfo.class);
 		startActivity(intent);
 		
 	}
 	
 	public void hillenbrandInfo(View view){
-		intent = new Intent(this, DiningInfo.class);
+		Intent intent = new Intent(getApplicationContext(), DiningInfo.class);
 		startActivity(intent);
 	}
 	
 	public void windsorInfo(View view){
-		intent = new Intent(this, DiningInfo.class);
+		Intent intent = new Intent(this, DiningInfo.class);
 		startActivity(intent);
 	}
 	
 	public void wileyInfo(View view){
-		intent = new Intent(this, DiningInfo.class);
+		Intent intent = new Intent(this, DiningInfo.class);
 		startActivity(intent);
 	}
 	
