@@ -11,7 +11,7 @@ import android.view.View;
 
 public class DiningCourts extends Activity {
 	
-	public final static String EXTRA_MESSAGE = "edu.purdue.app";
+	public final static String EXTRA_MESSAGE = "edu.purdue.app.MESSAGE";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,37 +26,32 @@ public class DiningCourts extends Activity {
 	    return super.onCreateOptionsMenu(menu);
 	}
 	
-	Intent intent = new Intent(this, DiningInfo.class);
+	Intent intent;
 	
 	public void earhartInfo(View view){
-		// how to get the info about Earhart
-		String name = "Earhart Dining Court";
-		intent.putExtra(EXTRA_MESSAGE, name);
+		intent = new Intent(this, DiningInfo.class);
+		startActivity(intent);
 	}
 	
 	public void fordInfo(View view){
-		// how to get the info about Ford
-		String name = "Ford Dining Court";
-		intent.putExtra(EXTRA_MESSAGE, name);
+		intent = new Intent(this, DiningInfo.class);
+		startActivity(intent);
 		
 	}
 	
 	public void hillenbrandInfo(View view){
-		// how to get the info about Hillenbrand
-		String name = "Hillenbrand Dining Court";
-		intent.putExtra(EXTRA_MESSAGE, name);
+		intent = new Intent(this, DiningInfo.class);
+		startActivity(intent);
 	}
 	
 	public void windsorInfo(View view){
-		// how to get the info about Windsor
-		String name = "Windsor Dining Court";
-		intent.putExtra(EXTRA_MESSAGE, name);
+		intent = new Intent(this, DiningInfo.class);
+		startActivity(intent);
 	}
 	
 	public void wileyInfo(View view){
-		// how to get the info about Wiley
-		String name = "Wiley Dining Court";
-		intent.putExtra(EXTRA_MESSAGE, name);
+		intent = new Intent(this, DiningInfo.class);
+		startActivity(intent);
 	}
 	
 }
