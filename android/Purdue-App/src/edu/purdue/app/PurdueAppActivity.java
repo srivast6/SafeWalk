@@ -21,7 +21,8 @@ public class PurdueAppActivity extends Activity{
         Button weatherbutton = (Button) findViewById(R.id.WeatherButton);
         weatherbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Do something in response to button click
+            	final Intent newStuff = new Intent(getApplicationContext(), WeatherActivity.class);
+            	startActivity(newStuff);
             }
         });
         Button emailbutton = (Button) findViewById(R.id.EmailButton);
