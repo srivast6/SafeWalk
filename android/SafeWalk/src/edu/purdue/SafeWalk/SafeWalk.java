@@ -2,8 +2,10 @@ package edu.purdue.SafeWalk;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender.SendIntentException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -24,27 +26,27 @@ public class SafeWalk extends Activity implements
 {
 	private GoogleMap mMap;
 	private LocationClient mLocationClient;
-	
+
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-	
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+
         // Check for Google Play Services
         int googlePlayServicesAvailable = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if(googlePlayServicesAvailable != ConnectionResult.SUCCESS) {
         	GooglePlayServicesUtil.getErrorDialog(googlePlayServicesAvailable, this, CONNECTION_FAILURE_RESOLUTION_REQUEST).show();
         }
-        
+
         mLocationClient = new LocationClient(this, this, this);
         mLocationClient.disconnect();
         mLocationClient.connect();
-        
-        mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();        
+
+        mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         if(mMap != null) {
         	mMap.setMyLocationEnabled(true);
         } else {
@@ -61,9 +63,27 @@ public class SafeWalk extends Activity implements
         }
     }
 
+    /**
+     * Called when we fail to connect to the mLocationClient.
+     */
 	@Override
 	public void onConnectionFailed(ConnectionResult res) {
-		// TODO Auto-generated method stub
+		if(res.isSuccess() == true)
+			return;
+
+		if(res.hasResolution() == true) {
+			try {
+				res.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+			} catch (SendIntentException e) {
+				e.printStackTrace();
+				//this.onConnectionFailed(res); //HACK: Possible stack overflow.
+			}
+		} else {
+			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+			alertBuilder.setTitle("Error connection to GPS");
+			alertBuilder.setMessage("Connection result: " + res.toString());
+			alertBuilder.show();
+		}
 	}
 
 	@Override
@@ -77,9 +97,9 @@ public class SafeWalk extends Activity implements
 
 	@Override
 	public void onDisconnected() {
-		// TODO Auto-generated method stub
+		mLocationClient.connect();
 	}
-	
+
 	public void onClickSafeWalk(View view){
 		Uri number = Uri.parse("tel:7654947233");
 		Intent dial = new Intent(Intent.ACTION_DIAL, number);
