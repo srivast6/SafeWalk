@@ -57,6 +57,16 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/DiningCourtsButton"
         android:text="@string/Events"/>
+
+    <Button
+        android:id="@+id/SportsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/DiningCourtsButton"
+        android:layout_marginTop="51dp"
+        android:text="@string/Sports" />
     
 </RelativeLayout>
 
