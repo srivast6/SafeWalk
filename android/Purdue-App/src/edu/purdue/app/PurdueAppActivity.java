@@ -49,6 +49,12 @@ public class PurdueAppActivity extends Activity{
                 // Do something in response to button click
             }
         });
+        Button sportsbutton = (Button) findViewById(R.id.SportsButton);
+        sportsbutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Do something in response to button click
+            }
+        });
         
         
     }
