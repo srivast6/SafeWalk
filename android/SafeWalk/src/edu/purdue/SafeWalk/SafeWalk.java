@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -25,27 +26,27 @@ public class SafeWalk extends Activity implements
 {
 	private GoogleMap mMap;
 	private LocationClient mLocationClient;
-	
+
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-	
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+
         // Check for Google Play Services
         int googlePlayServicesAvailable = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if(googlePlayServicesAvailable != ConnectionResult.SUCCESS) {
         	GooglePlayServicesUtil.getErrorDialog(googlePlayServicesAvailable, this, CONNECTION_FAILURE_RESOLUTION_REQUEST).show();
         }
-        
+
         mLocationClient = new LocationClient(this, this, this);
         mLocationClient.disconnect();
         mLocationClient.connect();
-        
-        mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();        
+
+        mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         if(mMap != null) {
         	mMap.setMyLocationEnabled(true);
         } else {
@@ -69,7 +70,7 @@ public class SafeWalk extends Activity implements
 	public void onConnectionFailed(ConnectionResult res) {
 		if(res.isSuccess() == true)
 			return;
-		
+
 		if(res.hasResolution() == true) {
 			try {
 				res.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
@@ -98,11 +99,16 @@ public class SafeWalk extends Activity implements
 	public void onDisconnected() {
 		mLocationClient.connect();
 	}
-	
-	
-	public void onClick(){
-		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setData(Uri.parse("tel:3174573102"));
-		startActivity(intent);
+
+	public void onClickSafeWalk(View view){
+		Uri number = Uri.parse("tel:7654947233");
+		Intent dial = new Intent(Intent.ACTION_DIAL, number);
+		startActivity(dial);
+	}
+
+	public void onClickPolice(View view){
+		Uri number = Uri.parse("tel:911");
+		Intent dial = new Intent(Intent.ACTION_DIAL, number);
+		startActivity(dial);
 	}
 }

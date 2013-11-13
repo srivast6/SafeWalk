@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/sports_score"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="07-107"
+            android:textSize="100dp"
+            android:layout_gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/teams"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Purdue vs. IU"
+            android:textSize="30dp"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout>
+
+    <HorizontalScrollView
+        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
+
+        <TextView
+            android:id="@+id/stats"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Stats/News"
+            android:textSize="30dp"
+            android:layout_gravity="center"
+            />
+
+    </HorizontalScrollView>
+
+</LinearLayout>
