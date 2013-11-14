@@ -2,7 +2,6 @@ package edu.purdue.SafeWalk;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
@@ -17,6 +16,7 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
@@ -43,12 +43,14 @@ public class SafeWalk extends Activity implements
         }
 
         mLocationClient = new LocationClient(this, this, this);
-        mLocationClient.disconnect();
         mLocationClient.connect();
 
         mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         if(mMap != null) {
         	mMap.setMyLocationEnabled(true);
+        	UiSettings mapSettings = mMap.getUiSettings();
+        	mapSettings.setTiltGesturesEnabled(false);
+        	mapSettings.setRotateGesturesEnabled(false);
         } else {
         	AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         	alertBuilder.setTitle("Error!");
@@ -61,6 +63,13 @@ public class SafeWalk extends Activity implements
         	});
         	alertBuilder.show();
         }
+    }
+    
+    @Override
+    protected void onPause() {
+    	if(mLocationClient != null && mLocationClient.isConnected()) {
+    		mLocationClient.disconnect();
+    	}
     }
 
     /**
@@ -76,7 +85,7 @@ public class SafeWalk extends Activity implements
 				res.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
 			} catch (SendIntentException e) {
 				e.printStackTrace();
-				//this.onConnectionFailed(res); //HACK: Possible stack overflow.
+				this.onConnectionFailed(res); //HACK: Possible stack overflow.
 			}
 		} else {
 			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -90,7 +99,7 @@ public class SafeWalk extends Activity implements
 	public void onConnected(Bundle bun) {
 		CameraPosition.Builder cameraPositionBuilder = new CameraPosition.Builder();
         cameraPositionBuilder.target(new LatLng(mLocationClient.getLastLocation().getLatitude(), mLocationClient.getLastLocation().getLongitude()));
-        cameraPositionBuilder.zoom(12);
+        cameraPositionBuilder.zoom((float) 16);
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPositionBuilder.build()));
         mLocationClient.disconnect();
 	}
