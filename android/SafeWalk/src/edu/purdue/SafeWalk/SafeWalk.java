@@ -55,15 +55,20 @@ GooglePlayServicesClient.OnConnectionFailedListener
 
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.left_drawer);
-		String[] menuItems = new String[] { "Settings", "About", "What is SafeWalk?" };
+		String[] menuItems = new String[] { "Settings", "About", "What is SafeWalk?", "Walker Activity" };
 		drawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems));
 		drawerList.setOnItemClickListener(new ListView.OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+			public void onItemClick(AdapterView<?> arg0, View arg1, int order,
 					long arg3)
 			{
-				Toast.makeText(SafeWalk.this, "This feature is under construction", Toast.LENGTH_SHORT).show();
+				if(order == 3) {
+					Intent i = new Intent(SafeWalk.this, Requester.class);
+					SafeWalk.this.startActivity(i);
+				} else {
+					Toast.makeText(SafeWalk.this, "This feature is under construction", Toast.LENGTH_SHORT).show();
+				}
 			}
 
 		});
@@ -182,7 +187,6 @@ GooglePlayServicesClient.OnConnectionFailedListener
 			return true;
 		}
 		// Handle your other action bar items...
-
 		return super.onOptionsItemSelected(item);
 	}
 
