@@ -44,8 +44,6 @@ public class CallButtonFragment extends Fragment
 			}
 		});
 		
-		daPopo.setBackgroundColor(Color.RED);
-		
 		return vg;
 	}
 	
