@@ -30,5 +30,8 @@
     <string name="CoRec">Co-Rec</string>
     <string name="DiningCourts">Dining Courts</string>
     <string name="Events">Events</string>
+    <string name="Sports">Sports</string>
+    <string name="weather_test_text_view">API Test:</string>
+    <string name="test_weather_button">API Test</string>
 
 </resources>

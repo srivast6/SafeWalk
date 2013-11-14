@@ -40,13 +40,21 @@
         android:layout_marginBottom="14dp"
         android:text="@string/forecast_text_view" />
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_below="@+id/hourlyButton"
+    <TextView
+        android:id="@+id/weatherTestTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/hourlyButton"
+        android:layout_centerVertical="true"
+        android:text="@string/weather_test_text_view" />
+
+    <Button
+        android:id="@+id/testWeatherButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/weatherTestTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="180dp"
-        android:src="@drawable/clouds" />
+        android:layout_marginBottom="18dp"
+        android:text="@string/test_weather_button" />
 
 </RelativeLayout>
