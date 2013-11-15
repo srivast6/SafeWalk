@@ -64,7 +64,7 @@ GooglePlayServicesClient.OnConnectionFailedListener
 					long arg3)
 			{
 				if(order == 3) {
-					Intent i = new Intent(SafeWalk.this, Requester.class);
+					Intent i = new Intent(SafeWalk.this, WalkerActivity.class);
 					SafeWalk.this.startActivity(i);
 				} else {
 					Toast.makeText(SafeWalk.this, "This feature is under construction", Toast.LENGTH_SHORT).show();
@@ -202,17 +202,5 @@ GooglePlayServicesClient.OnConnectionFailedListener
 	@Override
 	public void onDisconnected() {
 		mLocationClient.connect();
-	}
-
-	public void onClickSafeWalk(View view){
-		Uri number = Uri.parse("tel:7654947233");
-		Intent dial = new Intent(Intent.ACTION_DIAL, number);
-		startActivity(dial);
-	}
-
-	public void onClickPolice(View view){
-		Uri number = Uri.parse("tel:911");
-		Intent dial = new Intent(Intent.ACTION_DIAL, number);
-		startActivity(dial);
 	}
 }

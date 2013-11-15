@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
 
-public class Requester extends ListActivity implements
+public class WalkerActivity extends ListActivity implements
 		LoaderManager.LoaderCallbacks<Cursor> {
 
 	// This is the Adapter being used to display the list's data
