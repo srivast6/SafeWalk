@@ -49,10 +49,6 @@ GooglePlayServicesClient.OnConnectionFailedListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
 
-		ViewGroup v = (ViewGroup) findViewById(R.id.content_frame);
-		LayoutInflater linflate = getLayoutInflater();
-		View contentpane = linflate.inflate(R.layout.map, v);
-
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.left_drawer);
 		String[] menuItems = new String[] { "Settings", "About", "What is SafeWalk?", "Walker Activity" };
