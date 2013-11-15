@@ -15,7 +15,7 @@ public class PurdueAppActivity extends Activity{
         Button mapbutton = (Button) findViewById(R.id.MapButton);
         mapbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Do something in response to button click
+                startActivity(new Intent(getApplicationContext(), edu.purdue.app.map.MapActivity.class));
             }
         });
         Button weatherbutton = (Button) findViewById(R.id.WeatherButton);
