@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/AcceptButton"
+            android:layout_width="182dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:text="Accept Request" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignTop="@+id/linearLayout3"
+        android:orientation="horizontal"
+         >
+
+        <Button
+            android:id="@+id/callButton"
+            android:layout_width="156dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="22dp"
+            android:text="Call" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout1"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/mssgButton"
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="22dp"
+            android:text="Message" />
+    </LinearLayout>
+
+</RelativeLayout>
