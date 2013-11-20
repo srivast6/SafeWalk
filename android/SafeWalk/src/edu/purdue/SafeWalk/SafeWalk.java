@@ -64,6 +64,10 @@ GooglePlayServicesClient.OnConnectionFailedListener
 					Intent listIntent = new Intent(SafeWalk.this, ListViewRequesterActivity.class);
 					SafeWalk.this.startActivity(listIntent);
 					
+				}if(order == 0){
+					Intent setiingsIntent = new Intent(SafeWalk.this, SettingsActivity.class);
+					SafeWalk.this.startActivity(setiingsIntent);
+					
 				} else {
 					Toast.makeText(SafeWalk.this, "This feature is under construction", Toast.LENGTH_SHORT).show();
 				}
