@@ -14,10 +14,9 @@
 
         <Button
             android:id="@+id/AcceptButton"
-            android:layout_width="318dp"
+            android:layout_width="182dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
-            android:background="@android:color/holo_green_light"
             android:text="Accept Request" />
     </LinearLayout>
 
@@ -27,15 +26,16 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignTop="@+id/linearLayout3"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+         >
 
         <Button
             android:id="@+id/callButton"
             android:layout_width="156dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="22dp"
-            android:background="@android:color/holo_blue_light"
             android:text="Call" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -52,9 +52,7 @@
             android:layout_width="152dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="22dp"
-            android:background="@android:color/holo_blue_light"
-            android:text="Message" >
-        </Button>
+            android:text="Message" />
     </LinearLayout>
 
 </RelativeLayout>
