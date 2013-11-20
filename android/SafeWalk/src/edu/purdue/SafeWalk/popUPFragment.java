@@ -27,6 +27,7 @@ public class popUPFragment extends Fragment {
 		Button callPolice = (Button) pop_up.findViewById(R.id.btn_callPolice);
 		Button callSafeWalk = (Button) pop_up
 				.findViewById(R.id.btn_callSafewalk);
+		Button moreInfo = (Button) pop_up.findViewById(R.id.morInfo);
 
 		acptRequest.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
@@ -58,6 +59,14 @@ public class popUPFragment extends Fragment {
 
 		});
 
+		moreInfo.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View view) {
+				onClickmoreInfo(view);
+			}
+		});
+
 		return pop_up;
 	}
 
@@ -72,6 +81,10 @@ public class popUPFragment extends Fragment {
 
 	public void onClickcallVolunteer(View view) {
 		// Call the volunteer
+	}
+
+	public void onClickmoreInfo(View view) {
+		// gives more info about something
 	}
 
 	public void onClickcallPolice(View view) {

@@ -4,7 +4,7 @@
 
 # files for the dex VM
 *.dex
-*.metadata*
+.metadata*
 
 # Java class files
 *.class
