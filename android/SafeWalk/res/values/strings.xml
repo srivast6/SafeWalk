@@ -27,5 +27,7 @@
         <item>15</item>
         <item>-1</item>
     </string-array>
-
+	<string name="access_request">Access Request</string>
+    <string name="call">Call</string>
+    <string name="mssg">Message</string>
 </resources>
