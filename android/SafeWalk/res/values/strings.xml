@@ -4,4 +4,7 @@
     <string name="error_no_maps">Can\'t create a Map view. Please check that you have Google Play Services installed</string>
     <string name="drawer_open">Opening Nav Door</string>
     <string name="drawer_close">Closing Nav Drawer</string>
+    <string name="access_request">Access Request</string>
+    <string name="call">Call</string>
+    <string name="mssg">Message</string>
 </resources>
