@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory
+        android:key="pref_key_storage_settings"
+        android:title="Location Settings" >
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="uses_gps"
+            android:summary="Allow the app to use the phone's GPS"
+            android:title="Enable GPS" />
+        
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="auto_loc"
+            android:summary="Automatically update the location at an interval."
+            android:title="Automatic Location Updates" />
+
+        <ListPreference
+            android:defaultValue="@string/pref_loc_update_frequency_default"
+            android:dependency="auto_loc"
+            android:dialogTitle="Title"
+            android:entries="@array/pref_loc_update_frequency_titles"
+            android:entryValues="@array/pref_loc_update_frequency_values"
+            android:key="pref_loc_update_frequency"
+            android:title="Update Interval" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="pref_key_storage_settings"
+        android:title="Moar" >
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="sample_1"
+            android:summary="le text"
+            android:title="Exmaple Setting" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="sample_2"
+            android:summary="I gots more"
+            android:title="Yup" />
+    </PreferenceCategory>
+    
+    <PreferenceScreen
+        android:key="button_voicemail_category_key"
+        android:title="Stuff and Things"
+        android:persistent="false">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="sample_3"
+            android:summary="le text dos"
+            android:title="Exmaple Setting again" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="sample_4"
+            android:summary="I gots even more"
+            android:title="Yup, I haz" />
+    </PreferenceScreen>
+
+</PreferenceScreen>
