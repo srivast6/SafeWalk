@@ -5,18 +5,27 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.*;
 
 import android.content.res.Resources;
 
 import edu.purdue.app.R;
+import edu.purdue.app.map.MapActivity.Activity_State;
 
 public class MapData {
 
 	JSONObject json = null;
-	List<String> acad_bldngs;
+	List<Building> academicBuildings, adminBuildings, resHalls, diningCourts, miscBuildings;
+	Map<MapActivity.Activity_State, List<Building>> activityMap = new HashMap<Activity_State, List<Building>>();
+	
+	class Building {
+		String full_name, short_name;
+		double lat, lng;
+	}
 	
 	public MapData(Resources r) {
 		// Open JSON file for map data
@@ -38,15 +47,73 @@ public class MapData {
 		}
 		
 		// Create the list of academic locations
-		acad_bldngs = new ArrayList<String>();
+		academicBuildings = new ArrayList<Building>();
+		adminBuildings = new ArrayList<Building>();
+		resHalls = new ArrayList<Building>();
+		diningCourts = new ArrayList<Building>();
+		miscBuildings = new ArrayList<Building>();
+		
 		try {
 			JSONArray ja = json.getJSONArray("academic_buildings");
 			for (int i = 0; i < ja.length(); i++) {
-				acad_bldngs.add(ja.getJSONObject(i).getString("short_nm"));
+				JSONObject j = ja.getJSONObject(i);
+				Building b = new Building();
+				b.full_name = j.getString("full_nm");
+				b.short_name = j.getString("short_nm");
+				b.lat = j.getDouble("lat");
+				b.lng = j.getDouble("lng");
+				academicBuildings.add(b);
+			}
+			ja = json.getJSONArray("admin_buildings");
+			for (int i = 0; i < ja.length(); i++) {
+				JSONObject j = ja.getJSONObject(i);
+				Building b = new Building();
+				b.full_name = j.getString("full_nm");
+				b.short_name = j.getString("short_nm");
+				b.lat = j.getDouble("lat");
+				b.lng = j.getDouble("lng");
+				adminBuildings.add(b);
+			}
+			ja = json.getJSONArray("res_halls");
+			for (int i = 0; i < ja.length(); i++) {
+				JSONObject j = ja.getJSONObject(i);
+				Building b = new Building();
+				b.full_name = j.getString("full_nm");
+				b.short_name = j.getString("short_nm");
+				b.lat = j.getDouble("lat");
+				b.lng = j.getDouble("lng");
+				resHalls.add(b);
+			}
+			ja = json.getJSONArray("dining_courts");
+			for (int i = 0; i < ja.length(); i++) {
+				JSONObject j = ja.getJSONObject(i);
+				Building b = new Building();
+				b.full_name = j.getString("full_nm");
+				b.short_name = j.getString("short_nm");
+				b.lat = j.getDouble("lat");
+				b.lng = j.getDouble("lng");
+				diningCourts.add(b);
+			}
+			ja = json.getJSONArray("misc");
+			for (int i = 0; i < ja.length(); i++) {
+				JSONObject j = ja.getJSONObject(i);
+				Building b = new Building();
+				b.full_name = j.getString("full_nm");
+				b.short_name = j.getString("short_nm");
+				b.lat = j.getDouble("lat");
+				b.lng = j.getDouble("lng");
+				miscBuildings.add(b);
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		
+		activityMap.put(MapActivity.Activity_State.ACAD_BUILDINGS, academicBuildings);
+		activityMap.put(MapActivity.Activity_State.ADMIN_BUILDINGS, adminBuildings);
+		activityMap.put(MapActivity.Activity_State.RES_HALLS, resHalls);
+		activityMap.put(MapActivity.Activity_State.DINING_COURTS, diningCourts);
+		activityMap.put(MapActivity.Activity_State.MISC_BUILDINGS, miscBuildings);
+		
 	}
 	
 	
