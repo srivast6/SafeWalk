@@ -76,11 +76,15 @@ public class popUPFragment extends Fragment {
 	}
 
 	public void onClickAcptRqst(View view) {
-		// Accpt the request. Send mssg to the volunteer
+		// Accept the request. Send mssg to the volunteer
 	}
 
 	public void onClickcallVolunteer(View view) {
 		// Call the volunteer
+		Intent callVolunteer = new Intent(Intent.ACTION_CALL);
+		callVolunteer.setData(Uri.parse("tel:00000001110000000"));
+		// We still need to enter the correct phone number.
+		startActivity(callVolunteer);
 	}
 
 	public void onClickmoreInfo(View view) {
@@ -89,10 +93,17 @@ public class popUPFragment extends Fragment {
 
 	public void onClickcallPolice(View view) {
 		// Call the police
+		Intent callPolice = new Intent(Intent.ACTION_CALL);
+		callPolice.setData(Uri.parse("tel:00000001110000000"));
+		// We still need to enter the correct phone number.
+		startActivity(callPolice);
 	}
 
 	public void onClickcallSafeWalk(View view) {
 		// Call SafeWalk people
+		Intent callSafeWalk = new Intent(Intent.ACTION_CALL);
+		callSafeWalk.setData(Uri.parse("tel:00000001110000000"));
+		// We still need to enter the correct phone number.
+		startActivity(callSafeWalk);
 	}
-
 }
