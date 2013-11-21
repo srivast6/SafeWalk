@@ -1,6 +1,5 @@
 INDEX VERSION 1.126+/u/data/u91/drandhaw/AndroidDvlpmnt/Purdue-App/.metadata/.plugins/org.eclipse.jdt.core
 1415693123.index
-2168133396.index
 3467768997.index
 2088857709.index
 189219474.index
