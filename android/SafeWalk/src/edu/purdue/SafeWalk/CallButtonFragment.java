@@ -11,47 +11,57 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class CallButtonFragment extends Fragment {
+public class CallButtonFragment extends Fragment
+{
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 	}
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+			Bundle savedInstanceState)
+	{
 		View vg = inflater.inflate(R.layout.call_button_fragment, null);
 		Button daPopo = (Button) vg.findViewById(R.id.btn_callPolice);
 		Button safewalk = (Button) vg.findViewById(R.id.btn_callSafewalk);
-
-		daPopo.setOnClickListener(new OnClickListener() {
+		
+		daPopo.setOnClickListener(new OnClickListener()
+		{
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v)
+			{
 				onClickPolice(v);
 			}
 		});
-		safewalk.setOnClickListener(new OnClickListener() {
+		safewalk.setOnClickListener(new OnClickListener()
+		{
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v)
+			{
 				onClickSafeWalk(v);
 			}
 		});
-
+		
 		return vg;
 	}
-
+	
 	@Override
-	public void onPause() {
+	public void onPause()
+	{
 		super.onPause();
 	}
-
-	public void onClickSafeWalk(View view) {
+	
+	public void onClickSafeWalk(View view)
+	{
 		Uri number = Uri.parse("tel:7654947233");
 		Intent dial = new Intent(Intent.ACTION_DIAL, number);
 		startActivity(dial);
 	}
-
-	public void onClickPolice(View view) {
+	
+	public void onClickPolice(View view)
+	{
 		Uri number = Uri.parse("tel:911");
 		Intent dial = new Intent(Intent.ACTION_DIAL, number);
 		startActivity(dial);
