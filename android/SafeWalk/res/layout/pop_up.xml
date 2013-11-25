@@ -1,104 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content"
+    android:gravity="left"
+    android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Request Received"
             android:gravity="center"
+            android:text="Request"
             android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        style="?android:attr/buttonBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_weight="0"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/btn_callSafewalk"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.35"
-            android:text="Accept" />
-
-        <Button
-            android:id="@+id/btn_callPolice2"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.33"
-            android:text="Call" />
-
-        <Button
-            android:id="@+id/btn_callPolice"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.33"
-            android:text="Message" />
     </LinearLayout>
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:layout_alignBottom="@+id/linearLayout2"
-        android:layout_alignParentLeft="true"
         android:background="@android:color/darker_gray" />
 
+    <TextView
+        android:id="@+id/thirdLine"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.39"
+        android:drawableLeft="@drawable/ic_contact_picture"
+        android:gravity="center_vertical"
+        android:text="Name: todo\nTime Requested: 10:00pm\nPhone Number: 123-456-7890"
+        android:textSize="15sp" />
+
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:id="@+id/linearLayout1"
+        style="?android:attr/buttonBarStyle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout1"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/linearLayout2"
-        android:orientation="vertical" >
+        android:gravity="center"
+        android:orientation="horizontal" >
 
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <Button
+            android:id="@+id/btn_callPolice2"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="fill_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            android:padding="6dip" >
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="Call" />
 
-            <ImageView
-                android:id="@+id/icon"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:src="@drawable/ic_contact_picture" />
-
-        </RelativeLayout>
-
-        
-
-        <TextView
-            android:id="@+id/thirdLine"
+        <Button
+            android:id="@+id/btn_callPolice"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.39"
-            android:gravity="center_vertical"
-            android:text="This will be more information"
-            android:layout_gravity="center"
-            android:textSize="25sp" />
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="Message" />
+
+        <Button
+            android:id="@+id/btn_callSafewalk"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:text="Accept" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
