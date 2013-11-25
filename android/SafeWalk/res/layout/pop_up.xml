@@ -3,105 +3,102 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <RelativeLayout
-        android:id="@+id/rltveLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="?android:attr/listPreferredItemHeight"
-        android:padding="6dip" >
-
-        <ImageView
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_alignParentLeft="true"
-            android:src="@drawable/ic_contact_picture" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rltveLayout2"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/rltveLayout1"
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/tV_RqstResvd"
+            android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
             android:text="Request Received"
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <Button
-            android:id="@+id/btn_acceptRqst"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/tV_RqstResvd"
-            android:layout_below="@id/tV_RqstResvd"
-            android:layout_marginTop="56dp"
-            android:background="@android:color/holo_green_light"
-            android:gravity="center"
-            android:text="Accept Request"
-            android:textSize="22dp" />
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/rltveLayout3"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         style="?android:attr/buttonBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignTop="@+id/linearLayout3"
-        android:layout_below="@id/rltveLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_weight="0"
         android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/btn_callVolunteer"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="22dp"
-            android:layout_weight="0"
-            android:background="@android:color/holo_blue_light"
-            android:orientation="horizontal"
-            android:text="Call Volunteer" />
 
         <Button
             android:id="@+id/btn_callSafewalk"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="144dp"
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_above="@+id/morInfo"
-            android:layout_below="@+id/btn_callVolunteer"
-            android:background="@android:color/holo_orange_light"
-            android:text="Call SafeWalk" />
+            android:layout_weight="0.35"
+            android:text="Accept" />
+
+        <Button
+            android:id="@+id/btn_callPolice2"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.33"
+            android:text="Call" />
 
         <Button
             android:id="@+id/btn_callPolice"
             style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="154dp"
-            android:layout_height="fill_parent"
-            android:layout_alignBottom="@+id/btn_callSafewalk"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/btn_callVolunteer"
-            android:background="@android:color/holo_red_light"
-            android:text="Call Police" />
-
-
-        <Button
-            android:id="@+id/morInfo"
             android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.33"
+            android:text="Message" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignBottom="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:background="@android:color/darker_gray" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout2"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:padding="6dip" >
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/ic_contact_picture" />
+
+        </RelativeLayout>
+
+        
+
+        <TextView
+            android:id="@+id/thirdLine"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:layout_weight="0.39"
             android:gravity="center_vertical"
-            android:text="More Information"
+            android:text="This will be more information"
+            android:layout_gravity="center"
             android:textSize="25sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
 </RelativeLayout>
