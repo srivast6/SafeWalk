@@ -51,7 +51,7 @@ GooglePlayServicesClient.OnConnectionFailedListener
 
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.left_drawer);
-		String[] menuItems = new String[] { "Settings", "About", "What is SafeWalk?", "Walker Activity", "People" };
+		String[] menuItems = new String[] { "Settings", "About", "What is SafeWalk?", "People" };
 		drawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems));
 		drawerList.setOnItemClickListener(new ListView.OnItemClickListener() {
 
@@ -59,12 +59,14 @@ GooglePlayServicesClient.OnConnectionFailedListener
 			public void onItemClick(AdapterView<?> arg0, View arg1, int order,
 					long arg3)
 			{
-				if(order == 3) {
-					Intent i = new Intent(SafeWalk.this, WalkerActivity.class);
-					SafeWalk.this.startActivity(i);
-				}if(order == 4){
+
+				if(order == 3){
 					Intent listIntent = new Intent(SafeWalk.this, ListViewRequesterActivity.class);
 					SafeWalk.this.startActivity(listIntent);
+					
+				}if(order == 0){
+					Intent setiingsIntent = new Intent(SafeWalk.this, SettingsActivity.class);
+					SafeWalk.this.startActivity(setiingsIntent);
 					
 				} else {
 					Toast.makeText(SafeWalk.this, "This feature is under construction", Toast.LENGTH_SHORT).show();
