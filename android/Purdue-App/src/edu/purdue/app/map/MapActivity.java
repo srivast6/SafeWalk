@@ -1,4 +1,4 @@
-package edu.purdue.app.map;
+/*package edu.purdue.app.map;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -136,4 +136,4 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 	}
 	
 	
-}
+}*/
