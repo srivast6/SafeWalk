@@ -38,8 +38,9 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 	GoogleMap gmap;
 	ListView listviewDrawerMaster;
 	MapData mpd;
-	String[] categoryList;
 	
+	/** Enum which stores the current state of the drawer in the activity 
+	 *  Call populateDrawer(state) to change what the drawer is currently displaying */
 	Activity_State currentState = Activity_State.NORMAL;
 	enum Activity_State {
 		NORMAL,
@@ -72,41 +73,16 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 		gmap.setMyLocationEnabled(true);
 		
 		// Prepare the drawer layout
+		mpd = new MapData(getResources());
 		prepareDrawer();
 	}
 	
-	@Override
+	/** Called when the user initializes a search */
 	protected void onNewIntent(Intent i) {
 		if (Intent.ACTION_SEARCH.equals(i.getAction())) {
 			String query = i.getStringExtra(SearchManager.QUERY);
-			Toast.makeText(this, query, Toast.LENGTH_LONG).show();
+			search(query);
 		}
-	}
-	
-	private void prepareDrawer() {
-		// Prepare drawer layout
-		drawer = (DrawerLayout) findViewById(R.id.map_drawer_layout);
-		
-		// Get listview in drawer, category list, and set onclicklister and array adapters
-		listviewDrawerMaster = (ListView) findViewById(R.id.map_right_drawer);
-		listviewDrawerMaster.setOnItemClickListener(this);
-		categoryList = getResources().getStringArray(R.array.map_drawer_categories);
-		listviewDrawerMaster.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, categoryList));
-		
-		// Parse the JSON to prepare for user click
-		mpd = new MapData(getResources());
-	}
-	
-	private void openDrawer() {
-		listviewDrawerMaster.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, this.categoryList));
-		this.currentState = Activity_State.NORMAL;
-		drawer.openDrawer(Gravity.RIGHT);
-	}
-
-	private void closeDrawer() {
-		listviewDrawerMaster.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, this.categoryList));
-		this.currentState = Activity_State.NORMAL;
-		drawer.closeDrawers();
 	}
 
 	@Override
@@ -133,82 +109,151 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 			}
 			break;
 		case R.id.map_actionbar_searchbuildings:
-			//onSearchRequested();
-			break;
+			closeDrawer();
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View lv, int i, long arg3) {
+		
+		// If the state is on the category list, then we just populate the drawer with the category the user selected.
 		if (currentState == Activity_State.NORMAL) {
-			List<String> display = new ArrayList<String>();
 			switch (i) {
 			case 0:
-				// Academic Buildings
-				for (Building b : mpd.academicBuildings) {
-					display.add(b.full_name);
-				}
-				listviewDrawerMaster.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, display));
-				this.currentState = Activity_State.ACAD_BUILDINGS;
+				populateDrawer(Activity_State.ACAD_BUILDINGS);
 				return;
 			case 1:
-				// Administrative Buildings
-				for (Building b : mpd.adminBuildings) {
-					display.add(b.full_name);
-				}
-				listviewDrawerMaster.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, display));
-				this.currentState = Activity_State.ADMIN_BUILDINGS;
+				populateDrawer(Activity_State.ADMIN_BUILDINGS);
 				return;
 			case 2:
-				// Residence Halls
-				for (Building b : mpd.resHalls) {
-					display.add(b.full_name);
-				}
-				listviewDrawerMaster.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, display));
-				this.currentState = Activity_State.RES_HALLS;
+				populateDrawer(Activity_State.RES_HALLS);
 				return;
 			case 3:
-				// Dining Courts
-				for (Building b : mpd.diningCourts) {
-					display.add(b.full_name);
-				}
-				listviewDrawerMaster.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, display));
-				this.currentState = Activity_State.DINING_COURTS;
+				populateDrawer(Activity_State.DINING_COURTS);
 				return;
 			case 4:
-				// Misc.
-				for (Building b : mpd.miscBuildings) {
-					display.add(b.full_name);
-				}
-				listviewDrawerMaster.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, display));
-				this.currentState = Activity_State.MISC_BUILDINGS;
+				populateDrawer(Activity_State.MISC_BUILDINGS);
 				return;
 			}
+			
+		// Otherwise it is on one of the sub-categories and we need to display a marker.
 		} else {
-			
-			// Clear the map
-			gmap.clear();
-			
 			// Get the building the user selected and add a marker
+			// The building data is saved in MapData as a Map structure which maps an Activity_State to a List<Building>.
 			Building selected = mpd.activityMap.get(currentState).get(i);
 			LatLng latlng = new LatLng(selected.lat, selected.lng);
-			gmap.addMarker(new MarkerOptions()
-				.title(selected.short_name)
-				.position(latlng));
-			
-			// The layout bounds are set to include two LatLng points: 
-			// The location of the user and the latlng of the point they selected
-			Builder llb = LatLngBounds.builder().include(latlng).include(new LatLng(gmap.getMyLocation().getLatitude(), gmap.getMyLocation().getLongitude()));
-			// The camera is then animated to zoom to those points with a padding of 300
-			gmap.animateCamera(CameraUpdateFactory.newLatLngBounds(llb.build(), 300));
-			
-			// Reset the state of the activity to normal+drawer closed
-			currentState = Activity_State.NORMAL;
+			addPinToMap(latlng, selected.short_name);
 			closeDrawer();
-			
 			return;
 		}
+	}
+	
+	/** Prepares the side drawer by populating it with the category list */
+	private void prepareDrawer() {
+		// Prepare drawer layout
+		drawer = (DrawerLayout) findViewById(R.id.map_drawer_layout);
+		
+		// Get listview in drawer, category list, and set onclicklister and array adapters
+		listviewDrawerMaster = (ListView) findViewById(R.id.map_right_drawer);
+		listviewDrawerMaster.setOnItemClickListener(this);
+		populateDrawer(Activity_State.NORMAL);
+	}
+	
+	/** Opens the side drawer */
+	private void openDrawer() {
+		populateDrawer(Activity_State.NORMAL);
+		drawer.openDrawer(Gravity.RIGHT);
+	}
+
+	/** Closes the side drawer */
+	private void closeDrawer() {
+		populateDrawer(Activity_State.NORMAL);
+		drawer.closeDrawers();
+	}
+	
+	/** Populates the drawer with a list depending on the desired state. Pass in an 
+	 *  Activity_State enum and this method will populate the drawer with that state and also
+	 *  set the currentState class variable */
+	private void populateDrawer(Activity_State state) {
+		List<String> list = new ArrayList<String>();
+		
+		switch (state) {
+		case NORMAL:
+			list = mpd.categoryList;
+			break;
+		case ACAD_BUILDINGS:
+			for (Building b : mpd.academicBuildings) {
+				list.add(b.full_name);
+			}
+			break;
+		case ADMIN_BUILDINGS:
+			for (Building b : mpd.adminBuildings) {
+				list.add(b.full_name);
+			}
+			break;
+		case RES_HALLS:
+			for (Building b : mpd.resHalls) {
+				list.add(b.full_name);
+			}
+			break;
+		case DINING_COURTS:
+			for (Building b : mpd.diningCourts) {
+				list.add(b.full_name);
+			}
+			break;
+		case MISC_BUILDINGS:
+			for (Building b : mpd.miscBuildings) {
+				list.add(b.full_name);
+			}
+			break;
+		}
+		
+		listviewDrawerMaster.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list));
+		this.currentState = state;
+	}
+	
+	// Adds a pin to the map and animates the camera to gracefully show that pin.
+	private void addPinToMap(LatLng loc, String label) {
+		// Clear the map
+		gmap.clear();
+		
+		// Add the marker to the map
+		gmap.addMarker(new MarkerOptions()
+			.title(label)
+			.position(loc));
+					
+		// The layout bounds are set to include two LatLng points: 
+		// The location of the user and the latlng of the point they selected
+		LatLngBounds.Builder builder;
+		if (gmap.getMyLocation() != null) {
+			
+			LatLng myloc = new LatLng(gmap.getMyLocation().getLatitude(), gmap.getMyLocation().getLongitude());
+			builder = LatLngBounds.builder().include(loc).include(myloc);
+			
+			// The camera is then animated to zoom to those points with a padding of 300
+			gmap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 300));
+			
+		} else {
+			// GPS is not available, so fall back to simpler functionality
+			gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 15.5f));
+		}
+	}
+	
+	/** Does a search on a given string and adds a pin to the map if it is found.
+	 *  Does nothing if the search returned nothing. */
+	private void search(String s) {
+		// Do the search, which is in MapData
+		Building result = mpd.search(s);
+		
+		// The result is null if there are no results, so do nothing.
+		if (result == null) {
+			return;
+		}
+		
+		// Add a pin to the map and toast the full name of the building 
+		addPinToMap(new LatLng(result.lat, result.lng), result.full_name);
+		Toast.makeText(this, result.full_name, Toast.LENGTH_SHORT).show();
 	}
 	
 	
