@@ -41,4 +41,7 @@
         <item>Dining Courts</item>
         <item>Misc.</item>
     </string-array>
+
+    <string name="title_activity_dining_courts_two">Dining Courts</string>
+
 </resources>
