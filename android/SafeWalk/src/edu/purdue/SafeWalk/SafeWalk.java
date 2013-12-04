@@ -6,15 +6,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -26,10 +23,13 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class SafeWalk extends Activity implements
 		GooglePlayServicesClient.ConnectionCallbacks,
@@ -64,10 +64,8 @@ public class SafeWalk extends Activity implements
 							ListViewRequesterActivity.class);
 					SafeWalk.this.startActivity(listIntent);
 
-				}
-				if (order == 0) {
-					Intent setiingsIntent = new Intent(SafeWalk.this,
-							SettingsActivity.class);
+				}else if(order == 0){
+					Intent setiingsIntent = new Intent(SafeWalk.this, SettingsActivity.class);
 					SafeWalk.this.startActivity(setiingsIntent);
 
 				}else if(order == 4){
@@ -121,7 +119,9 @@ public class SafeWalk extends Activity implements
 		}
 
 		mLocationClient = new LocationClient(this, this, this);
-		mLocationClient.connect();
+		if(mLocationClient.isConnected() == false || mLocationClient.isConnecting() == false) {
+			mLocationClient.connect();
+		}
 
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
 				.getMap();
