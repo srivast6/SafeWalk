@@ -40,6 +40,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="edu.purdue.SafeWalk.MapPoliceActivity"
+            android:label="Safewalk Personnel" >
+        </activity>
+        <activity
             android:name="edu.purdue.SafeWalk.ListViewRequesterActivity"
             android:label="requester"
             android:parentActivityName="edu.purdue.SafeWalk.SafeWalk" >
