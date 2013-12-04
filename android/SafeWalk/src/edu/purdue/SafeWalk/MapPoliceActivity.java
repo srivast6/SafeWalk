@@ -47,24 +47,24 @@ public class MapPoliceActivity extends SafeWalk {
 		.icon(BitmapDescriptorFactory
 				.fromResource(R.drawable.map_pin))
 		.anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
-		.position(new LatLng(43.889, -87.522)));
+		.position(new LatLng(40.52345,-86.9013452)));
 		
 		mapPolice.addMarker(new MarkerOptions()
 		.icon(BitmapDescriptorFactory
 				.fromResource(R.drawable.map_pin))
 		.anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
-		.position(new LatLng(41.689, -87.922)));
+		.position(new LatLng(40.48746,-86.809823)));
 		
 		mapPolice.addMarker(new MarkerOptions()
 		.icon(BitmapDescriptorFactory
 				.fromResource(R.drawable.map_pin))
 		.anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
-		.position(new LatLng(42.889, -83.622)));
+		.position(new LatLng(40.61885,-86.72345)));
 		
 		mapPolice.addMarker(new MarkerOptions()
 		.icon(BitmapDescriptorFactory
 				.fromResource(R.drawable.map_pin))
 		.anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
-		.position(new LatLng(45.889, -89.622)));
+		.position(new LatLng(40.723467,-86.602362)));
 	}
 }
