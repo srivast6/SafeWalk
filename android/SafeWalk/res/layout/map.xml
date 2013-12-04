@@ -21,6 +21,11 @@
                 android:name="com.google.android.gms.maps.MapFragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+            
+            <include 
+                layout="@layout/map_popup_bubble"
+                android:layout_marginTop="120dp"
+                 />
         </FrameLayout>
 
         <fragment android:name="edu.purdue.SafeWalk.CallButtonFragment"
