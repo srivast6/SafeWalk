@@ -38,3 +38,5 @@ proguard/
 
 # project.properties seems to be causing problems, so lets just have git ignore it from now on so we don't change it.
 project.properties
+android/Purdue-App/project.properties
+android/SafeWalk/project.properties
