@@ -49,7 +49,7 @@ public class SafeWalk extends Activity implements
 
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.left_drawer);
-		String[] menuItems = new String[] { "Settings", "About",
+		String[] menuItems = new String[] { "Settings",
 				"What is SafeWalk?", "People", "Safewalk Personnel" };
 		drawerList.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, menuItems));
@@ -59,7 +59,7 @@ public class SafeWalk extends Activity implements
 			public void onItemClick(AdapterView<?> arg0, View arg1, int order,
 					long arg3) {
 
-				if (order == 3) {
+				if (order == 2) {
 					Intent listIntent = new Intent(SafeWalk.this,
 							ListViewRequesterActivity.class);
 					SafeWalk.this.startActivity(listIntent);
@@ -68,9 +68,13 @@ public class SafeWalk extends Activity implements
 					Intent setiingsIntent = new Intent(SafeWalk.this, SettingsActivity.class);
 					SafeWalk.this.startActivity(setiingsIntent);
 
-				}else if(order == 4){
+				}else if(order == 3){
 					Intent Safewalk_Personnel = new Intent(SafeWalk.this,
 							MapPoliceActivity.class);
+					SafeWalk.this.startActivity(Safewalk_Personnel);
+				}else if(order == 1){
+					Intent Safewalk_Personnel = new Intent(SafeWalk.this,
+							AboutActivity.class);
 					SafeWalk.this.startActivity(Safewalk_Personnel);
 				}
 				else {
