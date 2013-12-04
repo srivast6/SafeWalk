@@ -27,7 +27,15 @@
         <item>15</item>
         <item>-1</item>
     </string-array>
-	<string name="access_request">Access Request</string>
+
+    <string name="access_request">Access Request</string>
     <string name="call">Call</string>
     <string name="mssg">Message</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="about_title">SafeWalk App</string>
+    <string name="about_content">Safewalk is a program set up by the Police Department of Purdue University that provides Escorts to and from campus buildings are provided 24 hours a day, 7 days a week.</string>
+    <string name="about_content2">SafeWalks are provided by the PSSP (Purdue Student Security Patrol). The Purdue Student Security Patrol is a group of specially selected and trained students who offer evening safe walks to students and staff and who also provide extra observation in parking garages and other areas of the Purdue Campus.</string>
+    <string name="about_creator">This app was developed by SIG-APP. The source code can be found at https://github.com/Purdue-ACM-SIGAPP/Purdue-App</string>
+
 </resources>
