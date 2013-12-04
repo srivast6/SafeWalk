@@ -7,6 +7,8 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Toast;
 
 public class PopupDialog extends DialogFragment {
 	
@@ -19,8 +21,9 @@ public class PopupDialog extends DialogFragment {
      * implement this interface in order to receive event callbacks.
      * Each method passes the DialogFragment in case the host needs to query it. */
     public interface NoticeDialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog);
-        public void onDialogNegativeClick(DialogFragment dialog);
+        public void onPopUpAcceptClick(View v);
+        public void onPopUpMessageClick(View v);
+        public void onPopUpCallClick(View v);
     }
     
     // Use this instance of the interface to deliver action events
@@ -39,6 +42,11 @@ public class PopupDialog extends DialogFragment {
             throw new ClassCastException(activity.toString()
                     + " must implement NoticeDialogListener");
         }
+    }
+    
+    public void onPopUpCallClick(View v){
+    	Toast.makeText(this.getActivity(), "Call Me!", Toast.LENGTH_SHORT);
+    	
     }
     
     
