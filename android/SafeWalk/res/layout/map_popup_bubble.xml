@@ -1,41 +1,55 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mapOverlay"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
-    android:layout_gravity="top"
-    android:gravity="center"
-    android:orientation="vertical" >
-	
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:background="@drawable/map_popup_box">
+    android:layout_alignParentTop="true" >
 
-        <TextView
-            android:id="@+id/textView1"
+    <Space
+        android:id="@+id/spacer"
+        android:layout_width="match_parent"
+        android:layout_height="123dp"
+        android:layout_alignParentTop="true" />
+    
+    <LinearLayout
+        android:id="@+id/mapOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="15dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_below="@id/spacer" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/map_popup_box"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 mins"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="-30dp"
+            android:background="@drawable/map_popup_arrow"
+            android:rotation="180" />
+
+        <ImageView
+            android:id="@+id/mapPin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="5 mins"
-            android:textAppearance="?android:attr/textAppearanceLarge" 
-            android:textColor="@android:color/white" />
-        
+            android:layout_margin="0dp"
+            android:src="@drawable/map_pin" />
     </LinearLayout>
 
-    <View
-        android:id="@+id/view1"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="-30dp"
-        android:background="@drawable/map_popup_arrow"
-        android:rotation="180" />
-
-    <ImageView
-        android:id="@+id/mapPin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/map_pin"
-        android:layout_margin="0dp" />
     
-</LinearLayout>
+
+</RelativeLayout>
