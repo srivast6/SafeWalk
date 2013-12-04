@@ -6,7 +6,8 @@
         android:id="@+id/map_actionbar_searchbuildings"
         android:icon="@drawable/ic_action_search"
         android:title="Search Buildings"
-        android:showAsAction="always" />
+        android:showAsAction="collapseActionView|ifRoom"
+        android:actionViewClass="android.widget.SearchView" />
     
     <item
         android:id="@+id/map_actionbar_listbuildings"
