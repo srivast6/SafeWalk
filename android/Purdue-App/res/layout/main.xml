@@ -11,7 +11,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="@string/Map" />
+        android:gravity="left|center_vertical"
+        android:text="@string/Map"
+        style="?android:attr/borderlessButtonStyle" />
 
     <Button
         android:id="@+id/WeatherButton"
@@ -20,7 +22,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/MapButton"
-        android:text="@string/Weather" />
+        android:gravity="left|center_vertical"
+        android:text="@string/Weather"
+        style="?android:attr/borderlessButtonStyle" />
 
     <Button
         android:id="@+id/EmailButton"
@@ -29,7 +33,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/WeatherButton"
-        android:text="@string/Email" />
+        android:gravity="left|center_vertical"
+        android:text="@string/Email"
+        style="?android:attr/borderlessButtonStyle" />
 
     <Button
         android:id="@+id/CoRecButton"
@@ -38,7 +44,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/EmailButton"
-        android:text="@string/CoRec" />
+        android:gravity="left|center_vertical"
+        android:text="@string/CoRec"
+        style="?android:attr/borderlessButtonStyle" />
 
     <Button
         android:id="@+id/DiningCourtsButton"
@@ -47,7 +55,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/CoRecButton"
-        android:text="@string/DiningCourts"/>
+        android:gravity="left|center_vertical"
+        android:text="@string/DiningCourts"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <Button
         android:id="@+id/EventsButton"
@@ -56,7 +66,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/DiningCourtsButton"
-        android:text="@string/Events"/>
+        android:gravity="left|center_vertical"
+        android:text="@string/Events"
+        style="?android:attr/borderlessButtonStyle"/>
 
     <Button
         android:id="@+id/SportsButton"
@@ -66,7 +78,9 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/DiningCourtsButton"
         android:layout_marginTop="51dp"
-        android:text="@string/Sports" />
+        android:gravity="left|center_vertical"
+        android:text="@string/Sports"
+        style="?android:attr/borderlessButtonStyle" />
     
 </RelativeLayout>
 

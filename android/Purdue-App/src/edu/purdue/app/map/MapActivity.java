@@ -14,6 +14,10 @@ import com.google.android.gms.maps.model.LatLngBounds.Builder;
 import edu.purdue.app.R;
 import edu.purdue.app.map.MapData.Building;
 import android.app.Activity;
+import android.app.SearchManager;
+import android.app.SearchableInfo;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
@@ -25,6 +29,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 public class MapActivity extends Activity implements OnItemClickListener  {
 	
@@ -44,9 +50,11 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 		MISC_BUILDINGS
 	}
 	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.map_mainview);
+		this.setTitle("Purdue Map");
 		
 		// Initialize the gms maps services
 		try {
@@ -67,6 +75,14 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 		prepareDrawer();
 	}
 	
+	@Override
+	protected void onNewIntent(Intent i) {
+		if (Intent.ACTION_SEARCH.equals(i.getAction())) {
+			String query = i.getStringExtra(SearchManager.QUERY);
+			Toast.makeText(this, query, Toast.LENGTH_LONG).show();
+		}
+	}
+	
 	private void prepareDrawer() {
 		// Prepare drawer layout
 		drawer = (DrawerLayout) findViewById(R.id.map_drawer_layout);
@@ -83,20 +99,30 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 	
 	private void openDrawer() {
 		listviewDrawerMaster.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, this.categoryList));
+		this.currentState = Activity_State.NORMAL;
 		drawer.openDrawer(Gravity.RIGHT);
 	}
 
 	private void closeDrawer() {
 		listviewDrawerMaster.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, this.categoryList));
+		this.currentState = Activity_State.NORMAL;
 		drawer.closeDrawers();
 	}
 
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = this.getMenuInflater();
 		inflater.inflate(R.menu.map_actionbarmenu, menu);
-		return super.onCreateOptionsMenu(menu);
+		
+		SearchManager searchman = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		SearchView sv = (SearchView) menu.findItem(R.id.map_actionbar_searchbuildings).getActionView();
+		sv.setSearchableInfo(searchman.getSearchableInfo(getComponentName()));
+	    sv.setIconifiedByDefault(false);
+		
+		return true;
 	}
 
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.map_actionbar_listbuildings:
@@ -105,6 +131,10 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 			} else {
 				openDrawer();
 			}
+			break;
+		case R.id.map_actionbar_searchbuildings:
+			//onSearchRequested();
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -178,18 +208,6 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 			closeDrawer();
 			
 			return;
-		}
-	}
-
-	@Override
-	public void onBackPressed() {
-		switch (this.currentState) {
-		case ACAD_BUILDINGS:
-			listviewDrawerMaster.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, this.categoryList));
-			break;
-		default:
-			super.onBackPressed();
-			break;
 		}
 	}
 	
