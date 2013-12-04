@@ -39,9 +39,10 @@
             android:name="edu.purdue.SafeWalk.WalkerActivity"
             android:label="@string/app_name" >
         </activity>
-        <activity 
+        <activity
             android:name="edu.purdue.SafeWalk.MapPoliceActivity"
-            android:label="Safewalk Personnel"></activity>
+            android:label="Safewalk Personnel" >
+        </activity>
         <activity
             android:name="edu.purdue.SafeWalk.ListViewRequesterActivity"
             android:label="requester"
