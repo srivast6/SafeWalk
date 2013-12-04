@@ -2,6 +2,7 @@ package edu.purdue.SafeWalk;
 
 import java.util.ArrayList;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -18,11 +19,13 @@ import android.widget.Toast;
 import android.util.Log;
 import android.view.*;
 
+
+
 public class ListViewRequesterActivity extends ListActivity implements PopupDialog.NoticeDialogListener{
 	
 	static final String[] NAMES = {"Kyle", "John", "Luke", "Adam", "Sam", "Suzie", "Jessie", "James", "Meowth"};
 	public static boolean isPopupOpen = false;
-	PopupWindow popUp;
+	PopupDialog dialog;
 	
 	
 
@@ -46,32 +49,64 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-		        PopupDialog dialog =  new PopupDialog();
-		        dialog.show(getFragmentManager(), "NoticeDialogFragment");
-					//initPopupWindow();
-			    // When clicked, show a toast with the TextView text
-			  //  Toast.makeText(getApplicationContext(),
-				//"This should do stuff (Not Implemented Yet)", Toast.LENGTH_SHORT).show();
+		        dialog =  new PopupDialog();
+		        String name = NAMES[position];
+		        // Date and phone number will have to be generated later
+		        Requester r = new Requester(name, "11:04", "219-------", "Not Urgent");
+		        Log.d("JSON", r.toJSON().toString());
+		        dialog.show(getFragmentManager(), "PopUpDialogFragment");
 			}
 		});
 		
-	}
-
-
-
-	@Override
-	public void onDialogPositiveClick(DialogFragment dialog) {
-		// TODO Auto-generated method stub
+		ActionBar actionBar = getActionBar();
+	    actionBar.setDisplayHomeAsUpEnabled(true);
 		
 	}
 
 
 
+
+
 	@Override
-	public void onDialogNegativeClick(DialogFragment dialog) {
+	public void onPopUpAcceptClick(View v) {
 		// TODO Auto-generated method stub
+		Toast t = Toast.makeText(getApplicationContext(), "Accept Me", Toast.LENGTH_SHORT);
+		t.show();
+		dialog.dismiss();
 		
 	}
+
+
+
+
+
+	@Override
+	public void onPopUpMessageClick(View v) {
+		// TODO Auto-generated method stub
+		Toast t = Toast.makeText(getApplicationContext(), "Message me!", Toast.LENGTH_SHORT);
+		t.show();
+		dialog.dismiss();
+		
+	}
+
+
+
+
+
+	@Override
+	public void onPopUpCallClick(View v) {
+		// TODO Auto-generated method stub
+		Toast t = Toast.makeText(getApplicationContext(), "Call me Maybe!", Toast.LENGTH_SHORT);
+		t.show();
+		dialog.dismiss();
+		
+	}
+
+
+
+
+
+
 	
 	
 
