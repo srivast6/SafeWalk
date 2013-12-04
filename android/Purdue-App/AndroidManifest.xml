@@ -1,74 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-	package="edu.purdue.app"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.purdue.app"
     android:versionCode="1"
-    android:versionName="1.0">
-    
-    <uses-sdk 
+    android:versionName="1.0" >
+
+    <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="18" />
-    
+
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
-    
-    <uses-permission 
-        android:name="android.permission.ACCESS_COARSE_LOCATION" />
-	<uses-permission 
-	    android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission 
-	    android:name="android.permission.ACCESS_WIFI_STATE" />
-	<uses-permission 
-	    android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission 
-	    android:name="android.permission.INTERNET" />
-	<uses-permission
-	    android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission 
-        android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />  
-        
-	<application
-	    android:allowBackup="true"
-	    android:label="@string/app_name"
-	    android:icon="@drawable/ic_launcher" >
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
 	    android:theme="@style/PurdueTheme" >
-    	
-	    <meta-data
-	        android:name="com.google.android.maps.v2.API_KEY"
-	    	android:value="AIzaSyBbxBc4HqhblysL8tJeSMuVWMjqGQ2Ip3o" />
-	    
-    	<activity 
-    	    android:name=".PurdueAppActivity"
-            android:label="@string/app_name">
-            
-          	<intent-filter>
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyBbxBc4HqhblysL8tJeSMuVWMjqGQ2Ip3o" />
+
+        <activity
+            android:name="edu.purdue.app.PurdueAppActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            
         </activity>
-        
-    	<activity
-    	    android:name=".DiningCourts"
-    	    android:label="@string/app_name" />
-    	
-    	<activity
-    	    android:name=".map.MapActivity"
-    	    android:label="@string/map_window_label" />
-    	
-    	<activity
-    	    android:name=".EventsPageActivity"
-    	    android:label="@string/app_name" />
-    	
-    	<activity
-    	    android:name=".WeatherActivity"
-    	    android:label="@string/app_name" />
-    	
-    	<activity
-    	    android:name=".DiningInfo"
-    	    android:label="@string/DiningCourts" />
-    	
+        <activity
+            android:name="edu.purdue.app.DiningCourts"
+            android:label="@string/app_name" />
+        <activity
+            android:name="edu.purdue.app.map.MapActivity"
+            android:label="@string/map_window_label" />
+        <activity
+            android:name="edu.purdue.app.EventsPageActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name="edu.purdue.app.WeatherActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name="edu.purdue.app.DiningInfo"
+            android:label="@string/DiningCourts" />
+        <activity
+            android:name="edu.purdue.app.DiningCourtsTwo"
+            android:parentActivityName="edu.purdue.app.PurdueAppActivity"
+         	android:theme="@style/CustomActionBarTheme"
+            android:label="@string/title_activity_dining_courts_two" >
+        </activity>
     </application>
-    
+
 </manifest>

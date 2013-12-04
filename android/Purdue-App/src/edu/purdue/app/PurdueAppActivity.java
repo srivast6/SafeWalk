@@ -40,7 +40,7 @@ public class PurdueAppActivity extends Activity{
         Button diningcourtsbutton = (Button) findViewById(R.id.DiningCourtsButton);
         diningcourtsbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            	final Intent newStuff = new Intent(getApplicationContext(), DiningCourts.class);
+            	final Intent newStuff = new Intent(getApplicationContext(), DiningCourtsTwo.class);
             	startActivity(newStuff);
             }
         });

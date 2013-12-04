@@ -12,7 +12,8 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="@string/Earhart" 
-        android:onClick="earhartInfo" />
+        android:onClick="earhartInfo"
+        style="?android:attr/borderlessButtonStyle" />
     <Button
         android:id="@+id/Ford"
         android:layout_width="fill_parent"
@@ -20,7 +21,8 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="@string/Ford"
-        android:onClick="fordInfo" />
+        android:onClick="fordInfo"
+        style="?android:attr/borderlessButtonStyle" />
     <Button
         android:id="@+id/Hillenbrand"
         android:layout_width="fill_parent"
@@ -28,7 +30,8 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="@string/Hillenbrand"
-        android:onClick="hillenbrandInfo" />
+        android:onClick="hillenbrandInfo"
+        style="?android:attr/borderlessButtonStyle" />
     <Button
         android:id="@+id/Windsor"
         android:layout_width="fill_parent"
@@ -36,7 +39,8 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="@string/Windsor"
-        android:onClick="windsorInfo" />
+        android:onClick="windsorInfo"
+        style="?android:attr/borderlessButtonStyle" />
     <Button
         android:id="@+id/Wiley"
         android:layout_width="fill_parent"
@@ -44,6 +48,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="@string/Wiley"
-        android:onClick="wileyInfo" />
+        android:onClick="wileyInfo"
+        style="?android:attr/borderlessButtonStyle" />
 
     </LinearLayout>
