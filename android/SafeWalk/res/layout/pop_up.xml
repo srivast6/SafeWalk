@@ -50,7 +50,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="Call" />
+            android:text="Call" 
+            android:onClick="onPopUpCallClick"/>
 
         <Button
             android:id="@+id/btn_callPolice"
@@ -58,7 +59,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="Message" />
+            android:text="Message" 
+            android:onClick="onPopUpMessageClick"/>
 
         <Button
             android:id="@+id/btn_callSafewalk"
@@ -66,7 +68,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="Accept" />
+            android:text="Accept" 
+            android:onClick="onPopUpAcceptClick"/>
     </LinearLayout>
 
 </LinearLayout>
