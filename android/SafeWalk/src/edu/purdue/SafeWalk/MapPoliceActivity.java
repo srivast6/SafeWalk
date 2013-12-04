@@ -44,9 +44,27 @@ public class MapPoliceActivity extends SafeWalk {
 		// You can customize the marker image using images bundled with
 		// your app, or dynamically generated bitmaps.
 		mapPolice.addMarker(new MarkerOptions()
-				.icon(BitmapDescriptorFactory
-						.fromResource(R.drawable.ic_launcher))
-				.anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
-				.position(new LatLng(41.889, -87.622)));
+		.icon(BitmapDescriptorFactory
+				.fromResource(R.drawable.map_pin))
+		.anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
+		.position(new LatLng(40.52345,-86.9013452)));
+		
+		mapPolice.addMarker(new MarkerOptions()
+		.icon(BitmapDescriptorFactory
+				.fromResource(R.drawable.map_pin))
+		.anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
+		.position(new LatLng(40.48746,-86.809823)));
+		
+		mapPolice.addMarker(new MarkerOptions()
+		.icon(BitmapDescriptorFactory
+				.fromResource(R.drawable.map_pin))
+		.anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
+		.position(new LatLng(40.61885,-86.72345)));
+		
+		mapPolice.addMarker(new MarkerOptions()
+		.icon(BitmapDescriptorFactory
+				.fromResource(R.drawable.map_pin))
+		.anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
+		.position(new LatLng(40.723467,-86.602362)));
 	}
 }

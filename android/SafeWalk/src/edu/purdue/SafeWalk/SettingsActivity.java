@@ -18,33 +18,30 @@ import android.preference.PreferenceManager;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends PreferenceActivity
-{
-	
+public class SettingsActivity extends PreferenceActivity {
+
 	@Override
-	protected void onPostCreate(Bundle savedInstanceState)
-	{
+	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		
+
 		setupSimplePreferencesScreen();
-		
+
 		ActionBar actionBar = getActionBar();
-	    actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
-	
+
 	/**
 	 * Shows the simplified settings UI if the device configuration if the
 	 * device configuration dictates that a simplified, single-pane UI should be
 	 * shown.
 	 */
-	private void setupSimplePreferencesScreen()
-	{
-		
+	private void setupSimplePreferencesScreen() {
+
 		addPreferencesFromResource(R.xml.preferences);
-		
+
 		bindPreferenceSummaryToValue(findPreference("pref_loc_update_frequency"));
 	}
-	
+
 	/**
 	 * Binds a preference's summary to its value. More specifically, when the
 	 * preference's value is changed, its summary (line of text below the
@@ -54,12 +51,11 @@ public class SettingsActivity extends PreferenceActivity
 	 * 
 	 * @see #sBindPreferenceSummaryToValueListener
 	 */
-	private static void bindPreferenceSummaryToValue(Preference preference)
-	{
+	private static void bindPreferenceSummaryToValue(Preference preference) {
 		// Set the listener to watch for value changes.
 		preference
 				.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
-		
+
 		// Trigger the listener immediately with the preference's
 		// current value.
 		sBindPreferenceSummaryToValueListener.onPreferenceChange(
@@ -68,31 +64,27 @@ public class SettingsActivity extends PreferenceActivity
 						preference.getContext()).getString(preference.getKey(),
 						""));
 	}
-	
+
 	/**
 	 * A preference value change listener that updates the preference's summary
 	 * to reflect its new value.
 	 */
-	private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener()
-	{
+	private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
 		@Override
-		public boolean onPreferenceChange(Preference preference, Object value)
-		{
+		public boolean onPreferenceChange(Preference preference, Object value) {
 			String stringValue = value.toString();
-			
-			if (preference instanceof ListPreference)
-			{
+
+			if (preference instanceof ListPreference) {
 				// For list preferences, look up the correct display value in
 				// the preference's 'entries' list.
 				ListPreference listPreference = (ListPreference) preference;
 				int index = listPreference.findIndexOfValue(stringValue);
-				
+
 				// Set the summary to reflect the new value.
 				preference
 						.setSummary(index >= 0 ? listPreference.getEntries()[index]
 								: null);
-			} else
-			{
+			} else {
 				// For all other preferences, set the summary to the value's
 				// simple string representation.
 				preference.setSummary(stringValue);
@@ -100,5 +92,5 @@ public class SettingsActivity extends PreferenceActivity
 			return true;
 		}
 	};
-	
+
 }
