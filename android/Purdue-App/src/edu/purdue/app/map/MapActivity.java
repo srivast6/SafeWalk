@@ -12,7 +12,7 @@ import com.google.android.gms.maps.model.*;
 import com.google.android.gms.maps.model.LatLngBounds.Builder;
 
 import edu.purdue.app.R;
-import edu.purdue.app.map.MapData.Building;
+import edu.purdue.app.map.MapData.Location;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
@@ -40,9 +40,9 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 	
 	/** Enum which stores the current state of the drawer in the activity 
 	 *  Call populateDrawer(state) to change what the drawer is currently displaying */
-	Activity_State currentState = Activity_State.NORMAL;
-	enum Activity_State {
-		NORMAL,
+	DrawerState currentState = DrawerState.CATEGORY_LIST;
+	enum DrawerState {
+		CATEGORY_LIST,
 		ACAD_BUILDINGS,
 		ADMIN_BUILDINGS,
 		RES_HALLS,
@@ -117,22 +117,22 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 	public void onItemClick(AdapterView<?> arg0, View lv, int i, long arg3) {
 		
 		// If the state is on the category list, then we just populate the drawer with the category the user selected.
-		if (currentState == Activity_State.NORMAL) {
+		if (currentState == DrawerState.CATEGORY_LIST) {
 			switch (i) {
 			case 0:
-				populateDrawer(Activity_State.ACAD_BUILDINGS);
+				populateDrawer(DrawerState.ACAD_BUILDINGS);
 				return;
 			case 1:
-				populateDrawer(Activity_State.ADMIN_BUILDINGS);
+				populateDrawer(DrawerState.ADMIN_BUILDINGS);
 				return;
 			case 2:
-				populateDrawer(Activity_State.RES_HALLS);
+				populateDrawer(DrawerState.RES_HALLS);
 				return;
 			case 3:
-				populateDrawer(Activity_State.DINING_COURTS);
+				populateDrawer(DrawerState.DINING_COURTS);
 				return;
 			case 4:
-				populateDrawer(Activity_State.MISC_BUILDINGS);
+				populateDrawer(DrawerState.MISC_BUILDINGS);
 				return;
 			}
 			
@@ -140,7 +140,7 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 		} else {
 			// Get the building the user selected and add a marker
 			// The building data is saved in MapData as a Map structure which maps an Activity_State to a List<Building>.
-			Building selected = mpd.activityMap.get(currentState).get(i);
+			Location selected = mpd.stateListMap.get(currentState).get(i);
 			LatLng latlng = new LatLng(selected.lat, selected.lng);
 			addPinToMap(latlng, selected.short_name);
 			closeDrawer();
@@ -156,53 +156,53 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 		// Get listview in drawer, category list, and set onclicklister and array adapters
 		listviewDrawerMaster = (ListView) findViewById(R.id.map_right_drawer);
 		listviewDrawerMaster.setOnItemClickListener(this);
-		populateDrawer(Activity_State.NORMAL);
+		populateDrawer(DrawerState.CATEGORY_LIST);
 	}
 	
 	/** Opens the side drawer */
 	private void openDrawer() {
-		populateDrawer(Activity_State.NORMAL);
+		populateDrawer(DrawerState.CATEGORY_LIST);
 		drawer.openDrawer(Gravity.RIGHT);
 	}
 
 	/** Closes the side drawer */
 	private void closeDrawer() {
-		populateDrawer(Activity_State.NORMAL);
+		populateDrawer(DrawerState.CATEGORY_LIST);
 		drawer.closeDrawers();
 	}
 	
 	/** Populates the drawer with a list depending on the desired state. Pass in an 
 	 *  Activity_State enum and this method will populate the drawer with that state and also
 	 *  set the currentState class variable */
-	private void populateDrawer(Activity_State state) {
+	private void populateDrawer(DrawerState state) {
 		List<String> list = new ArrayList<String>();
 		
 		switch (state) {
-		case NORMAL:
+		case CATEGORY_LIST:
 			list = mpd.categoryList;
 			break;
 		case ACAD_BUILDINGS:
-			for (Building b : mpd.academicBuildings) {
+			for (Location b : mpd.academicBuildings) {
 				list.add(b.full_name);
 			}
 			break;
 		case ADMIN_BUILDINGS:
-			for (Building b : mpd.adminBuildings) {
+			for (Location b : mpd.adminBuildings) {
 				list.add(b.full_name);
 			}
 			break;
 		case RES_HALLS:
-			for (Building b : mpd.resHalls) {
+			for (Location b : mpd.resHalls) {
 				list.add(b.full_name);
 			}
 			break;
 		case DINING_COURTS:
-			for (Building b : mpd.diningCourts) {
+			for (Location b : mpd.diningCourts) {
 				list.add(b.full_name);
 			}
 			break;
 		case MISC_BUILDINGS:
-			for (Building b : mpd.miscBuildings) {
+			for (Location b : mpd.miscBuildings) {
 				list.add(b.full_name);
 			}
 			break;
@@ -243,7 +243,7 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 	 *  Does nothing if the search returned nothing. */
 	private void search(String s) {
 		// Do the search, which is in MapData
-		Building result = mpd.search(s);
+		Location result = mpd.search(s);
 		
 		// The result is null if there are no results, so do nothing.
 		if (result == null) {
