@@ -24,7 +24,6 @@
             
             <include 
                 layout="@layout/map_popup_bubble"
-                android:layout_marginTop="120dp"
                  />
         </FrameLayout>
 
