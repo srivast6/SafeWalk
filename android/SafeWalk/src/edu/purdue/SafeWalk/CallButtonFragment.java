@@ -1,9 +1,13 @@
 package edu.purdue.SafeWalk;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,14 +59,44 @@ public class CallButtonFragment extends Fragment
 	
 	public void onClickSafeWalk(View view)
 	{
-		Uri number = Uri.parse("tel:7654947233");
-		Intent dial = new Intent(Intent.ACTION_DIAL, number);
-		startActivity(dial);
+		executeCall("7654947233");
 	}
 	
 	public void onClickPolice(View view)
 	{
-		Uri number = Uri.parse("tel:7658675309");
+		SharedPreferences myPreference= PreferenceManager.getDefaultSharedPreferences(getActivity());
+		if(myPreference.getBoolean("policeButtonSafety", false)) 
+		{
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+	        builder.setMessage("Are you sure you want to call the police?")
+	               .setPositiveButton("Call 911", new DialogInterface.OnClickListener() {
+	                   public void onClick(DialogInterface dialog, int id) {
+	                	   dialog.dismiss();
+	                	   executeCall("411");
+	                   }
+	               })
+	               .setNeutralButton("Call non-emergency number", new DialogInterface.OnClickListener() {
+	                   public void onClick(DialogInterface dialog, int id) {
+	                	   dialog.dismiss();
+	                	   executeCall("7654948221");
+	                   }
+	               })
+	               .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+	                   public void onClick(DialogInterface dialog, int id) {
+	                       dialog.dismiss();
+	                   }
+	               });
+	        builder.create().show();
+		}
+		else 
+		{
+			executeCall("411");
+		}
+	}
+
+	private void executeCall(String phoneNumber)
+	{
+		Uri number = Uri.parse("tel:"+phoneNumber);
 		Intent dial = new Intent(Intent.ACTION_DIAL, number);
 		startActivity(dial);
 	}
