@@ -32,44 +32,53 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
 public class SafeWalk extends Activity implements
-GooglePlayServicesClient.ConnectionCallbacks,
-GooglePlayServicesClient.OnConnectionFailedListener
-{
+		GooglePlayServicesClient.ConnectionCallbacks,
+		GooglePlayServicesClient.OnConnectionFailedListener {
 	private GoogleMap mMap;
 	private LocationClient mLocationClient;
-	ListView drawerList; 
+	ListView drawerList;
 	DrawerLayout drawerLayout;
 	ActionBarDrawerToggle mDrawerToggle;
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 
 	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(Bundle savedInstanceState)
-	{
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
 
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.left_drawer);
-		String[] menuItems = new String[] { "Settings", "About", "What is SafeWalk?", "People" };
-		drawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menuItems));
+		String[] menuItems = new String[] { "Settings", "About",
+				"What is SafeWalk?", "People", "Safewalk Personnel" };
+		drawerList.setAdapter(new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, menuItems));
 		drawerList.setOnItemClickListener(new ListView.OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int order,
-					long arg3)
-			{
+					long arg3) {
 
-				if(order == 3){
-					Intent listIntent = new Intent(SafeWalk.this, ListViewRequesterActivity.class);
+				if (order == 3) {
+					Intent listIntent = new Intent(SafeWalk.this,
+							ListViewRequesterActivity.class);
 					SafeWalk.this.startActivity(listIntent);
-					
-				}if(order == 0){
-					Intent setiingsIntent = new Intent(SafeWalk.this, SettingsActivity.class);
+
+				}
+				if (order == 0) {
+					Intent setiingsIntent = new Intent(SafeWalk.this,
+							SettingsActivity.class);
 					SafeWalk.this.startActivity(setiingsIntent);
-					
-				} else {
-					Toast.makeText(SafeWalk.this, "This feature is under construction", Toast.LENGTH_SHORT).show();
+
+				}else if(order == 4){
+					Intent Safewalk_Personnel = new Intent(SafeWalk.this,
+							MapPoliceActivity.class);
+					SafeWalk.this.startActivity(Safewalk_Personnel);
+				}
+				else {
+					Toast.makeText(SafeWalk.this,
+							"This feature is under construction",
+							Toast.LENGTH_SHORT).show();
 				}
 			}
 
@@ -80,18 +89,21 @@ GooglePlayServicesClient.OnConnectionFailedListener
 
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
-				R.drawable.ic_drawer, R.string.drawer_open, R.string.drawer_close) {
+				R.drawable.ic_drawer, R.string.drawer_open,
+				R.string.drawer_close) {
 
 			/** Called when a drawer has settled in a completely closed state. */
 			public void onDrawerClosed(View view) {
 				getActionBar().setTitle(title);
-				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+				invalidateOptionsMenu(); // creates call to
+											// onPrepareOptionsMenu()
 			}
 
 			/** Called when a drawer has settled in a completely open state. */
 			public void onDrawerOpened(View drawerView) {
 				getActionBar().setTitle(drawerTitle);
-				invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+				invalidateOptionsMenu(); // creates call to
+											// onPrepareOptionsMenu()
 			}
 		};
 
@@ -101,16 +113,19 @@ GooglePlayServicesClient.OnConnectionFailedListener
 		getActionBar().setHomeButtonEnabled(true);
 
 		// Check for Google Play Services
-		int googlePlayServicesAvailable = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-		if(googlePlayServicesAvailable != ConnectionResult.SUCCESS) {
-			GooglePlayServicesUtil.getErrorDialog(googlePlayServicesAvailable, this, CONNECTION_FAILURE_RESOLUTION_REQUEST).show();
+		int googlePlayServicesAvailable = GooglePlayServicesUtil
+				.isGooglePlayServicesAvailable(this);
+		if (googlePlayServicesAvailable != ConnectionResult.SUCCESS) {
+			GooglePlayServicesUtil.getErrorDialog(googlePlayServicesAvailable,
+					this, CONNECTION_FAILURE_RESOLUTION_REQUEST).show();
 		}
 
 		mLocationClient = new LocationClient(this, this, this);
 		mLocationClient.connect();
 
-		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-		if(mMap != null) {
+		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+				.getMap();
+		if (mMap != null) {
 			mMap.setMyLocationEnabled(true);
 			UiSettings mapSettings = mMap.getUiSettings();
 			mapSettings.setTiltGesturesEnabled(false);
@@ -118,13 +133,16 @@ GooglePlayServicesClient.OnConnectionFailedListener
 		} else {
 			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
 			alertBuilder.setTitle("Error!");
-			alertBuilder.setMessage(this.getResources().getText(R.string.error_no_maps));
-			alertBuilder.setPositiveButton("Close " + this.getResources().getText(R.string.app_name), new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					SafeWalk.this.finish();
-				}
-			});
+			alertBuilder.setMessage(this.getResources().getText(
+					R.string.error_no_maps));
+			alertBuilder.setPositiveButton("Close "
+					+ this.getResources().getText(R.string.app_name),
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							SafeWalk.this.finish();
+						}
+					});
 			alertBuilder.show();
 		}
 	}
@@ -132,7 +150,7 @@ GooglePlayServicesClient.OnConnectionFailedListener
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if(mLocationClient != null && mLocationClient.isConnected()) {
+		if (mLocationClient != null && mLocationClient.isConnected()) {
 			mLocationClient.disconnect();
 		}
 	}
@@ -142,15 +160,16 @@ GooglePlayServicesClient.OnConnectionFailedListener
 	 */
 	@Override
 	public void onConnectionFailed(ConnectionResult res) {
-		if(res.isSuccess() == true)
+		if (res.isSuccess() == true)
 			return;
 
-		if(res.hasResolution() == true) {
+		if (res.hasResolution() == true) {
 			try {
-				res.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+				res.startResolutionForResult(this,
+						CONNECTION_FAILURE_RESOLUTION_REQUEST);
 			} catch (SendIntentException e) {
 				e.printStackTrace();
-				this.onConnectionFailed(res); //HACK: Possible stack overflow.
+				this.onConnectionFailed(res); // HACK: Possible stack overflow.
 			}
 		} else {
 			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -169,9 +188,10 @@ GooglePlayServicesClient.OnConnectionFailedListener
 
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
-		// If the nav drawer is open, hide action items related to the content view
+		// If the nav drawer is open, hide action items related to the content
+		// view
 		boolean drawerOpen = drawerLayout.isDrawerOpen(drawerList);
-		//menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+		// menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
 	}
 
@@ -195,9 +215,12 @@ GooglePlayServicesClient.OnConnectionFailedListener
 	@Override
 	public void onConnected(Bundle bun) {
 		CameraPosition.Builder cameraPositionBuilder = new CameraPosition.Builder();
-		cameraPositionBuilder.target(new LatLng(mLocationClient.getLastLocation().getLatitude(), mLocationClient.getLastLocation().getLongitude()));
+		cameraPositionBuilder.target(new LatLng(mLocationClient
+				.getLastLocation().getLatitude(), mLocationClient
+				.getLastLocation().getLongitude()));
 		cameraPositionBuilder.zoom((float) 16);
-		mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPositionBuilder.build()));
+		mMap.animateCamera(CameraUpdateFactory
+				.newCameraPosition(cameraPositionBuilder.build()));
 		mLocationClient.disconnect();
 	}
 
