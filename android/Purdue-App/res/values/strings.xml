@@ -33,19 +33,6 @@
     <string name="Sports">Sports</string>
     <string name="weather_test_text_view">API Test:</string>
     <string name="test_weather_button">API Test</string>
-<<<<<<< HEAD
-
-    <string-array name="map_drawer_categories">
-        <item>Academic Buildings</item>
-        <item>Administrative Buildings</item>
-        <item>Residence Halls</item>
-        <item>Dining Courts</item>
-        <item>Misc.</item>
-    </string-array>
-
     <string name="title_activity_dining_courts_two">Dining Courts</string>
 
-=======
-    
->>>>>>> 6ac3bc3a6bb6fc768f9368c9c1b5a1dcb4cd75c8
 </resources>

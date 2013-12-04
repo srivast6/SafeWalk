@@ -15,7 +15,6 @@ import edu.purdue.app.R;
 import edu.purdue.app.map.MapData.Building;
 import android.app.Activity;
 import android.app.SearchManager;
-import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
