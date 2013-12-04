@@ -22,9 +22,10 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <application android:label="@string/app_name" 
-        android:icon="@drawable/ic_launcher" >"
-        
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
         <activity
             android:name="edu.purdue.SafeWalk.SafeWalk"
             android:label="@string/app_name" >
@@ -43,16 +44,24 @@
             android:label="Safewalk Personnel"></activity>
         <activity
             android:name="edu.purdue.SafeWalk.ListViewRequesterActivity"
-            android:label="requester" >
+            android:label="requester"
+            android:parentActivityName="edu.purdue.SafeWalk.SafeWalk" >
+            <meta-data
+                android:name="android.PARENT_ACTIVITY"
+                android:value="edu.purdue.SafeWalk.SafeWalk" />
+        </activity>
+        <activity
+            android:name="edu.purdue.SafeWalk.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="edu.purdue.SafeWalk.SafeWalk" >
+            <meta-data
+                android:name="android.PARENT_ACTIVITY"
+                android:value="edu.purdue.SafeWalk.SafeWalk" />
         </activity>
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAN-Dhm9uhx5zUKmPe9AkRrf7f-QSesJ5Q" />
-
-        <activity
-            android:name="edu.purdue.SafeWalk.SettingsActivity"
-            android:label="@string/title_activity_settings" >
-        </activity>
     </application>
+
 </manifest>

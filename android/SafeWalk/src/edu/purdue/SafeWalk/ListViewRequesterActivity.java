@@ -2,7 +2,7 @@ package edu.purdue.SafeWalk;
 
 import java.util.ArrayList;
 
-
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -57,6 +57,9 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		        dialog.show(getFragmentManager(), "PopUpDialogFragment");
 			}
 		});
+		
+		ActionBar actionBar = getActionBar();
+	    actionBar.setDisplayHomeAsUpEnabled(true);
 		
 	}
 
