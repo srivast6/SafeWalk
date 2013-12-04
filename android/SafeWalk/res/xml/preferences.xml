@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    
+    <PreferenceCategory
+        android:key="pref_key_storage_settings"
+        android:title="General" >
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="policeButtonSafety"
+            android:summary="Prevents accidental 911 calls"
+            android:title="Add a safety to the Call Police button" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="sample_2"
+            android:summary="Sample Description"
+            android:title="Sample Setting" />
+    </PreferenceCategory>
+    
     <PreferenceCategory
         android:key="pref_key_storage_settings"
         android:title="Location Settings" >
@@ -27,39 +45,23 @@
             android:title="Update Interval" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:key="pref_key_storage_settings"
-        android:title="Moar" >
-
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="sample_1"
-            android:summary="le text"
-            android:title="Exmaple Setting" />
-
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="sample_2"
-            android:summary="I gots more"
-            android:title="Yup" />
-    </PreferenceCategory>
     
     <PreferenceScreen
         android:key="button_voicemail_category_key"
-        android:title="Stuff and Things"
+        android:title="More settings..."
         android:persistent="false">
 
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="sample_3"
-            android:summary="le text dos"
-            android:title="Exmaple Setting again" />
+            android:summary="Description"
+            android:title="Sample" />
 
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="sample_4"
-            android:summary="I gots even more"
-            android:title="Yup, I haz" />
+            android:summary="Description"
+            android:title="Sample" />
     </PreferenceScreen>
 
 </PreferenceScreen>
