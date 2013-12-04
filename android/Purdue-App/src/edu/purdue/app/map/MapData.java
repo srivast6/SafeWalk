@@ -11,22 +11,19 @@ import java.util.Map;
 
 import org.json.*;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import android.content.res.Resources;
-import android.widget.Toast;
 
 import edu.purdue.app.R;
-import edu.purdue.app.map.MapActivity.Activity_State;
+import edu.purdue.app.map.MapActivity.DrawerState;
 
 public class MapData {
 
 	JSONObject json = null;
 	List<String> categoryList;
-	List<Building> academicBuildings, adminBuildings, resHalls, diningCourts, miscBuildings;
-	Map<MapActivity.Activity_State, List<Building>> activityMap = new HashMap<Activity_State, List<Building>>();
+	List<Location> academicBuildings, adminBuildings, resHalls, diningCourts, miscBuildings;
+	Map<MapActivity.DrawerState, List<Location>> stateListMap = new HashMap<DrawerState, List<Location>>();
 	
-	class Building {
+	class Location {
 		String full_name, short_name;
 		double lat, lng;
 	}
@@ -51,17 +48,17 @@ public class MapData {
 		}
 		
 		// Create the list of academic locations
-		academicBuildings = new ArrayList<Building>();
-		adminBuildings = new ArrayList<Building>();
-		resHalls = new ArrayList<Building>();
-		diningCourts = new ArrayList<Building>();
-		miscBuildings = new ArrayList<Building>();
+		academicBuildings = new ArrayList<Location>();
+		adminBuildings = new ArrayList<Location>();
+		resHalls = new ArrayList<Location>();
+		diningCourts = new ArrayList<Location>();
+		miscBuildings = new ArrayList<Location>();
 		
 		try {
 			JSONArray ja = json.getJSONArray("academic_buildings");
 			for (int i = 0; i < ja.length(); i++) {
 				JSONObject j = ja.getJSONObject(i);
-				Building b = new Building();
+				Location b = new Location();
 				b.full_name = j.getString("full_nm");
 				b.short_name = j.getString("short_nm");
 				b.lat = j.getDouble("lat");
@@ -71,7 +68,7 @@ public class MapData {
 			ja = json.getJSONArray("admin_buildings");
 			for (int i = 0; i < ja.length(); i++) {
 				JSONObject j = ja.getJSONObject(i);
-				Building b = new Building();
+				Location b = new Location();
 				b.full_name = j.getString("full_nm");
 				b.short_name = j.getString("short_nm");
 				b.lat = j.getDouble("lat");
@@ -81,7 +78,7 @@ public class MapData {
 			ja = json.getJSONArray("res_halls");
 			for (int i = 0; i < ja.length(); i++) {
 				JSONObject j = ja.getJSONObject(i);
-				Building b = new Building();
+				Location b = new Location();
 				b.full_name = j.getString("full_nm");
 				b.short_name = j.getString("short_nm");
 				b.lat = j.getDouble("lat");
@@ -91,7 +88,7 @@ public class MapData {
 			ja = json.getJSONArray("dining_courts");
 			for (int i = 0; i < ja.length(); i++) {
 				JSONObject j = ja.getJSONObject(i);
-				Building b = new Building();
+				Location b = new Location();
 				b.full_name = j.getString("full_nm");
 				b.short_name = j.getString("short_nm");
 				b.lat = j.getDouble("lat");
@@ -101,7 +98,7 @@ public class MapData {
 			ja = json.getJSONArray("misc");
 			for (int i = 0; i < ja.length(); i++) {
 				JSONObject j = ja.getJSONObject(i);
-				Building b = new Building();
+				Location b = new Location();
 				b.full_name = j.getString("full_nm");
 				b.short_name = j.getString("short_nm");
 				b.lat = j.getDouble("lat");
@@ -120,40 +117,40 @@ public class MapData {
 		categoryList.add("Dining Courts");
 		categoryList.add("Misc. Buildings");
 		
-		activityMap.put(MapActivity.Activity_State.ACAD_BUILDINGS, academicBuildings);
-		activityMap.put(MapActivity.Activity_State.ADMIN_BUILDINGS, adminBuildings);
-		activityMap.put(MapActivity.Activity_State.RES_HALLS, resHalls);
-		activityMap.put(MapActivity.Activity_State.DINING_COURTS, diningCourts);
-		activityMap.put(MapActivity.Activity_State.MISC_BUILDINGS, miscBuildings);
+		stateListMap.put(MapActivity.DrawerState.ACAD_BUILDINGS, academicBuildings);
+		stateListMap.put(MapActivity.DrawerState.ADMIN_BUILDINGS, adminBuildings);
+		stateListMap.put(MapActivity.DrawerState.RES_HALLS, resHalls);
+		stateListMap.put(MapActivity.DrawerState.DINING_COURTS, diningCourts);
+		stateListMap.put(MapActivity.DrawerState.MISC_BUILDINGS, miscBuildings);
 		
 	}
 	
 	/** Searches for a building in the map data given a string 
 	 *  Very poorly implemented right now, will be improved later. */
-	public Building search(String s) {
+	public Location search(String s) {
 		s = s.toLowerCase();
 		
-		for (Building b : academicBuildings) {
+		for (Location b : academicBuildings) {
 			if (b.short_name.toLowerCase().equals(s)) {
 				return b;
 			}
 		}
-		for (Building b : adminBuildings) {
+		for (Location b : adminBuildings) {
 			if (b.short_name.toLowerCase().equals(s)) {
 				return b;
 			}
 		}
-		for (Building b : resHalls) {
+		for (Location b : resHalls) {
 			if (b.short_name.toLowerCase().equals(s)) {
 				return b;
 			}
 		}
-		for (Building b : diningCourts) {
+		for (Location b : diningCourts) {
 			if (b.short_name.toLowerCase().equals(s)) {
 				return b;
 			}
 		}
-		for (Building b : miscBuildings) {
+		for (Location b : miscBuildings) {
 			if (b.short_name.toLowerCase().equals(s)) {
 				return b;
 			}
