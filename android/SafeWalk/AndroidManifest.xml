@@ -52,7 +52,7 @@
                 android:value="edu.purdue.SafeWalk.SafeWalk" />
         </activity>
         <activity
-            android:name="edu.purdue.SafeWalk.SettingsActivity"
+            android:name="edu.purdue.SafeWalk.settings.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName="edu.purdue.SafeWalk.SafeWalk" >
             <meta-data

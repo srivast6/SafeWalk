@@ -1,33 +1,38 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.SafeWalk.settings;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.Preference.OnPreferenceClickListener;
+import android.util.Log;
+import android.widget.Toast;
+import edu.purdue.SafeWalk.R;
 
-/**
- * A {@link PreferenceActivity} that presents a set of application settings. On
- * handset devices, settings are presented as a single list. On tablets,
- * settings are split by category, with category headers shown to the left of
- * the list of settings.
- * <p>
- * See <a href="http://developer.android.com/design/patterns/settings.html">
- * Android Design: Settings</a> for design guidelines and the <a
- * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
- * API Guide</a> for more information on developing a Settings UI.
- */
-public class SettingsActivity extends PreferenceActivity {
-
+public class SettingsFragment extends PreferenceFragment
+{
+	
 	@Override
-	protected void onPostCreate(Bundle savedInstanceState) {
-		super.onPostCreate(savedInstanceState);
-
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		
 		setupSimplePreferencesScreen();
-
-		ActionBar actionBar = getActionBar();
-		actionBar.setDisplayHomeAsUpEnabled(true);
+		
+		Preference volunteerMode = (Preference) findPreference("pref_key_build_info");
+		volunteerMode
+				.setOnPreferenceClickListener(new OnPreferenceClickListener()
+				{
+					public boolean onPreferenceClick(Preference preference)
+					{
+						Log.d("Hello", "I have been clicked!");
+						Toast.makeText(getActivity().getApplicationContext(),
+								"Hello!", Toast.LENGTH_LONG).show();
+						
+						return false;
+					}
+				});
 	}
 
 	/**
@@ -51,7 +56,9 @@ public class SettingsActivity extends PreferenceActivity {
 	 * 
 	 * @see #sBindPreferenceSummaryToValueListener
 	 */
-	private static void bindPreferenceSummaryToValue(Preference preference) {
+
+	private void bindPreferenceSummaryToValue(Preference preference)
+	{
 		// Set the listener to watch for value changes.
 		preference
 				.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
@@ -69,13 +76,16 @@ public class SettingsActivity extends PreferenceActivity {
 	 * A preference value change listener that updates the preference's summary
 	 * to reflect its new value.
 	 */
-	private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
+	private Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener()
+	{
 		@Override
 		public boolean onPreferenceChange(Preference preference, Object value) {
 			String stringValue = value.toString();
-
-			if (preference instanceof ListPreference) {
-				// For list preferences, look up the correct display value in
+			
+			if (preference instanceof ListPreference)
+			{
+				// For list preferences, look up the correct display value
+				// in
 				// the preference's 'entries' list.
 				ListPreference listPreference = (ListPreference) preference;
 				int index = listPreference.findIndexOfValue(stringValue);
@@ -92,5 +102,4 @@ public class SettingsActivity extends PreferenceActivity {
 			return true;
 		}
 	};
-
 }
