@@ -62,7 +62,7 @@ public class CallButtonFragment extends Fragment
 	
 	public void onClickPolice(View view)
 	{
-		Uri number = Uri.parse("tel:911");
+		Uri number = Uri.parse("tel:7658675309");
 		Intent dial = new Intent(Intent.ACTION_DIAL, number);
 		startActivity(dial);
 	}

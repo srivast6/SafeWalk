@@ -11,7 +11,10 @@ import java.util.Map;
 
 import org.json.*;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import android.content.res.Resources;
+import android.widget.Toast;
 
 import edu.purdue.app.R;
 import edu.purdue.app.map.MapActivity.Activity_State;
@@ -19,6 +22,7 @@ import edu.purdue.app.map.MapActivity.Activity_State;
 public class MapData {
 
 	JSONObject json = null;
+	List<String> categoryList;
 	List<Building> academicBuildings, adminBuildings, resHalls, diningCourts, miscBuildings;
 	Map<MapActivity.Activity_State, List<Building>> activityMap = new HashMap<Activity_State, List<Building>>();
 	
@@ -108,12 +112,54 @@ public class MapData {
 			e.printStackTrace();
 		}
 		
+		// Prepare the category list
+		categoryList = new ArrayList<String>();
+		categoryList.add("Academic Buildings");
+		categoryList.add("Administrative Buildings");
+		categoryList.add("Residence Halls");
+		categoryList.add("Dining Courts");
+		categoryList.add("Misc. Buildings");
+		
 		activityMap.put(MapActivity.Activity_State.ACAD_BUILDINGS, academicBuildings);
 		activityMap.put(MapActivity.Activity_State.ADMIN_BUILDINGS, adminBuildings);
 		activityMap.put(MapActivity.Activity_State.RES_HALLS, resHalls);
 		activityMap.put(MapActivity.Activity_State.DINING_COURTS, diningCourts);
 		activityMap.put(MapActivity.Activity_State.MISC_BUILDINGS, miscBuildings);
 		
+	}
+	
+	/** Searches for a building in the map data given a string 
+	 *  Very poorly implemented right now, will be improved later. */
+	public Building search(String s) {
+		s = s.toLowerCase();
+		
+		for (Building b : academicBuildings) {
+			if (b.short_name.toLowerCase().equals(s)) {
+				return b;
+			}
+		}
+		for (Building b : adminBuildings) {
+			if (b.short_name.toLowerCase().equals(s)) {
+				return b;
+			}
+		}
+		for (Building b : resHalls) {
+			if (b.short_name.toLowerCase().equals(s)) {
+				return b;
+			}
+		}
+		for (Building b : diningCourts) {
+			if (b.short_name.toLowerCase().equals(s)) {
+				return b;
+			}
+		}
+		for (Building b : miscBuildings) {
+			if (b.short_name.toLowerCase().equals(s)) {
+				return b;
+			}
+		}
+		
+		return null;
 	}
 	
 	
