@@ -208,7 +208,8 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 			break;
 		}
 		
-		listviewDrawerMaster.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list));
+		//listviewDrawerMaster.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list));
+		listviewDrawerMaster.setAdapter(new MapDrawerListAdapter(this, list, this.getResources()));
 		this.currentState = state;
 	}
 	
