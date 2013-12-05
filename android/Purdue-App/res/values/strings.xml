@@ -34,5 +34,10 @@
     <string name="weather_test_text_view">API Test:</string>
     <string name="test_weather_button">API Test</string>
     <string name="title_activity_dining_courts_two">Dining Courts</string>
+    <string name="linetime">Line Time</string>
+    <string name="seating">Seating and Availability</string>
+    <string name="foodrating">Food Rating</string>
+    <string name="menus">Menus</string>
+    <string name="submit">Submit</string>
 
 </resources>

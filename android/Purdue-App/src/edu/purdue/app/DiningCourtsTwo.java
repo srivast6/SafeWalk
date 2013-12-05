@@ -121,10 +121,7 @@ public class DiningCourtsTwo extends FragmentActivity {
 			View rootView = inflater
 					.inflate(R.layout.fragment_dining_courts_two_dummy,
 							container, false);
-			TextView dummyTextView = (TextView) rootView
-					.findViewById(R.id.section_label);
-			dummyTextView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));
+			
 			return rootView;
 		}
 	}
