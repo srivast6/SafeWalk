@@ -4,12 +4,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.IntentSender.SendIntentException;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -65,8 +68,7 @@ public class SafeWalk extends Activity implements
 					SafeWalk.this.startActivity(listIntent);
 
 				}else if(order == 0){
-					Intent setiingsIntent = new Intent(SafeWalk.this, SettingsActivity.class);
-					SafeWalk.this.startActivity(setiingsIntent);
+					openSettings();
 
 				}else if(order == 3){
 					Intent Safewalk_Personnel = new Intent(SafeWalk.this,
@@ -83,7 +85,6 @@ public class SafeWalk extends Activity implements
 							Toast.LENGTH_SHORT).show();
 				}
 			}
-
 		});
 
 		final String title, drawerTitle;
@@ -151,6 +152,11 @@ public class SafeWalk extends Activity implements
 		}
 	}
 
+	private void openSettings() {
+		Intent setingsIntent = new Intent(SafeWalk.this, SettingsActivity.class);
+		SafeWalk.this.startActivity(setingsIntent);
+	}
+	
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -189,9 +195,12 @@ public class SafeWalk extends Activity implements
 		// Sync the toggle state after onRestoreInstanceState has occurred.
 		mDrawerToggle.syncState();
 	}
-
+	
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
+		menu.findItem(R.id.action_display_blue).setChecked(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("show_blue_lights", false));
+		menu.findItem(R.id.action_display_vols).setChecked(PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("show_volunteers", false));
+		
 		// If the nav drawer is open, hide action items related to the content
 		// view
 		boolean drawerOpen = drawerLayout.isDrawerOpen(drawerList);
@@ -199,6 +208,13 @@ public class SafeWalk extends Activity implements
 		return super.onPrepareOptionsMenu(menu);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.map_menu, menu);
+	    return true;
+	}
+	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
@@ -212,6 +228,26 @@ public class SafeWalk extends Activity implements
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
+		
+		SharedPreferences myPreference= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		SharedPreferences.Editor editor = myPreference.edit();
+		switch (item.getItemId()) {
+        case R.id.action_display_blue:
+        	item.setChecked(!item.isChecked());
+    		editor.putBoolean("show_blue_lights", item.isChecked());
+    		editor.apply();
+            return true;
+        case R.id.action_display_vols:
+        	item.setChecked(!item.isChecked());
+    		editor.putBoolean("show_volunteers", item.isChecked());
+    		editor.apply();
+            return true;
+        case R.id.action_settings:
+        	openSettings();
+            return true;
+		}
+		
+		
 		// Handle your other action bar items...
 		return super.onOptionsItemSelected(item);
 	}

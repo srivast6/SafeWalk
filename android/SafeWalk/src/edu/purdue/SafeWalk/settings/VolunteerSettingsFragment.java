@@ -2,7 +2,7 @@ package edu.purdue.SafeWalk.settings;
 
 import java.util.Calendar;
 
-import android.app.Fragment;
+import edu.purdue.SafeWalk.R;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -10,99 +10,40 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import edu.purdue.SafeWalk.R;
 
-public class SettingsFragment extends PreferenceFragment {
-	Calendar lastVolModeClick;
-	int numVolModeClicks = 0;
-	static final int neededVolModeClicks = 7;
-
+public class VolunteerSettingsFragment extends PreferenceFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setupSimplePreferencesScreen();
-		
-		PreferenceScreen ps = getPreferenceScreen();
-		PreferenceCategory pc = (PreferenceCategory) ps.getPreference(ps
-				.getPreferenceCount() - 2);
-		pc.getPreference(0).setOnPreferenceClickListener(
-				new OnPreferenceClickListener() {
-					public boolean onPreferenceClick(Preference preference) {
-						if (PreferenceManager.getDefaultSharedPreferences(
-								getActivity()).getBoolean("volunteer_mode",
-								false)) {
-							Calendar now = Calendar.getInstance();
-							if (lastVolModeClick == null) {
-								Log.d("Volunteer Mode", "First Tap");
-								numVolModeClicks++;
-								lastVolModeClick = now;
-								return false;
-							}
-
-							long timeElapsed = now.getTime().getTime()
-									- lastVolModeClick.getTime().getTime();
-							Log.d("Volunteer Mode", "Time Elapsed = "
-									+ timeElapsed);
-							if (timeElapsed < 700) {
-								numVolModeClicks++;
-								Log.d("Volunteer Mode", "Tap #"
-										+ numVolModeClicks);
-								if (numVolModeClicks == neededVolModeClicks) {
-									enableVolunteerMode();
-									numVolModeClicks = 0;
-								}
-							} else {
-								numVolModeClicks = 0;
-							}
-							lastVolModeClick = now;
-						}
-						return false;
-
-					}
-				});
-		
-		Preference pref = ps.getPreference(ps.getPreferenceCount() - 1);
-		pref.setOnPreferenceClickListener(
-				new OnPreferenceClickListener() {
-					public boolean onPreferenceClick(Preference preference) {
-						if (PreferenceManager.getDefaultSharedPreferences(
-								getActivity()).getBoolean("volunteer_mode",
-								false)) {
-							((SettingsActivity) getActivity())
-									.swapFragments(new VolunteerSettingsFragment());
-							return true;
-						}
-						return false;
-					}
-				});
 	}
 
-	
-	
-	public void enableVolunteerMode() {
+	public void disableVolunteerMode() {
 		Log.d("Volunteer Mode", "Volunteer mode enabled!!!");
 		Toast.makeText(getActivity().getApplicationContext(),
-				"Volunteer Mode Enabled!", Toast.LENGTH_LONG).show();
+				"Volunteer Mode Disabled", Toast.LENGTH_LONG).show();
 
 		SharedPreferences myPreference = PreferenceManager
 				.getDefaultSharedPreferences(getActivity());
 		SharedPreferences.Editor editor = myPreference.edit();
-		editor.putBoolean("volunteer_mode", true);
+		editor.putBoolean("volunteer_mode", false);
 		editor.apply();
 
 		PreferenceScreen ps = getPreferenceScreen();
 		Preference pref = ps.getPreference(ps.getPreferenceCount() - 1);
-		pref.setEnabled(true);
+		pref.setEnabled(false);
 	}
 
+	
+	
 	/**
 	 * Shows the simplified settings UI if the device configuration if the
 	 * device configuration dictates that a simplified, single-pane UI should be
@@ -110,9 +51,9 @@ public class SettingsFragment extends PreferenceFragment {
 	 */
 	private void setupSimplePreferencesScreen() {
 
-		addPreferencesFromResource(R.xml.preferences);
+		addPreferencesFromResource(R.xml.volunteer_preferences);
 
-		bindPreferenceSummaryToValue(findPreference("pref_loc_update_frequency"));
+		bindPreferenceSummaryToValue(findPreference("pref_volunteer_id"));
 	}
 
 	/**
