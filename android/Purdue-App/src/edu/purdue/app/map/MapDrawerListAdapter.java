@@ -42,11 +42,9 @@ public class MapDrawerListAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View row = inflater.inflate(R.layout.map_drawer_item, parent, false);
-		ImageView image = (ImageView) row.findViewById(R.id.map_drawer_item_imageview);
 		TextView tv = (TextView) row.findViewById(R.id.map_drawer_item_textview);
 		
 		tv.setText(list.get(position));
-		image.setImageResource(res.getIdentifier("edu.purdue.app:drawable/ic_building", null, null));
 		
 		return row;
 	}

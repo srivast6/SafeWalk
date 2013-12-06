@@ -18,18 +18,20 @@ import edu.purdue.app.map.MapActivity.DrawerState;
 
 public class MapData {
 
-	JSONObject json = null;
 	List<String> categoryList;
 	List<Location> academicBuildings, adminBuildings, resHalls, diningCourts, miscBuildings;
 	Map<MapActivity.DrawerState, List<Location>> stateListMap = new HashMap<DrawerState, List<Location>>();
 	
+	/** A location which includes a full and short name and a lat/long pair */
 	class Location {
 		String full_name, short_name;
 		double lat, lng;
 	}
 	
+	/** Constructor which parses the included json files into Location array lists */
 	public MapData(Resources r) {
 		// Open JSON file for map data
+		JSONObject json = null;
 		InputStream jsonFile = r.openRawResource(R.raw.buildings);
 		BufferedReader bfr = new BufferedReader(new InputStreamReader(jsonFile));
 		
@@ -47,13 +49,14 @@ public class MapData {
 			e.printStackTrace();
 		}
 		
-		// Create the list of academic locations
+		// Create a list for each type of location
 		academicBuildings = new ArrayList<Location>();
 		adminBuildings = new ArrayList<Location>();
 		resHalls = new ArrayList<Location>();
 		diningCourts = new ArrayList<Location>();
 		miscBuildings = new ArrayList<Location>();
 		
+		// Parse the JSON files and populate each list
 		try {
 			JSONArray ja = json.getJSONArray("academic_buildings");
 			for (int i = 0; i < ja.length(); i++) {
@@ -109,7 +112,7 @@ public class MapData {
 			e.printStackTrace();
 		}
 		
-		// Prepare the category list
+		// categoryList stores all off the top-tier category strings for the side drawer
 		categoryList = new ArrayList<String>();
 		categoryList.add("Academic Buildings");
 		categoryList.add("Administrative Buildings");
@@ -117,6 +120,7 @@ public class MapData {
 		categoryList.add("Dining Courts");
 		categoryList.add("Misc. Buildings");
 		
+		// stateListMap is a Map which ties a DrawerState to an aforementioned Location list
 		stateListMap.put(MapActivity.DrawerState.ACAD_BUILDINGS, academicBuildings);
 		stateListMap.put(MapActivity.DrawerState.ADMIN_BUILDINGS, adminBuildings);
 		stateListMap.put(MapActivity.DrawerState.RES_HALLS, resHalls);
@@ -129,9 +133,25 @@ public class MapData {
 	 *  Very poorly implemented right now, will be improved later. */
 	public Location search(String s) {
 		s = s.toLowerCase();
+		Location result;
 		
+		if ((result = searchExactMatch(s)) != null) {
+			return result;
+		}
+		if ((result = searchPartialMatch(s)) != null) {
+			return result;
+		}
+		
+		return null;
+	}
+	
+	/** Finds exact string matches (not including case) across all the buildings */
+	private Location searchExactMatch(String s) {
 		for (Location b : academicBuildings) {
 			if (b.short_name.toLowerCase().equals(s)) {
+				return b;
+			}
+			if (b.full_name.toLowerCase().equals(s)) {
 				return b;
 			}
 		}
@@ -139,9 +159,15 @@ public class MapData {
 			if (b.short_name.toLowerCase().equals(s)) {
 				return b;
 			}
+			if (b.full_name.toLowerCase().equals(s)) {
+				return b;
+			}
 		}
 		for (Location b : resHalls) {
 			if (b.short_name.toLowerCase().equals(s)) {
+				return b;
+			}
+			if (b.full_name.toLowerCase().equals(s)) {
 				return b;
 			}
 		}
@@ -149,16 +175,49 @@ public class MapData {
 			if (b.short_name.toLowerCase().equals(s)) {
 				return b;
 			}
+			if (b.full_name.toLowerCase().equals(s)) {
+				return b;
+			}
 		}
 		for (Location b : miscBuildings) {
 			if (b.short_name.toLowerCase().equals(s)) {
 				return b;
 			}
+			if (b.full_name.toLowerCase().equals(s)) {
+				return b;
+			}
 		}
-		
 		return null;
 	}
 	
-	
+	/** Finds partial string matches across all the buildings */
+	private Location searchPartialMatch(String s) {
+		for (Location b : academicBuildings) {
+			if (b.full_name.toLowerCase().contains(s)) {
+				return b;
+			}
+		}
+		for (Location b : adminBuildings) {
+			if (b.full_name.toLowerCase().contains(s)) {
+				return b;
+			}
+		}
+		for (Location b : resHalls) {
+			if (b.full_name.toLowerCase().contains(s)) {
+				return b;
+			}
+		}
+		for (Location b : diningCourts) {
+			if (b.full_name.toLowerCase().contains(s)) {
+				return b;
+			}
+		}
+		for (Location b : miscBuildings) {
+			if (b.full_name.toLowerCase().contains(s)) {
+				return b;
+			}
+		}
+		return null;
+	}
 	
 }
