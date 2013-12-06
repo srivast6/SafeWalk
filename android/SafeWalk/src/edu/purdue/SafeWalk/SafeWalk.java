@@ -78,8 +78,7 @@ public class SafeWalk extends Activity implements
 					Intent Safewalk_Personnel = new Intent(SafeWalk.this,
 							AboutActivity.class);
 					SafeWalk.this.startActivity(Safewalk_Personnel);
-				}
-				else {
+				} else {
 					Toast.makeText(SafeWalk.this,
 							"This feature is under construction",
 							Toast.LENGTH_SHORT).show();
