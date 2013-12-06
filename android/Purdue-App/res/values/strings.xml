@@ -39,5 +39,6 @@
     <string name="foodrating">Food Rating</string>
     <string name="menus">Menus</string>
     <string name="submit">Submit</string>
+    <string name="main_menu">Main Menu</string>
 
 </resources>

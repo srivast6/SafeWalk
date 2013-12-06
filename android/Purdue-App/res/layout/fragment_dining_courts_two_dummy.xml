@@ -12,10 +12,22 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
         android:text="@string/linetime"
+        android:textColor="@color/purduegold"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ratingBar2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:text="@string/foodrating"
+        android:textColor="@color/purduegold"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <RatingBar
@@ -29,9 +41,11 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/ratingBar1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
         android:text="@string/seating"
+        android:textColor="@color/purduegold"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <RatingBar
@@ -40,15 +54,6 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/ratingBar1"
         android:layout_below="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/ratingBar2"
-        android:text="@string/foodrating"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <RatingBar
         android:id="@+id/ratingBar3"
@@ -61,9 +66,9 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ratingBar3"
-        android:layout_below="@+id/ratingBar3"
-        android:layout_marginLeft="52dp"
+        android:layout_alignBaseline="@+id/button2"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_toLeftOf="@+id/textView1"
         android:text="@string/menus" />
 
     <Button
@@ -71,8 +76,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ratingBar3"
-        android:layout_marginLeft="23dp"
-        android:layout_toRightOf="@+id/button1"
+        android:layout_marginTop="25dp"
+        android:layout_toRightOf="@+id/textView1"
         android:text="@string/submit" />
 
 </RelativeLayout>
