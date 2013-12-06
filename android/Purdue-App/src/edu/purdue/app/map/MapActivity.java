@@ -107,8 +107,13 @@ public class MapActivity extends Activity implements OnItemClickListener  {
 				openDrawer();
 			}
 			break;
+		case R.id.map_actionbar_layers:
+			MapLayersDialog dialog = new MapLayersDialog();
+			dialog.show(getFragmentManager(), "layers");
+			break;
 		case R.id.map_actionbar_searchbuildings:
 			closeDrawer();
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}

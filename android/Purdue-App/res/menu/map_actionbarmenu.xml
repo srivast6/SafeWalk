@@ -10,6 +10,12 @@
         android:actionViewClass="android.widget.SearchView" />
     
     <item
+        android:id="@+id/map_actionbar_layers"
+        android:icon="@drawable/ic_action_layers"
+        android:title="Layers"
+        android:showAsAction="always" />
+    
+    <item
         android:id="@+id/map_actionbar_listbuildings"
         android:icon="@drawable/ic_action_listbuildings"
         android:title="Buildings List"
