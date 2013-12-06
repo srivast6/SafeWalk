@@ -25,31 +25,4 @@ public class DiningCourts extends Activity {
 	}
 	
 	//Intent intent;
-	
-	public void earhartInfo(View view){
-		Intent intent = new Intent(this, DiningInfo.class);
-		startActivity(intent);
-	}
-	
-	public void fordInfo(View view){
-		Intent intent = new Intent(this, DiningInfo.class);
-		startActivity(intent);
-		
-	}
-	
-	public void hillenbrandInfo(View view){
-		Intent intent = new Intent(getApplicationContext(), DiningInfo.class);
-		startActivity(intent);
-	}
-	
-	public void windsorInfo(View view){
-		Intent intent = new Intent(this, DiningInfo.class);
-		startActivity(intent);
-	}
-	
-	public void wileyInfo(View view){
-		Intent intent = new Intent(this, DiningInfo.class);
-		startActivity(intent);
-	}
-	
 }
