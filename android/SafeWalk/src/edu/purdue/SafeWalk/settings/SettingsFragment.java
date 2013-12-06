@@ -29,14 +29,14 @@ public class SettingsFragment extends PreferenceFragment {
 		super.onCreate(savedInstanceState);
 
 		setupSimplePreferencesScreen();
-		
+
 		PreferenceScreen ps = getPreferenceScreen();
 		PreferenceCategory pc = (PreferenceCategory) ps.getPreference(ps
 				.getPreferenceCount() - 2);
 		pc.getPreference(0).setOnPreferenceClickListener(
 				new OnPreferenceClickListener() {
 					public boolean onPreferenceClick(Preference preference) {
-						if (PreferenceManager.getDefaultSharedPreferences(
+						if (!PreferenceManager.getDefaultSharedPreferences(
 								getActivity()).getBoolean("volunteer_mode",
 								false)) {
 							Calendar now = Calendar.getInstance();
@@ -68,25 +68,41 @@ public class SettingsFragment extends PreferenceFragment {
 
 					}
 				});
-		
+
 		Preference pref = ps.getPreference(ps.getPreferenceCount() - 1);
-		pref.setOnPreferenceClickListener(
-				new OnPreferenceClickListener() {
-					public boolean onPreferenceClick(Preference preference) {
-						if (PreferenceManager.getDefaultSharedPreferences(
-								getActivity()).getBoolean("volunteer_mode",
-								false)) {
-							((SettingsActivity) getActivity())
-									.swapFragments(new VolunteerSettingsFragment());
-							return true;
-						}
-						return false;
-					}
-				});
+		pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+			public boolean onPreferenceClick(Preference preference) {
+				if (PreferenceManager
+						.getDefaultSharedPreferences(getActivity()).getBoolean(
+								"volunteer_mode", false)) {
+					((SettingsActivity) getActivity())
+							.swapFragments(new VolunteerSettingsFragment());
+					return true;
+				}
+				return false;
+			}
+		});
 	}
 
-	
-	
+	@Override
+	public void onResume() {
+		super.onResume();
+		Log.d("SettingsFragment", "onResume()");
+		PreferenceScreen ps = getPreferenceScreen();
+		Preference pref = ps.getPreference(ps.getPreferenceCount() - 1);
+		pref.setEnabled(PreferenceManager.getDefaultSharedPreferences(
+				getActivity()).getBoolean("volunteer_mode", false));
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View view = super.onCreateView(inflater, container, savedInstanceState);
+		view.setBackgroundColor(getResources().getColor(android.R.color.black));
+
+		return view;
+	}
+
 	public void enableVolunteerMode() {
 		Log.d("Volunteer Mode", "Volunteer mode enabled!!!");
 		Toast.makeText(getActivity().getApplicationContext(),

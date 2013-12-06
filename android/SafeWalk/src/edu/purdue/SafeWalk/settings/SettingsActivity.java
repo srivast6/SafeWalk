@@ -3,11 +3,17 @@ package edu.purdue.SafeWalk.settings;
 import edu.purdue.SafeWalk.R;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Switch;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -42,7 +48,9 @@ public class SettingsActivity extends PreferenceActivity {
 
 		getFragmentManager().beginTransaction()
 				.add(android.R.id.content, volunteerSettingsFragment)
+				.addToBackStack(null)
 				.commit();
+		invalidateOptionsMenu();
 	}
 	
 	@Override
@@ -51,13 +59,14 @@ public class SettingsActivity extends PreferenceActivity {
 
 	    currentFragment = fragment.getClass();
 	}
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
+	
+	@Override 
+	public void onBackPressed()
 	{
-		if(currentFragment.equals(VolunteerSettingsFragment.class))
-			getMenuInflater().inflate(R.menu.volunteer_mode_menu, menu);
+		FragmentManager fm = getFragmentManager();
+		if(fm.getBackStackEntryCount() > 1)
+			fm.popBackStackImmediate();
 		else
-			menu.clear();
-		return super.onCreateOptionsMenu(menu);
+			super.onBackPressed();
 	}
 }
