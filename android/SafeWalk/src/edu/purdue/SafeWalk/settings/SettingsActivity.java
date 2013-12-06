@@ -1,8 +1,13 @@
 package edu.purdue.SafeWalk.settings;
 
+import edu.purdue.SafeWalk.R;
 import android.app.ActionBar;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceFragment;
+import android.util.Log;
+import android.view.Menu;
 
 /**
  * A {@link PreferenceActivity} that presents a set of application settings. On
@@ -15,18 +20,44 @@ import android.preference.PreferenceActivity;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends PreferenceActivity
-{
-	@Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+public class SettingsActivity extends PreferenceActivity {
+	public static final String TAG = "SettingsActivity";
 
-        ActionBar actionBar = getActionBar();
+	private Class currentFragment; 
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-        
-        // Display the fragment as the main content.
-        getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new SettingsFragment())
-                .commit();
-    }
+
+		// Display the fragment as the main content.
+		getFragmentManager().beginTransaction()
+				.replace(android.R.id.content, new SettingsFragment()).commit();
+	}
+
+	public void swapFragments(
+			VolunteerSettingsFragment volunteerSettingsFragment) {
+
+		getFragmentManager().beginTransaction()
+				.add(android.R.id.content, volunteerSettingsFragment)
+				.commit();
+	}
+	
+	@Override
+	public void onAttachFragment(Fragment fragment) {
+	    super.onAttachFragment(fragment);
+
+	    currentFragment = fragment.getClass();
+	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		if(currentFragment.equals(VolunteerSettingsFragment.class))
+			getMenuInflater().inflate(R.menu.volunteer_mode_menu, menu);
+		else
+			menu.clear();
+		return super.onCreateOptionsMenu(menu);
+	}
 }

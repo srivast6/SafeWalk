@@ -38,6 +38,20 @@
             android:key="pref_loc_update_frequency"
             android:title="Update Interval" />
     </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pref_key_storage_settings"
+        android:title="Map Settings" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="show_blue_lights"
+            android:summary="Show blue lights on the map"
+            android:title="Blue lights" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="show_volunteers"
+            android:summary="Display volunteer locations on map"
+            android:title="Volunteers" />
+    </PreferenceCategory>
 
     <PreferenceScreen
         android:key="button_voicemail_category_key"
@@ -59,8 +73,16 @@
         android:key="pref_key_build_info"
         android:title="Build Information" >
         <Preference
-            android:summary="v0.0.1"
+            android:summary="v0.0.2"
             android:title="Version Number" />
     </PreferenceCategory>
+
+    <Preference
+        android:key="volunteer_mode"
+        android:persistent="true"
+        android:title="Volunteer Mode"
+        android:defaultValue="false"
+        android:enabled="false" >
+    </Preference>
 
 </PreferenceScreen>
