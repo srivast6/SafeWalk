@@ -3,6 +3,8 @@ package edu.purdue.SafeWalk.settings;
 import java.util.Calendar;
 
 import edu.purdue.SafeWalk.R;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -14,9 +16,15 @@ import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class VolunteerSettingsFragment extends PreferenceFragment {
 	@Override
@@ -24,25 +32,83 @@ public class VolunteerSettingsFragment extends PreferenceFragment {
 		super.onCreate(savedInstanceState);
 
 		setupSimplePreferencesScreen();
+		
+		setHasOptionsMenu(true);
+		
+		displayWarning();
+	}
+	
+	private void displayWarning() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Alert Dialog");
+        builder.setMessage("This screen should only be accessed by volunteers approved by the Purdue Police Department. Unauthorized access of this screen is not permitted.\nAre you a certified SafeWalk volunteer?");
+        builder.setPositiveButton("Yes", null);
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                setVolunteerMode(false);
+                getActivity().getFragmentManager().popBackStackImmediate();
+                arg0.cancel();
+            }
+        });
+        builder.show(); //To show the AlertDialog
 	}
 
-	public void disableVolunteerMode() {
-		Log.d("Volunteer Mode", "Volunteer mode enabled!!!");
-		Toast.makeText(getActivity().getApplicationContext(),
-				"Volunteer Mode Disabled", Toast.LENGTH_LONG).show();
+	@Override
+	public void onCreateOptionsMenu(
+			      Menu menu, MenuInflater inflater)
+	{
+		inflater.inflate(R.menu.volunteer_mode_menu, menu);
+		
+		MenuItem item = menu.getItem(0);
+		Switch _switch = (Switch) item.getActionView().findViewById(R.id.switchForActionBar);
+		_switch.setChecked(PreferenceManager.getDefaultSharedPreferences(getActivity()).getBoolean("volunteer_mode", false));
+		_switch.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(isChecked)
+				{
+					PreferenceScreen ps = getPreferenceScreen();
+					for(int i = 0; i < ps.getPreferenceCount(); i++)
+					{
+						ps.getPreference(i).setEnabled(false);
+					}
+					setVolunteerMode(false);
+					displayWarning();
+				}
+				else
+				{
+					PreferenceScreen ps = getPreferenceScreen();
+					for(int i = 0; i < ps.getPreferenceCount(); i++)
+					{
+						ps.getPreference(i).setEnabled(true);
+					}
+					setVolunteerMode(true);
+					
+				}
+			}
+		});
+	}
+	
+	public void setVolunteerMode(boolean bool) {
+		Log.d("Volunteer Mode", "Volunteer mode (" + bool + ")!!!");
 
 		SharedPreferences myPreference = PreferenceManager
 				.getDefaultSharedPreferences(getActivity());
 		SharedPreferences.Editor editor = myPreference.edit();
-		editor.putBoolean("volunteer_mode", false);
+		editor.putBoolean("volunteer_mode", bool);
 		editor.apply();
-
-		PreferenceScreen ps = getPreferenceScreen();
-		Preference pref = ps.getPreference(ps.getPreferenceCount() - 1);
-		pref.setEnabled(false);
 	}
 
-	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	    View view = super.onCreateView(inflater, container, savedInstanceState);
+	    view.setBackgroundColor(getResources().getColor(android.R.color.black));
+
+	    return view;
+	}
 	
 	/**
 	 * Shows the simplified settings UI if the device configuration if the

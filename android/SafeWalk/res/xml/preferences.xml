@@ -79,7 +79,6 @@
 
     <Preference
         android:key="volunteer_mode"
-        android:persistent="true"
         android:title="Volunteer Mode"
         android:defaultValue="false"
         android:enabled="false" >
