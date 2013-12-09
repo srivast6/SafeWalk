@@ -15,19 +15,17 @@ public class MapLayersDialog extends DialogFragment {
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		builder.setTitle("Layers");
 		builder.setMultiChoiceItems(layersList, null, new DialogInterface.OnMultiChoiceClickListener() {
-			
 			@Override
 			public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-				// TODO Auto-generated method stub
-				
+				if (isChecked) {
+					
+				}
 			}
 		});
 		
 		builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
