@@ -18,9 +18,9 @@ import edu.purdue.app.map.MapActivity.DrawerState;
 
 public class MapData {
 
-	List<String> categoryList;
-	List<Location> academicBuildings, adminBuildings, resHalls, diningCourts, miscBuildings;
-	Map<MapActivity.DrawerState, List<Location>> stateListMap = new HashMap<DrawerState, List<Location>>();
+	public List<String> categoryList;
+	public List<Location> academicBuildings, adminBuildings, resHalls, diningCourts, miscBuildings, bikeRacks;
+	public Map<MapActivity.DrawerState, List<Location>> stateListMap = new HashMap<DrawerState, List<Location>>();
 	
 	/** A location which includes a full and short name and a lat/long pair */
 	class Location {
@@ -30,84 +30,51 @@ public class MapData {
 	
 	/** Constructor which parses the included json files into Location array lists */
 	public MapData(Resources r) {
-		// Open JSON file for map data
-		JSONObject json = null;
-		InputStream jsonFile = r.openRawResource(R.raw.buildings);
-		BufferedReader bfr = new BufferedReader(new InputStreamReader(jsonFile));
+		// Create buffered readers for each JSON file
+		BufferedReader buildingsBFR = new BufferedReader(new InputStreamReader(r.openRawResource(R.raw.buildings)));
+		BufferedReader bikeracksBFR = new BufferedReader(new InputStreamReader(r.openRawResource(R.raw.bikeracks)));
 		
-		// Read in the map data and create the JSON object
+		// Create the JSON objects for each file
+		JSONObject buildingsJSON = null;
+		JSONObject bikeracksJSON = null;
+		
+		// Read in the data from each file and store it in the JSON object
 		String line = null;
 		StringBuilder sb = new StringBuilder();
 		try {
-			while ((line = bfr.readLine()) != null) {
+			
+			// Read in building data
+			while ((line = buildingsBFR.readLine()) != null) {
 				sb.append(line);
 			}
-			json = new JSONObject(sb.toString());
+			buildingsJSON = new JSONObject(sb.toString());
+			sb = new StringBuilder();
+			
+			// Read in bike rack data
+			while ((line = bikeracksBFR.readLine()) != null) {
+				sb.append(line);
+			}
+			bikeracksJSON = new JSONObject(sb.toString());
+			sb = new StringBuilder();
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		// Create a list for each type of location
+		// Create the list structures for each type of data
 		academicBuildings = new ArrayList<Location>();
 		adminBuildings = new ArrayList<Location>();
 		resHalls = new ArrayList<Location>();
 		diningCourts = new ArrayList<Location>();
 		miscBuildings = new ArrayList<Location>();
+		bikeRacks = new ArrayList<Location>();
 		
-		// Parse the JSON files and populate each list
+		// Parse the JSON objects and populate each list
 		try {
-			JSONArray ja = json.getJSONArray("academic_buildings");
-			for (int i = 0; i < ja.length(); i++) {
-				JSONObject j = ja.getJSONObject(i);
-				Location b = new Location();
-				b.full_name = j.getString("full_nm");
-				b.short_name = j.getString("short_nm");
-				b.lat = j.getDouble("lat");
-				b.lng = j.getDouble("lng");
-				academicBuildings.add(b);
-			}
-			ja = json.getJSONArray("admin_buildings");
-			for (int i = 0; i < ja.length(); i++) {
-				JSONObject j = ja.getJSONObject(i);
-				Location b = new Location();
-				b.full_name = j.getString("full_nm");
-				b.short_name = j.getString("short_nm");
-				b.lat = j.getDouble("lat");
-				b.lng = j.getDouble("lng");
-				adminBuildings.add(b);
-			}
-			ja = json.getJSONArray("res_halls");
-			for (int i = 0; i < ja.length(); i++) {
-				JSONObject j = ja.getJSONObject(i);
-				Location b = new Location();
-				b.full_name = j.getString("full_nm");
-				b.short_name = j.getString("short_nm");
-				b.lat = j.getDouble("lat");
-				b.lng = j.getDouble("lng");
-				resHalls.add(b);
-			}
-			ja = json.getJSONArray("dining_courts");
-			for (int i = 0; i < ja.length(); i++) {
-				JSONObject j = ja.getJSONObject(i);
-				Location b = new Location();
-				b.full_name = j.getString("full_nm");
-				b.short_name = j.getString("short_nm");
-				b.lat = j.getDouble("lat");
-				b.lng = j.getDouble("lng");
-				diningCourts.add(b);
-			}
-			ja = json.getJSONArray("misc");
-			for (int i = 0; i < ja.length(); i++) {
-				JSONObject j = ja.getJSONObject(i);
-				Location b = new Location();
-				b.full_name = j.getString("full_nm");
-				b.short_name = j.getString("short_nm");
-				b.lat = j.getDouble("lat");
-				b.lng = j.getDouble("lng");
-				miscBuildings.add(b);
-			}
+			parseBuildingJSON(buildingsJSON);
+			parseBikeracksJSON(bikeracksJSON);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -120,13 +87,81 @@ public class MapData {
 		categoryList.add("Dining Courts");
 		categoryList.add("Misc. Buildings");
 		
-		// stateListMap is a Map which ties a DrawerState to an aforementioned Location list
+		// stateListMap is a Map which ties a MapActivity.DrawerState to an aforementioned Location list
 		stateListMap.put(MapActivity.DrawerState.ACAD_BUILDINGS, academicBuildings);
 		stateListMap.put(MapActivity.DrawerState.ADMIN_BUILDINGS, adminBuildings);
 		stateListMap.put(MapActivity.DrawerState.RES_HALLS, resHalls);
 		stateListMap.put(MapActivity.DrawerState.DINING_COURTS, diningCourts);
 		stateListMap.put(MapActivity.DrawerState.MISC_BUILDINGS, miscBuildings);
 		
+	}
+	
+	/** Parses building data from a json object */
+	private void parseBuildingJSON(JSONObject json) throws JSONException {
+		JSONArray ja = json.getJSONArray("academic_buildings");
+		for (int i = 0; i < ja.length(); i++) {
+			JSONObject j = ja.getJSONObject(i);
+			Location b = new Location();
+			b.full_name = j.getString("full_nm");
+			b.short_name = j.getString("short_nm");
+			b.lat = j.getDouble("lat");
+			b.lng = j.getDouble("lng");
+			academicBuildings.add(b);
+		}
+		ja = json.getJSONArray("admin_buildings");
+		for (int i = 0; i < ja.length(); i++) {
+			JSONObject j = ja.getJSONObject(i);
+			Location b = new Location();
+			b.full_name = j.getString("full_nm");
+			b.short_name = j.getString("short_nm");
+			b.lat = j.getDouble("lat");
+			b.lng = j.getDouble("lng");
+			adminBuildings.add(b);
+		}
+		ja = json.getJSONArray("res_halls");
+		for (int i = 0; i < ja.length(); i++) {
+			JSONObject j = ja.getJSONObject(i);
+			Location b = new Location();
+			b.full_name = j.getString("full_nm");
+			b.short_name = j.getString("short_nm");
+			b.lat = j.getDouble("lat");
+			b.lng = j.getDouble("lng");
+			resHalls.add(b);
+		}
+		ja = json.getJSONArray("dining_courts");
+		for (int i = 0; i < ja.length(); i++) {
+			JSONObject j = ja.getJSONObject(i);
+			Location b = new Location();
+			b.full_name = j.getString("full_nm");
+			b.short_name = j.getString("short_nm");
+			b.lat = j.getDouble("lat");
+			b.lng = j.getDouble("lng");
+			diningCourts.add(b);
+		}
+		ja = json.getJSONArray("misc");
+		for (int i = 0; i < ja.length(); i++) {
+			JSONObject j = ja.getJSONObject(i);
+			Location b = new Location();
+			b.full_name = j.getString("full_nm");
+			b.short_name = j.getString("short_nm");
+			b.lat = j.getDouble("lat");
+			b.lng = j.getDouble("lng");
+			miscBuildings.add(b);
+		}
+	}
+	
+	/** Parses bike rack data from a json object */
+	private void parseBikeracksJSON(JSONObject json) throws JSONException {
+		JSONArray ja = json.getJSONArray("bike_racks");
+		for (int i = 0; i < ja.length(); i++) {
+			JSONObject j = ja.getJSONObject(i);
+			Location rack = new Location();
+			rack.full_name = "?";
+			rack.short_name = "?";
+			rack.lat = j.getDouble("lat");
+			rack.lng = j.getDouble("long");
+			bikeRacks.add(rack);
+		}
 	}
 	
 	/** Searches for a building in the map data given a string 
