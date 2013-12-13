@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory
+        android:key="pref_key_storage_settings"
+        android:title="General" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="policeButtonSafety"
+            android:summary="Prevents accidental 911 calls"
+            android:title="Add a safety to the Call Police button" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="sample_2"
+            android:summary="Sample Description"
+            android:title="Sample Setting" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pref_key_storage_settings"
+        android:title="Location Settings" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="uses_gps"
+            android:summary="Allow the app to use the phone&apos;s GPS"
+            android:title="Enable GPS" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="auto_loc"
+            android:summary="Automatically update the location at an interval."
+            android:title="Automatic Location Updates" />
+
+        <ListPreference
+            android:defaultValue="@string/pref_loc_update_frequency_default"
+            android:dependency="auto_loc"
+            android:dialogTitle="Title"
+            android:entries="@array/pref_loc_update_frequency_titles"
+            android:entryValues="@array/pref_loc_update_frequency_values"
+            android:key="pref_loc_update_frequency"
+            android:title="Update Interval" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="pref_key_storage_settings"
+        android:title="Map Settings" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="show_blue_lights"
+            android:summary="Show blue lights on the map"
+            android:title="Blue lights" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="show_volunteers"
+            android:summary="Display volunteer locations on map"
+            android:title="Volunteers" />
+    </PreferenceCategory>
+
+    <PreferenceScreen
+        android:key="button_voicemail_category_key"
+        android:persistent="false"
+        android:title="More settings..." >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="sample_3"
+            android:summary="Description"
+            android:title="Sample" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="sample_4"
+            android:summary="Description"
+            android:title="Sample" />
+    </PreferenceScreen>
+
+    <PreferenceCategory
+        android:key="pref_key_build_info"
+        android:title="Build Information" >
+        <Preference
+            android:summary="v0.0.2"
+            android:title="Version Number" />
+    </PreferenceCategory>
+
+    <Preference
+        android:key="volunteer_mode"
+        android:title="Volunteer Mode"
+        android:defaultValue="false"
+        android:enabled="false" >
+    </Preference>
+
+</PreferenceScreen>
