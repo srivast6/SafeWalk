@@ -11,10 +11,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -31,11 +34,13 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
+import edu.purdue.SafeWalk.TouchableWrapper.UpdateMapAfterUserInterection;
 import edu.purdue.SafeWalk.settings.SettingsActivity;
 
 public class SafeWalk extends Activity implements
 		GooglePlayServicesClient.ConnectionCallbacks,
-		GooglePlayServicesClient.OnConnectionFailedListener {
+		GooglePlayServicesClient.OnConnectionFailedListener,
+		UpdateMapAfterUserInterection{
 	private GoogleMap mMap;
 	private LocationClient mLocationClient;
 	ListView drawerList;
@@ -149,6 +154,21 @@ public class SafeWalk extends Activity implements
 					});
 			alertBuilder.show();
 		}
+		
+		
+		View v = findViewById(R.id.mapFrame);
+		v.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View view, MotionEvent event) {
+				// TODO Auto-generated method stub
+				if(event.getAction() == MotionEvent.ACTION_MOVE){
+					Log.d("Awesome", "it works");
+				}
+				return false;
+			}
+			
+		});
 	}
 
 	private void openSettings() {
@@ -266,5 +286,27 @@ public class SafeWalk extends Activity implements
 	@Override
 	public void onDisconnected() {
 		mLocationClient.connect();
+	}
+
+
+
+	@Override
+	public void onMapDrag() {
+		// TODO Auto-generated method stub
+		View mapPopUpLinLayout = findViewById(R.id.mapPopUpLinLayout);
+		View mapPopUpView = findViewById(R.id.mapPopUpView1);
+		mapPopUpLinLayout.setVisibility(View.INVISIBLE);
+		mapPopUpView.setVisibility(View.INVISIBLE);
+		
+	}
+
+	@Override
+	public void onMapLift() {
+		View mapPopUpLinLayout = findViewById(R.id.mapPopUpLinLayout);
+		View mapPopUpView = findViewById(R.id.mapPopUpView1);
+		mapPopUpLinLayout.setVisibility(View.VISIBLE);
+		mapPopUpView.setVisibility(View.VISIBLE);
+		// TODO Auto-generated method stub
+		
 	}
 }
