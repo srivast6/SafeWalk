@@ -2,4 +2,10 @@
 <component jdk="Android API 19 Platform" jdk_type="Android SDK">
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="android-async-http-1.4.4.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/android/SafeWalk/libs/android-async-http-1.4.4.jar!/"/>
+	</lib>
+	<lib name="android-support-v4.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/android/SafeWalk/libs/android-support-v4.jar!/"/>
+	</lib>
 </component>

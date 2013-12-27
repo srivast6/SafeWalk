@@ -2,4 +2,7 @@
 <component jdk="Android 2.2 Platform" jdk_type="Android SDK">
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="google-play-services.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/libraries/google-play-services_lib/libs/google-play-services.jar!/"/>
+	</lib>
 </component>
