@@ -273,7 +273,16 @@ public class SafeWalk extends Activity implements
 
 	@Override
 	public void onConnected(Bundle bun) {
+        if(mLocationClient == null || mMap == null) {
+            Log.e("LocationClient", (mLocationClient == null ? "mLocationClient" : "mMap") + " is null!");
+            return;
+        }
 		CameraPosition.Builder cameraPositionBuilder = new CameraPosition.Builder();
+        if(mLocationClient.getLastLocation() == null) {
+            Log.e("LocationClient", "Last location is null!");
+            mLocationClient.disconnect();
+            return;
+        }
 		cameraPositionBuilder.target(new LatLng(mLocationClient
 				.getLastLocation().getLatitude(), mLocationClient
 				.getLastLocation().getLongitude()));
