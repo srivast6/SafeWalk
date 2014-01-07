@@ -8,6 +8,19 @@ This document describes important aspects of the implementation of the Purdue Sa
 Summary of Functional Requirements
 ----------------------------------
 
+* Must be able to show the (relative) location of volunteers at all times
+ * Must do so while maintaining battery life. (Suggestion, use cell tower location until match is made, handled by Google Location APIs)
+
+* Must be able to send the profile of a volunteer to the requester. (Image, name, ETA)
+
+* Must be able to authenticate volunteers with the police department (Use Purdue Career Account?)
+
+* Must Log all information to the police. Of this information, requests and arrivals should be notified (at least)
+
+* Police must be able to access all locations of volunteers and of requesters on walks
+
+* FUTURE: Use lightmap database and camera database to propose a route for the walk to follow. 
+
 General Requirements
 --------------------
 
@@ -30,3 +43,5 @@ SafeWalk Server API
 
 Mobile Client User Interface
 ----------------------------
+
+
