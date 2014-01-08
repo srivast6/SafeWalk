@@ -5,6 +5,11 @@ import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.widget.FrameLayout;
 
+/*
+ * This class is needed to make the popupBubble on the map disappear when a user drags and reappear when a user lets go.
+ * 
+ */
+
 public  class TouchableWrapper extends FrameLayout {
 
 	private long lastTouched = 0;
@@ -25,18 +30,10 @@ public  class TouchableWrapper extends FrameLayout {
 	public boolean dispatchTouchEvent(MotionEvent ev) {
 		switch (ev.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			//lastTouched = SystemClock.uptimeMillis();
 			updateMapAfterUserInterection.onMapDrag();
 			break;
 		case MotionEvent.ACTION_UP:
-			final long now = SystemClock.uptimeMillis();
 			updateMapAfterUserInterection.onMapLift();
-			/*
-			if (now - lastTouched > SCROLL_TIME) {
-				// Update the map
-				updateMapAfterUserInterection.onUpdateMapAfterUserInterection();
-			}
-			*/
 			break;
 		}
 		return super.dispatchTouchEvent(ev);
@@ -46,6 +43,6 @@ public  class TouchableWrapper extends FrameLayout {
     public interface UpdateMapAfterUserInterection {
     	public void onMapDrag();
     	public void onMapLift();
-       // public void onUpdateMapAfterUserInterection();
+    
     }
 }
