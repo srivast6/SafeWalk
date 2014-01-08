@@ -13,6 +13,7 @@ public class customHTTPHandler extends AsyncHttpResponseHandler {
 	private String httpResponse = null;
 	char[] response;
 	static boolean receivedResponse = false;
+	static boolean hasFailed = false;
 
     @Override
     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -26,7 +27,7 @@ public class customHTTPHandler extends AsyncHttpResponseHandler {
 	
     @Override
      public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
- {
+ {			hasFailed = true;
           Log.d("failure", Integer.toString(statusCode));
      }
     

@@ -1,10 +1,13 @@
 import time
 import BaseHTTPServer
 import json
+from Requester import Requester
 
 
 HOST_NAME = '192.168.1.68' # !!!REMEMBER TO CHANGE THIS!!!
 PORT_NUMBER = 8080 # Maybe set this to 9000.
+
+openRequests = []
 
 #need to add a setting temp for right now in app for ip of server. Right now it is hard coded
 
@@ -20,12 +23,13 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     def do_GET(s):
         """Respond to a GET request."""
         s.send_response(200)
-        s.send_header("Content-type", "text/html")
+        s.send_header("Content-type", "application/json")
         s.end_headers()
-        s.wfile.write("<html><head><title>Title goes here.</title></head>")
-        s.wfile.write("<body><p>This is a test.</p>")
-        s.wfile.write("<p>You accessed path: %s</p>" % s.path)
-        s.wfile.write("</body></html>")
+        requests = []
+        for req in openRequests:
+            requests.append(req.toJSON())
+        s.wfile.write(json.dumps(requests))
+        
 
     #respond to POST Request, which will come from Safewalk App
     def do_POST(self):
@@ -34,10 +38,11 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         post_body = self.rfile.read(content_len)
         #postBody is a dictionary with key-value pairs of json values
         marked = json.loads(post_body)
-        for item in marked.values():
-            print(item)
-            print("\n")
-        #for right now, I just print the values
+        r = Requester(marked)
+        openRequests.append(r)
+        self.send_response(200)
+
+
 
 
 

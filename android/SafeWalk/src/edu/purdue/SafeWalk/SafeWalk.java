@@ -347,7 +347,8 @@ public class SafeWalk extends Activity implements
 			
 		    @Override
 		     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
-		 {
+		     {
+		    	  Toast.makeText(getApplicationContext(), "No connection to server", Toast.LENGTH_LONG).show();
 		          Log.d("failure", Integer.toString(statusCode));
 		     }
 			

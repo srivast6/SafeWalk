@@ -46,6 +46,7 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 	ArrayList<Requester> requests = new ArrayList<Requester>();
 	Requester arrayOfRequests[];
 	Requester r;
+	customHTTPHandler chandler;
 	
 	
 	
@@ -54,7 +55,7 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		client = new AsyncHttpClient();
+		chandler = new customHTTPHandler();
 		try {
 			getRequests();
 		} catch (JSONException e) {
@@ -62,7 +63,9 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 			e.printStackTrace();
 		}
 		
-		
+		if(chandler.hasFailed){
+			Toast.makeText(getApplicationContext(), "No connection to server", Toast.LENGTH_LONG).show();
+		}
 		
 		// Create ArrayList of names to be put into ListItems
 		ArrayList<String>stringList = new ArrayList<String>();
@@ -82,6 +85,7 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				/*
 				AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler(){
 					public void onSuccess(String suc){
 						Log.d("response", suc);
@@ -94,6 +98,7 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 				     }
 					
 				};
+				*/
 				
 		        dialog =  new PopupDialog();
 		        dialog.show(getFragmentManager(), "PopUpDialogFragment");
@@ -147,12 +152,14 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 	public void getRequests() throws JSONException{
 		AsyncHttpClient client = new AsyncHttpClient();
 		// using our own custom httpHandler to save the response
-		customHTTPHandler chandler = new customHTTPHandler();
+		//customHTTPHandler chandler = new customHTTPHandler();
 		//this will be on the main thread, kind of hacky
 		//TODO: add a progress bar for loading
 		chandler.setUseSynchronousMode(true);
 		client.get("http://192.168.1.68:8080",chandler); // remeber to change host and ip
 		while(!chandler.receivedResponse){
+			if(chandler.hasFailed)
+				return;
 
 		}
 		Log.d("response", httpResponse);
