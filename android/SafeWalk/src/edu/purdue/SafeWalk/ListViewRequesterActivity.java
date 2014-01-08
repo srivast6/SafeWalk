@@ -21,7 +21,11 @@ import android.widget.PopupWindow;
 import android.widget.Toast;
 import android.util.Log;
 import android.view.*;
+
 import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -32,11 +36,16 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class ListViewRequesterActivity extends ListActivity implements PopupDialog.NoticeDialogListener{
 	
-	static final String[] NAMES = {"Kyle", "John", "Luke", "Adam", "Sam", "Suzie", "Jessie", "James", "Meowth"};
+	//static final String[] NAMES = {"Kyle", "John", "Luke", "Adam", "Sam", "Suzie", "Jessie", "James", "Meowth"};
+	String[] NAMES;
 	public static boolean isPopupOpen = false;
 	PopupDialog dialog;
 	public static AsyncHttpClient client;
 	public static StringEntity se = null;
+	public static String httpResponse = null;
+	ArrayList<Requester> requests = new ArrayList<Requester>();
+	Requester arrayOfRequests[];
+	Requester r;
 	
 	
 	
@@ -46,14 +55,24 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		client = new AsyncHttpClient();
+		try {
+			getRequests();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		
 		// Create ArrayList of names to be put into ListItems
 		ArrayList<String>stringList = new ArrayList<String>();
-		for(int i=0; i<NAMES.length; i++)
-			stringList.add(NAMES[i]);
+		//Log.d("Size", ""+arrayOfRequests.length);
+		for(int i=0; i<requests.size(); i++){
+			stringList.add(requests.get(i).getName());
+		}
+
 		
-		RequesterListAdapter listAdapter = new RequesterListAdapter(this, stringList);
+		RequesterListAdapter listAdapter = new RequesterListAdapter(this, stringList, requests);
 		
 		this.setListAdapter(listAdapter);
 		ListView lv = this.getListView();
@@ -75,20 +94,8 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 				     }
 					
 				};
+				
 		        dialog =  new PopupDialog();
-		        String name = NAMES[position];
-		        // Date and phone number will have to be generated later
-		        Requester r = new Requester(name, "11:04", "219-------", "Not Urgent");
-		        Log.d("JSON", r.toJSON().toString());
-		        try {
-					se = new StringEntity(r.toJSON().toString());
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		        client.post(getBaseContext(), "http://192.168.1.68:8080", se, "application/json", handler);
-		        Log.d("debug", client.toString());
-		        
 		        dialog.show(getFragmentManager(), "PopUpDialogFragment");
 			}
 		});
@@ -136,6 +143,29 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		dialog.dismiss();
 		
 	}
+	
+	public void getRequests() throws JSONException{
+		AsyncHttpClient client = new AsyncHttpClient();
+		// using our own custom httpHandler to save the response
+		customHTTPHandler chandler = new customHTTPHandler();
+		//this will be on the main thread, kind of hacky
+		//TODO: add a progress bar for loading
+		chandler.setUseSynchronousMode(true);
+		client.get("http://192.168.1.68:8080",chandler); // remeber to change host and ip
+		while(!chandler.receivedResponse){
+
+		}
+		Log.d("response", httpResponse);
+		JSONArray jArray = new JSONArray(httpResponse);
+		for(int i=0; i<jArray.length(); i++){
+			JSONObject j = jArray.getJSONObject(i);
+			 r = new Requester(j.getString("name"), j.getString("requestTime"), j.getString("phoneNumber"), j.getString("urgency"), j.getDouble("lat"),j.getDouble("long"));
+			 requests.add(r);
+		}
+		
+		
+		
+	}
 
 
 
@@ -146,3 +176,8 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 	
 
 }
+
+
+
+
+
