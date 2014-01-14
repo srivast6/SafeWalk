@@ -4,7 +4,7 @@ import json
 from Requester import Requester
 
 
-HOST_NAME = '192.168.1.68' # !!!REMEMBER TO CHANGE THIS!!!
+HOST_NAME = '0.0.0.0' # !!!REMEMBER TO CHANGE THIS!!!
 PORT_NUMBER = 8080 # Maybe set this to 9000.
 
 openRequests = []
