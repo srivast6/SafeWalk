@@ -41,7 +41,7 @@ SafeWalk Server Objects
 --------------------
 ### Request 
 * ID
-* Requestor (points to "Person" object
+* Requestor (points to "Person" object)
 * Walker/Employee
 * Requested Time
 * Pickup Location
@@ -68,28 +68,39 @@ SafeWalk Server API
 
 ``This also registers the phone with a push notification service``
 
+#### GET
+##### Parameters
+* Auth Token
+* Get pending only (flag) 
+#### Returns
+* Array of all requests
 
-###/users/(id)
-####Post (for registering)
+### /request/{request-id}/accept
+#### POST
+* Auth ID
+* Location
+
+###/users/{id}
+#### POST (for registering)
 * Name
 * Phone Number
 * Purdue Authorization Token
 * Device ID
-####Get
+#### GET
 * Authorization token for all users or specified user in JSON
 
 
 ###/Walkers
-####Get
+#### GET
 * Array of location of walkers
 
-###/users/(id)/update-location
-####Post
+###/users/{id}/update-location
+#### POST
 * Authorization Token
 * Current location
 
-###/users/(id)/update
-####Post
+###/users/{id}/update
+#### POST
 * Updated person attributes
 
 
