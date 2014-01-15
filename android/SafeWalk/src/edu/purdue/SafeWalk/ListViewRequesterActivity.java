@@ -156,7 +156,7 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		//this will be on the main thread, kind of hacky
 		//TODO: add a progress bar for loading
 		chandler.setUseSynchronousMode(true);
-		client.get("http://192.168.1.68:8080",chandler); // remeber to change host and ip
+		client.get(SafeWalk.hostname+"/request",chandler); // remeber to change host and ip
 		while(!chandler.receivedResponse){
 			if(chandler.hasFailed)
 				return;

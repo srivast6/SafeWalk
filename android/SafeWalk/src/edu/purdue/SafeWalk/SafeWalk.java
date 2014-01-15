@@ -63,6 +63,7 @@ public class SafeWalk extends Activity implements
 	static double y;
 	int numRequests; 
 	static final String name = "John Doe";
+	static final String hostname = "http://optical-sight-386.appspot.com";
 
 	/** Called when the activity is first created. */
 	@Override
@@ -360,7 +361,7 @@ public class SafeWalk extends Activity implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        client.post(getBaseContext(), "http://192.168.1.68:8080", se, "application/json", handler);
+        client.post(getBaseContext(), hostname+"/request", se, "application/json", handler);
         Log.d("debug", client.toString());
         
 	}
