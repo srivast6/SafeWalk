@@ -49,6 +49,22 @@ SafeWalk Server API
 
 ``This also registers the phone with a push notification service``
 
+#### GET
+##### Parameters
+* Auth Token
+* Get pending requests (optional, requires police auth)
+* Get array of all request (Requires police auth)
+##### Returns
+* Array of requests (all or pending)
+
+### /request/{id}/accept
+#### POST
+##### Parameters
+* Auth Id
+* Current location
+
+
+
 
 Mobile Client User Interface
 ----------------------------
