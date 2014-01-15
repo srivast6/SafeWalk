@@ -1,4 +1,13 @@
 Safewalk Python Server
 ========
 
-To start server change ip and port number in serv.py, and (untill we change it)change the ip and port in safewalk as well.. 
+Runing Server in Dev Mode on Machine
+========
+ * dev_appserver.py --host=0.0.0.0  --port=80 ~/workspace/SafeWalk/server/
+ * If you use this, be sure to change the host string on the app. 
+ *
+
+Pushing to app engine
+===== 
+ * appcfg.py update ~/workspace/SafeWalk/server/
+ * This will push the server to host http://optical-sight-386.appspot.com/
