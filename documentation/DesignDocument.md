@@ -103,6 +103,7 @@ SafeWalk Server API
 #### POST
 * Updated person attributes
 
+![API Flow](https://raw.github.com/Purdue-ACM-SIGAPP/SafeWalk/master/documentation/images/api-requests.jpg)
 
 Mobile Client User Interface
 ----------------------------
