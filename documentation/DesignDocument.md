@@ -38,7 +38,16 @@ Design Outline
   * There will be two client applications developed for the SafeWalk system. One for Android devices and another for iPhones. Both clients will communicate with the server using the same API and protocols.
 
 SafeWalk Server API
--------------------
+--------------------
+### /request
+#### POST
+##### Parameters
+* Pickup Location
+* Requestor ID
+##### Returns
+* Request ID
+
+``This also registers the phone with a push notification service``
 
 
 Mobile Client User Interface
