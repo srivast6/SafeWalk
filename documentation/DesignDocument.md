@@ -37,6 +37,25 @@ Design Outline
 * Clients
   * There will be two client applications developed for the SafeWalk system. One for Android devices and another for iPhones. Both clients will communicate with the server using the same API and protocols.
 
+SafeWalk Server Objects
+--------------------
+### Request 
+* ID
+* Requestor (points to "Person" object
+* Walker/Employee
+* Requested Time
+* Pickup Location
+* Dropoff location
+* Device ID(s)
+
+### Person
+* Last Location
+* Name
+* Purdue Auth Token
+* Picture (URL to pic)
+* ID (hashmap)
+* Device IDs for push
+  
 SafeWalk Server API
 --------------------
 ### /request
