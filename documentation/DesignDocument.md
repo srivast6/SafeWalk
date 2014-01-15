@@ -68,21 +68,29 @@ SafeWalk Server API
 
 ``This also registers the phone with a push notification service``
 
-#### GET
-##### Parameters
-* Auth Token
-* Get pending requests (optional, requires police auth)
-* Get array of all request (Requires police auth)
-##### Returns
-* Array of requests (all or pending)
 
-### /request/{id}/accept
-#### POST
-##### Parameters
-* Auth Id
+###/users/(id)
+####Post (for registering)
+* Name
+* Phone Number
+* Purdue Authorization Token
+* Device ID
+####Get
+* Authorization token for all users or specified user in JSON
+
+
+###/Walkers
+####Get
+* Array of location of walkers
+
+###/users/(id)/update-location
+####Post
+* Authorization Token
 * Current location
 
-
+###/users/(id)/update
+####Post
+* Updated person attributes
 
 
 Mobile Client User Interface
