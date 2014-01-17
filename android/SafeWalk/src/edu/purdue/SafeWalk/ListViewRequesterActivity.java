@@ -43,7 +43,7 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 	public static AsyncHttpClient client;
 	public static StringEntity se = null;
 	public static String httpResponse = null;
-	ArrayList<Requester> requests = new ArrayList<Requester>();
+	static ArrayList<Requester> requests = new ArrayList<Requester>();
 	Requester arrayOfRequests[];
 	Requester r;
 	customHTTPHandler chandler;
@@ -85,22 +85,8 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				/*
-				AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler(){
-					public void onSuccess(String suc){
-						Log.d("response", suc);
-					}
-					
-				    @Override
-				     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
-				 {
-				          Log.d("failure", Integer.toString(statusCode));
-				     }
-					
-				};
-				*/
 				
-		        dialog =  new PopupDialog();
+		        dialog =  new PopupDialog(getApplicationContext(),position);
 		        dialog.show(getFragmentManager(), "PopUpDialogFragment");
 			}
 		});

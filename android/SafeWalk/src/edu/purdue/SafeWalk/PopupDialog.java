@@ -1,19 +1,31 @@
 package edu.purdue.SafeWalk;
 
+import org.apache.http.Header;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+
 public class PopupDialog extends DialogFragment {
-	
-	public PopupDialog(){
+	private Context context;
+	private int index;
+	public PopupDialog(Context context, int index){
 		super();
+		this.context = context;
+		this.index = index;
+		
 	}
 
 	
@@ -54,6 +66,23 @@ public class PopupDialog extends DialogFragment {
     	LayoutInflater inflater = this.getActivity().getLayoutInflater();
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AsyncHttpClient client = new AsyncHttpClient();
+		AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler(){
+			public void onSuccess(String suc){
+				Log.d("uuid response", suc);
+			}
+			
+		    @Override
+		     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
+		     {
+		    	  //Toast.makeText(getApplicationContext(), "No connection to server", Toast.LENGTH_LONG).show();
+		          Log.d("uuid failure", Integer.toString(statusCode));
+		     }
+			
+		};
+		String uuid = ListViewRequesterActivity.requests.get(index).getUUID();
+		Log.d("uuid", uuid);
+		client.get(context, SafeWalk.hostname+"/request"+"/"+uuid,handler);
         builder.setView(inflater.inflate(R.layout.pop_up, null));
         return builder.create();
     }
