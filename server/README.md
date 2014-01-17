@@ -10,5 +10,5 @@ Runing Server in Dev Mode on Machine
 Pushing to app engine
 ===== 
  * appcfg.py update ~/workspace/SafeWalk/server/
- * `If you use multi-factor authentication on Google, use the --oauth2 command line option with appcfg.py`
+   * If you use multi-factor authentication on Google, use the `--oauth2` command line option with appcfg.py
  * This will push the server to host http://optical-sight-386.appspot.com/
