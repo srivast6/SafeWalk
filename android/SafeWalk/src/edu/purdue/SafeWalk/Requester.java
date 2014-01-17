@@ -1,6 +1,7 @@
 package edu.purdue.SafeWalk;
 
 import org.json.*;
+import java.util.*;
 
 public class Requester {
 	private String name;
@@ -9,7 +10,7 @@ public class Requester {
 	private String urgency;
 	private double latitude;
 	private double longitude;
-	
+	private UUID idOne;
 	public Requester(String name, String time, String number, String urgency, Double lat, Double longitude){
 		this.setName(name);
 		this.setTimeOfRequest(time);
@@ -17,7 +18,7 @@ public class Requester {
 		this.setUrgency(urgency);
 		this.setLat(lat);
 		this.setLong(longitude);
-		
+		idOne = UUID.randomUUID();
 		
 	}
 	
@@ -79,6 +80,7 @@ public class Requester {
 			jObject.put("urgency", this.getUrgency());
 			jObject.put("lat", this.getLat());
 			jObject.put("long", this.getLong());
+                        jObject.put("UUID", this.idOne.toString());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
