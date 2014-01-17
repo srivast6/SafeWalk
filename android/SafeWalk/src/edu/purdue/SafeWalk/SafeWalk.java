@@ -340,6 +340,7 @@ public class SafeWalk extends Activity implements
 		String userName = name+numRequests;
 		numRequests++;
 		Requester r = new Requester(userName, time,"219-933-2201", "Not Urgent", latlng.latitude, latlng.longitude);
+		Log.d("json", r.toJSON().toString());
 		StringEntity se = null;
 		AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler(){
 			public void onSuccess(String suc){
