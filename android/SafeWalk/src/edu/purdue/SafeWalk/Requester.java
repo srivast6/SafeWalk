@@ -70,6 +70,10 @@ public class Requester {
 		return this.longitude;
 	}
 	
+	public String getUUID(){
+		return idOne.toString();
+	}
+	
 	
 	public JSONObject toJSON(){
 		JSONObject jObject = new JSONObject();
@@ -80,7 +84,7 @@ public class Requester {
 			jObject.put("urgency", this.getUrgency());
 			jObject.put("lat", this.getLat());
 			jObject.put("long", this.getLong());
-                        jObject.put("UUID", this.idOne.toString());
+            jObject.put("UUID", this.idOne.toString());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
