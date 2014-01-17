@@ -129,6 +129,7 @@ public class SettingsFragment extends PreferenceFragment {
 		addPreferencesFromResource(R.xml.preferences);
 
 		bindPreferenceSummaryToValue(findPreference("pref_loc_update_frequency"));
+		bindPreferenceSummaryToValue(findPreference("pref_server"));
 	}
 
 	/**
