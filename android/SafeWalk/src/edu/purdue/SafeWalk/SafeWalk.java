@@ -63,7 +63,7 @@ public class SafeWalk extends Activity implements
 	static double y;
 	int numRequests; 
 	static final String name = "John Doe";
-	static final String hostname = "http://optical-sight-386.appspot.com";
+	static String hostname;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -72,6 +72,8 @@ public class SafeWalk extends Activity implements
 		
 		setContentView(R.layout.main_activity);
 
+		hostname = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_server", "http://optical-sight-386.appspot.com");
+		
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.left_drawer);
 		String[] menuItems = new String[] { "Settings",
@@ -340,6 +342,7 @@ public class SafeWalk extends Activity implements
 		String userName = name+numRequests;
 		numRequests++;
 		Requester r = new Requester(userName, time,"219-933-2201", "Not Urgent", latlng.latitude, latlng.longitude);
+		Log.d("json", r.toJSON().toString());
 		StringEntity se = null;
 		AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler(){
 			public void onSuccess(String suc){

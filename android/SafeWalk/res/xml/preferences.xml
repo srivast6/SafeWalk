@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    
+    <PreferenceCategory
+        android:key="pref_key_developer_settings"
+        android:title="Developer Settings" >
+        <ListPreference
+            android:defaultValue="@string/pref_server_default"
+            android:dialogTitle="Server Selection"
+            android:entries="@array/pref_server_titles"
+            android:entryValues="@array/pref_server_values"
+            android:key="pref_server"
+            android:title="Server to use" />
+    </PreferenceCategory>
+    
+    
     <PreferenceCategory
         android:key="pref_key_storage_settings"
         android:title="General" >
