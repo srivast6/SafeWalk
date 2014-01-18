@@ -12,6 +12,23 @@ class Requester(object):
         print("Lat:%s\n" %(self.lat))
         print("Long:%s\n" %(self.long))
 
+    def getUUID(self):
+        return self.jsonDict["UUID"]
+
+    def getName(self):
+        return self.jsonDict["name"]
+
+    def getRequestTime(self):
+        return self.jsonDict["requestTime"]
+
+    def getPhoneNumber(self):
+        return self.jsonDict["phoneNumber"]
+
+    def getUrgency(self):
+        return self.jsonDict["urgency"]
+
+
+
 
 
     def toJSON(self):
