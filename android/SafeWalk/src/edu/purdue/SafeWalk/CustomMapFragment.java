@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.Projection;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -32,7 +33,7 @@ public class CustomMapFragment extends MapFragment{
                 return mOriginalContentView;
         }
         
-        public LatLng dropPinAtCenter(Activity activity, String name)
+        public LatLng dropPinAtCenter(Activity activity, String name, float hue)
         {
         	GoogleMap mMap;
     		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
@@ -53,7 +54,8 @@ public class CustomMapFragment extends MapFragment{
     		
     		mMap.addMarker(new MarkerOptions()
     		    .position(latlng)
-    		    .title(name));
+    		    .title(name)
+    		    .icon(BitmapDescriptorFactory.defaultMarker(hue)));
     		
     		return latlng;
         }
