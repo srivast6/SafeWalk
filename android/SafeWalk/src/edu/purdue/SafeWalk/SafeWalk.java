@@ -42,6 +42,7 @@ import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -63,7 +64,7 @@ public class SafeWalk extends Activity implements
 	static double y;
 	int numRequests; 
 	static final String name = "John Doe";
-	static String hostname;
+	public static String hostname;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -334,6 +335,19 @@ public class SafeWalk extends Activity implements
 	 * Function used when a request to be picked up is map, send information to server
 	 */
 	public void onPopUpBubbleClick(View v){
+		/*
+		if(mBubbleState == BubbleState.START)
+		{
+			GoogleMap mMap;
+			mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+			mMap.addMarker(new MarkerOptions()
+			    .position(new LatLng(0, 0))
+			    .title("Start Location"));
+			
+			findViewBy
+		}
+		*/
+		
 		AsyncHttpClient client = new AsyncHttpClient();
 		Projection p = mMap.getProjection();
 		Point point = new Point ((int)x, (int)y);
@@ -364,6 +378,7 @@ public class SafeWalk extends Activity implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		hostname = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_server", "http://optical-sight-386.appspot.com");
         client.post(getBaseContext(), hostname+"/request", se, "application/json", handler);
         Log.d("debug", client.toString());
         

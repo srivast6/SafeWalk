@@ -13,6 +13,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -142,6 +143,7 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		//this will be on the main thread, kind of hacky
 		//TODO: add a progress bar for loading
 		chandler.setUseSynchronousMode(true);
+		SafeWalk.hostname = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_server", "http://optical-sight-386.appspot.com");
 		client.get(SafeWalk.hostname+"/request",chandler); // remeber to change host and ip
 		while(!chandler.receivedResponse){
 			if(chandler.hasFailed)
