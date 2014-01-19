@@ -29,6 +29,12 @@ android {
 		abortOnError false
 	}
 
+	signingConfigs {
+		debug {
+			storeFile file("../../keys/debug.keystore")
+		}
+	}
+
 	sourceSets {
 		main {
 			manifest.srcFile 'AndroidManifest.xml'
