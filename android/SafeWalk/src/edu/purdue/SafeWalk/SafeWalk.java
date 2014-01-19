@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.content.IntentSender.SendIntentException;
 import android.content.res.Configuration;
 import android.graphics.Point;
+import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -29,6 +30,7 @@ import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -60,12 +62,18 @@ public class SafeWalk extends Activity implements
 	ActionBarDrawerToggle mDrawerToggle;
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	boolean hasMoved;
-	static double x;
-	static double y;
+	//static double x;
+	//static double y;
 	int numRequests; 
 	static final String name = "John Doe";
 	public static String hostname;
 
+	private static enum BubbleState {
+		START, END, CONFIRM;
+	};
+	
+	private BubbleState mBubbleState = BubbleState.START; 
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -191,6 +199,15 @@ public class SafeWalk extends Activity implements
 			mLocationClient.disconnect();
 		}
 	}
+	
+	@Override 
+	protected void onResume()
+	{
+		super.onResume();
+		if (mLocationClient != null && !mLocationClient.isConnected()) {
+			mLocationClient.connect();
+		}
+	}
 
 	/**
 	 * Called when we fail to connect to the mLocationClient.
@@ -281,30 +298,34 @@ public class SafeWalk extends Activity implements
 
 	@Override
 	public void onConnected(Bundle bun) {
+		Log.d("SafeWalk", "The mLocationHandler has been connected!");
         if(mLocationClient == null || mMap == null) {
             Log.e("LocationClient", (mLocationClient == null ? "mLocationClient" : "mMap") + " is null!");
             return;
         }
 		CameraPosition.Builder cameraPositionBuilder = new CameraPosition.Builder();
-        if(mLocationClient.getLastLocation() == null) {
+        /*if(mLocationClient.getLastLocation() == null) {
             Log.e("LocationClient", "Last location is null!");
             mLocationClient.disconnect();
             return;
-        }
+        }*/
 		cameraPositionBuilder.target(new LatLng(mLocationClient
 				.getLastLocation().getLatitude(), mLocationClient
 				.getLastLocation().getLongitude()));
 		cameraPositionBuilder.zoom((float) 16);
 		mMap.animateCamera(CameraUpdateFactory
 				.newCameraPosition(cameraPositionBuilder.build()));
-		x = mLocationClient.getLastLocation().getLatitude();
-		y = mLocationClient.getLastLocation().getLongitude();
+		//x = mLocationClient.getLastLocation().getLatitude();
+		//y = mLocationClient.getLastLocation().getLongitude();
 		//Log.d("set", "Setting x and y to " + x + " " + y);
-		mLocationClient.disconnect();
+		//mLocationClient.disconnect();
 	}
 
 	@Override
 	public void onDisconnected() {
+		
+		Log.d("SafeWalk", "The mLocationHandler has been disconnected...");
+		
 		mLocationClient.connect();
 	}
 
@@ -327,66 +348,91 @@ public class SafeWalk extends Activity implements
 		View mapPopUpView = findViewById(R.id.mapPopUpView1);
 		mapPopUpLinLayout.setVisibility(View.VISIBLE);
 		mapPopUpView.setVisibility(View.VISIBLE);
-		// TODO Auto-generated method stub
-		
 	}
 	
 	/*
 	 * Function used when a request to be picked up is map, send information to server
 	 */
 	public void onPopUpBubbleClick(View v){
-		/*
+		
+		LatLng latlng; 
 		if(mBubbleState == BubbleState.START)
 		{
-			GoogleMap mMap;
-			mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-			mMap.addMarker(new MarkerOptions()
-			    .position(new LatLng(0, 0))
-			    .title("Start Location"));
 			
-			findViewBy
-		}
-		*/
+			
+			latlng = ((CustomMapFragment) getFragmentManager().findFragmentById(R.id.map)).dropPinAtCenter(this, "Start");
+			
+			SharedPreferences bubbleState = getSharedPreferences("bubbleState", MODE_PRIVATE);
+			SharedPreferences.Editor edit = bubbleState.edit();
+			edit.putString("start_lat", "" + latlng.latitude);
+			edit.putString("start_long", "" + latlng.longitude);
+			edit.commit();
+			
+			TextView bubble = (TextView)findViewById(R.id.bubbleText);
+			bubble.setText("Set Dropoff Location");
+			mBubbleState = BubbleState.END;
+			
+		} else if(mBubbleState == BubbleState.END)
+		{
+			latlng = ((CustomMapFragment) getFragmentManager().findFragmentById(R.id.map)).dropPinAtCenter(this, "Start");
+			
+			SharedPreferences bubbleState = getSharedPreferences("bubbleState", MODE_PRIVATE);
+			SharedPreferences.Editor edit = bubbleState.edit();
+			edit.putString("end_lat", "" + latlng.latitude);
+			edit.putString("end_long", "" + latlng.longitude);
+			edit.commit();
+			
+			TextView bubble = (TextView)findViewById(R.id.bubbleText);
+			bubble.setText("Confirm Route");
+			mBubbleState = BubbleState.CONFIRM;
+		} else if(mBubbleState == BubbleState.CONFIRM)
+		{
+			AsyncHttpClient client = new AsyncHttpClient();
 		
-		AsyncHttpClient client = new AsyncHttpClient();
-		Projection p = mMap.getProjection();
-		Point point = new Point ((int)x, (int)y);
-		LatLng latlng = p.fromScreenLocation(point);
-		String time = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-		String userName = name+numRequests;
-		numRequests++;
-		Requester r = new Requester(userName, time,"219-933-2201", "Not Urgent", latlng.latitude, latlng.longitude);
-		Log.d("json", r.toJSON().toString());
-		StringEntity se = null;
-		AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler(){
-			public void onSuccess(String suc){
-				Log.d("response", suc);
+			String time = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+			String userName = name+numRequests;
+			numRequests++;
+			
+			Location location = mLocationClient.getLastLocation(); 
+			
+			SharedPreferences bubbleState = getSharedPreferences("bubbleState", MODE_PRIVATE);
+			double start_lat = Double.parseDouble(bubbleState.getString("start_lat", "0"));
+			double start_long = Double.parseDouble(bubbleState.getString("start_long", "0"));
+			double end_lat = Double.parseDouble(bubbleState.getString("end_lat", "0"));
+			double end_long = Double.parseDouble(bubbleState.getString("end_long", "0"));
+			
+			Requester r = new Requester(userName, time,"219-933-2201", "Not Urgent", location.getLatitude(), location.getLongitude(), start_lat, start_long, end_lat, end_long);
+			Log.d("json", r.toJSON().toString());
+			StringEntity se = null;
+			
+			AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler(){
+				public void onSuccess(String suc){
+					Log.d("response", suc);
+				}
+				
+			    @Override
+			    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
+			    {
+			    	Toast.makeText(getApplicationContext(), "No connection to server", Toast.LENGTH_LONG).show();
+			    	Log.d("failure", Integer.toString(statusCode));
+			    }
+			};
+			
+	        try {
+				se = new StringEntity(r.toJSON().toString());
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
+			hostname = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_server", "http://optical-sight-386.appspot.com");
+	        client.post(getBaseContext(), hostname+"/request", se, "application/json", handler);
+	        Log.d("debug", client.toString());
+	        
+	        TextView bubble = (TextView)findViewById(R.id.bubbleText);
+			bubble.setText("Request Pickup Location");
 			
-		    @Override
-		     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
-		     {
-		    	  Toast.makeText(getApplicationContext(), "No connection to server", Toast.LENGTH_LONG).show();
-		          Log.d("failure", Integer.toString(statusCode));
-		     }
-			
-		};
-		
-        try {
-			se = new StringEntity(r.toJSON().toString());
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			mMap.clear();
+	        mBubbleState = BubbleState.START;
 		}
-		hostname = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_server", "http://optical-sight-386.appspot.com");
-        client.post(getBaseContext(), hostname+"/request", se, "application/json", handler);
-        Log.d("debug", client.toString());
-        
 	}
-
-
-		
-	
-		
-	
 }
