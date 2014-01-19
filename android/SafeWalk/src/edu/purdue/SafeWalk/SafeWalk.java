@@ -74,6 +74,7 @@ public class SafeWalk extends Activity implements
 	//static double y;
 	int numRequests; 
 	static final String name = "John Doe";
+	private static final String TAG = "SafeWalk";
 	public static String hostname;
 
 	private static enum BubbleState {
@@ -337,15 +338,21 @@ public class SafeWalk extends Activity implements
 
 	@Override
 	public void onMapDrag() {
+		Log.d(TAG, "onMapDrag()");
 		fadeBubbleOut();
 	}
 
 	@Override
 	public void onMapLift() {
+		Log.d(TAG, "onMapLift()");
 		fadeBubbleIn();
 	}
 	
 	private void fadeBubbleOut() {
+		
+		findViewById(R.id.mapPopUpLinLayout).animate().cancel();
+		findViewById(R.id.mapPopUpView1).animate().cancel();
+		
 	    // Animate the loading view to 0% opacity. After the animation ends,
 	    // set its visibility to GONE as an optimization step (it won't
 	    // participate in layout passes, etc.)
@@ -370,15 +377,17 @@ public class SafeWalk extends Activity implements
 	}
 	
 	private void fadeBubbleIn() {
-		findViewById(R.id.mapPopUpLinLayout).setVisibility(View.VISIBLE);
 		
+		findViewById(R.id.mapPopUpLinLayout).animate().setListener(null).cancel();
+		findViewById(R.id.mapPopUpView1).animate().setListener(null).cancel();
+		
+		findViewById(R.id.mapPopUpLinLayout).setVisibility(View.VISIBLE);
 		findViewById(R.id.mapPopUpLinLayout).animate()
         	.alpha(1f)
         	.setDuration(mShortAnimationDuration)
         	.setListener(null);
 		
 		findViewById(R.id.mapPopUpView1).setVisibility(View.VISIBLE);
-		
 		findViewById(R.id.mapPopUpView1).animate()
         	.alpha(1f)
         	.setDuration(mShortAnimationDuration)
@@ -393,8 +402,6 @@ public class SafeWalk extends Activity implements
 		LatLng latlng; 
 		if(mBubbleState == BubbleState.START)
 		{
-			
-			
 			latlng = ((CustomMapFragment) getFragmentManager().findFragmentById(R.id.map)).dropPinAtCenter(this, "Start", BitmapDescriptorFactory.HUE_GREEN);
 			
 			SharedPreferences bubbleState = getSharedPreferences("bubbleState", MODE_PRIVATE);
