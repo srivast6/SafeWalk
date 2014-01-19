@@ -15,7 +15,7 @@ before_install:
 
     # Gradle
     - wget http://services.gradle.org/distributions/gradle-1.9-bin.zip
-    - unzip gradle-1.9-bin.zip
+    - unzip gradle-1.9-bin.zip -d $ANDROID_HOME
     - export GRADLE_HOME=$PWD/gradle-1.9
     - export PATH=$GRADLE_HOME/bin:$PATH
 
