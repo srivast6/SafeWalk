@@ -1,10 +1,12 @@
 package edu.purdue.SafeWalk;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
+import org.w3c.dom.Document;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,8 +15,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.IntentSender.SendIntentException;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -42,9 +46,12 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -360,7 +367,7 @@ public class SafeWalk extends Activity implements
 		{
 			
 			
-			latlng = ((CustomMapFragment) getFragmentManager().findFragmentById(R.id.map)).dropPinAtCenter(this, "Start");
+			latlng = ((CustomMapFragment) getFragmentManager().findFragmentById(R.id.map)).dropPinAtCenter(this, "Start", BitmapDescriptorFactory.HUE_GREEN);
 			
 			SharedPreferences bubbleState = getSharedPreferences("bubbleState", MODE_PRIVATE);
 			SharedPreferences.Editor edit = bubbleState.edit();
@@ -374,7 +381,7 @@ public class SafeWalk extends Activity implements
 			
 		} else if(mBubbleState == BubbleState.END)
 		{
-			latlng = ((CustomMapFragment) getFragmentManager().findFragmentById(R.id.map)).dropPinAtCenter(this, "Start");
+			latlng = ((CustomMapFragment) getFragmentManager().findFragmentById(R.id.map)).dropPinAtCenter(this, "End", BitmapDescriptorFactory.HUE_RED);
 			
 			SharedPreferences bubbleState = getSharedPreferences("bubbleState", MODE_PRIVATE);
 			SharedPreferences.Editor edit = bubbleState.edit();
@@ -384,6 +391,36 @@ public class SafeWalk extends Activity implements
 			
 			TextView bubble = (TextView)findViewById(R.id.bubbleText);
 			bubble.setText("Confirm Route");
+			
+			LatLng start = new LatLng(Double.parseDouble(bubbleState.getString("start_lat", "0")), Double.parseDouble(bubbleState.getString("start_long", "0")));
+			
+			AsyncTask<LatLng, Void, ArrayList<LatLng>> directionsTask = new AsyncTask<LatLng, Void, ArrayList<LatLng>>() {
+
+				@Override
+				protected ArrayList<LatLng> doInBackground(LatLng... locations) {
+					GMapV2Direction md = new GMapV2Direction();
+					mMap = ((MapFragment) getFragmentManager()
+					                    .findFragmentById(R.id.map)).getMap();
+					Document doc = md.getDocument(locations[0], locations[1],
+					                    GMapV2Direction.MODE_WALKING);
+
+					return md.getDirection(doc);
+				}
+				
+				@Override 
+				protected void onPostExecute(ArrayList<LatLng> directionPoint)
+				{
+					PolylineOptions rectLine = new PolylineOptions().width(3).color(Color.RED);
+
+					for (int i = 0; i < directionPoint.size(); i++) {
+						rectLine.add(directionPoint.get(i));
+					}
+					Polyline polylin = mMap.addPolyline(rectLine);
+				}
+			};
+			//TODO: Add loading bar under actionbar
+			directionsTask.execute(start, latlng);
+			
 			mBubbleState = BubbleState.CONFIRM;
 		} else if(mBubbleState == BubbleState.CONFIRM)
 		{
