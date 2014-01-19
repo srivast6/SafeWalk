@@ -1,38 +1,25 @@
 package edu.purdue.SafeWalk;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import org.apache.http.entity.StringEntity;
 
 import android.app.ActionBar;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.app.ListActivity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 import android.util.Log;
 import android.view.*;
 
-import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-
-
-
 
 
 public class ListViewRequesterActivity extends ListActivity implements PopupDialog.NoticeDialogListener{
@@ -48,11 +35,6 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 	Requester arrayOfRequests[];
 	Requester r;
 	customHTTPHandler chandler;
-	
-	
-	
-
-
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -74,7 +56,6 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		for(int i=0; i<requests.size(); i++){
 			stringList.add(requests.get(i).getName());
 		}
-
 		
 		RequesterListAdapter listAdapter = new RequesterListAdapter(this, stringList, requests);
 		
@@ -97,10 +78,6 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		
 	}
 
-
-
-
-
 	@Override
 	public void onPopUpAcceptClick(View v) {
 		// TODO Auto-generated method stub
@@ -110,10 +87,6 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		
 	}
 
-
-
-
-
 	@Override
 	public void onPopUpMessageClick(View v) {
 		// TODO Auto-generated method stub
@@ -122,10 +95,6 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		dialog.dismiss();
 		
 	}
-
-
-
-
 
 	@Override
 	public void onPopUpCallClick(View v) {
@@ -144,7 +113,7 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		//TODO: add a progress bar for loading
 		chandler.setUseSynchronousMode(true);
 		SafeWalk.hostname = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_server", "http://optical-sight-386.appspot.com");
-		client.get(SafeWalk.hostname+"/request",chandler); // remeber to change host and ip
+		client.get(SafeWalk.hostname+"/request",chandler);
 		while(!chandler.receivedResponse){
 			if(chandler.hasFailed)
 				return;
@@ -154,22 +123,10 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		JSONArray jArray = new JSONArray(httpResponse);
 		for(int i=0; i<jArray.length(); i++){
 			JSONObject j = jArray.getJSONObject(i);
-			 r = new Requester(j.getString("name"), j.getString("requestTime"), j.getString("phoneNumber"), j.getString("urgency"), j.getDouble("lat"),j.getDouble("long"));
-			 requests.add(r);
+			r = new Requester(j.getString("requestId"), j.getString("name"), j.getString("requestTime"), j.getString("phoneNumber"), j.getString("urgency"), j.getDouble("lat"),j.getDouble("long"), j.getDouble("start_lat"), j.getDouble("start_long"), j.getDouble("end_lat"), j.getDouble("end_long"));
+			requests.add(r);
 		}
-		
-		
-		
 	}
-
-
-
-
-
-
-	
-	
-
 }
 
 

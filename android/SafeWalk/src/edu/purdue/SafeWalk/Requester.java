@@ -1,6 +1,9 @@
 package edu.purdue.SafeWalk;
 
 import org.json.*;
+
+import android.util.Log;
+
 import java.util.*;
 
 public class Requester {
@@ -8,18 +11,32 @@ public class Requester {
 	private String timeOfRequest;
 	private String phoneNumber;
 	private String urgency;
-	private double latitude;
+	//location of user.
+	private double latitude; 
 	private double longitude;
-	private UUID idOne;
-	public Requester(String name, String time, String number, String urgency, Double lat, Double longitude){
+	private UUID requestId;
+	
+	private double start_lat, start_long, end_lat, end_long;
+	
+	public Requester(String name, String time, String number, String urgency, Double lat, Double longitude, Double startLat, Double startLong, Double endLat, Double endLong){
 		this.setName(name);
 		this.setTimeOfRequest(time);
 		this.setPhoneNumber(number);
 		this.setUrgency(urgency);
 		this.setLat(lat);
 		this.setLong(longitude);
-		idOne = UUID.randomUUID();
+		requestId = UUID.randomUUID();
 		
+		start_lat = startLat;
+		start_long = startLong; 
+		end_lat = endLat; 
+		end_long = endLong; 
+	}
+	
+	public Requester(String id, String name, String time, String number, String urgency, Double lat, Double longitude, Double startLat, Double startLong, Double endLat, Double endLong){
+		this( name,  time,  number,  urgency,  lat,  longitude,  startLat,  startLong,  endLat,  endLong);
+		//overwrites UUID created on other constructor. 
+		requestId = UUID.fromString(id);
 	}
 	
 	public void setName(String name){
@@ -71,9 +88,8 @@ public class Requester {
 	}
 	
 	public String getUUID(){
-		return idOne.toString();
+		return requestId.toString();
 	}
-	
 	
 	public JSONObject toJSON(){
 		JSONObject jObject = new JSONObject();
@@ -84,11 +100,14 @@ public class Requester {
 			jObject.put("urgency", this.getUrgency());
 			jObject.put("lat", this.getLat());
 			jObject.put("long", this.getLong());
-            jObject.put("UUID", this.idOne.toString());
+            jObject.put("requestId", this.requestId.toString());
+            
+            jObject.put("start_lat", start_lat);
+            jObject.put("start_long", start_long);
+            jObject.put("end_lat", end_lat);
+            jObject.put("end_long",end_long);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			
+			Log.e("Request", "Error occurred", e);
 		}
 		
 		return jObject;

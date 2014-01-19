@@ -14,42 +14,41 @@
         android:id="@+id/mapOverlay"
         android:layout_width="match_parent"
         android:layout_height="120dp"
+        android:layout_below="@id/spacer"
         android:layout_centerHorizontal="true"
         android:layout_margin="15dp"
         android:gravity="center"
-        android:orientation="vertical"
-        android:layout_below="@id/spacer" >
+        android:orientation="vertical" >
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
-        <LinearLayout
-            android:id="@+id/mapPopUpLinLayout"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/map_popup_box"
-            android:onClick="onPopUpBubbleClick"
-            android:gravity="center" >
+            <LinearLayout
+                android:id="@+id/mapPopUpLinLayout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/map_popup_box"
+                android:gravity="center"
+                android:onClick="onPopUpBubbleClick" >
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Request Pickup Location"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/white" />
+                <TextView
+                    android:id="@+id/bubbleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Request Pickup Location"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white" />
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/textView1"
-                android:layout_toRightOf="@id/textView1"
-                android:rotation="-90"
-                android:src="@android:drawable/ic_menu_more" />
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/textView1"
+                    android:layout_toRightOf="@id/textView1"
+                    android:rotation="-90"
+                    android:src="@android:drawable/ic_menu_more" />
             </LinearLayout>
-
         </RelativeLayout>
 
         <View
@@ -67,7 +66,5 @@
             android:layout_margin="0dp"
             android:src="@drawable/map_pin" />
     </LinearLayout>
-
-
 
 </RelativeLayout>
