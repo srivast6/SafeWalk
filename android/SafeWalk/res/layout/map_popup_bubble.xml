@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:text="Request Pickup Location"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/black" />
 
                 <ImageView
                     android:id="@+id/imageView1"
