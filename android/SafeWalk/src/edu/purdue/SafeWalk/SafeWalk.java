@@ -8,6 +8,8 @@ import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
 import org.w3c.dom.Document;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -68,7 +70,6 @@ public class SafeWalk extends Activity implements
 	DrawerLayout drawerLayout;
 	ActionBarDrawerToggle mDrawerToggle;
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-	boolean hasMoved;
 	//static double x;
 	//static double y;
 	int numRequests; 
@@ -79,7 +80,8 @@ public class SafeWalk extends Activity implements
 		START, END, CONFIRM;
 	};
 	
-	private BubbleState mBubbleState = BubbleState.START; 
+	private BubbleState mBubbleState = BubbleState.START;
+	private int mShortAnimationDuration; 
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -153,6 +155,7 @@ public class SafeWalk extends Activity implements
 		drawerLayout.setDrawerListener(mDrawerToggle);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
+		getActionBar().setSubtitle("Map");
 
 		// Check for Google Play Services
 		int googlePlayServicesAvailable = GooglePlayServicesUtil
@@ -163,9 +166,6 @@ public class SafeWalk extends Activity implements
 		}
 
 		mLocationClient = new LocationClient(this, this, this);
-		if(mLocationClient.isConnected() == false || mLocationClient.isConnecting() == false) {
-			mLocationClient.connect();
-		}
 
 		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
 				.getMap();
@@ -190,7 +190,9 @@ public class SafeWalk extends Activity implements
 			alertBuilder.show();
 		}
 		
-		
+		// Retrieve and cache the system's default "short" animation time.
+        mShortAnimationDuration = getResources().getInteger(
+                android.R.integer.config_shortAnimTime);
 
 	}
 
@@ -211,7 +213,7 @@ public class SafeWalk extends Activity implements
 	protected void onResume()
 	{
 		super.onResume();
-		if (mLocationClient != null && !mLocationClient.isConnected()) {
+		if (mLocationClient != null && (!mLocationClient.isConnected() && !mLocationClient.isConnecting())) {
 			mLocationClient.connect();
 		}
 	}
@@ -322,9 +324,6 @@ public class SafeWalk extends Activity implements
 		cameraPositionBuilder.zoom((float) 16);
 		mMap.animateCamera(CameraUpdateFactory
 				.newCameraPosition(cameraPositionBuilder.build()));
-		//x = mLocationClient.getLastLocation().getLatitude();
-		//y = mLocationClient.getLastLocation().getLongitude();
-		//Log.d("set", "Setting x and y to " + x + " " + y);
 		//mLocationClient.disconnect();
 	}
 
@@ -336,27 +335,56 @@ public class SafeWalk extends Activity implements
 		mLocationClient.connect();
 	}
 
-
-
 	@Override
 	public void onMapDrag() {
-		
-		hasMoved = true;
-		View mapPopUpLinLayout = findViewById(R.id.mapPopUpLinLayout);
-		View mapPopUpView = findViewById(R.id.mapPopUpView1);
-		mapPopUpLinLayout.setVisibility(View.INVISIBLE);
-		mapPopUpView.setVisibility(View.INVISIBLE);
-		
+		fadeBubbleOut();
 	}
 
 	@Override
 	public void onMapLift() {
-		View mapPopUpLinLayout = findViewById(R.id.mapPopUpLinLayout);
-		View mapPopUpView = findViewById(R.id.mapPopUpView1);
-		mapPopUpLinLayout.setVisibility(View.VISIBLE);
-		mapPopUpView.setVisibility(View.VISIBLE);
+		fadeBubbleIn();
 	}
 	
+	private void fadeBubbleOut() {
+	    // Animate the loading view to 0% opacity. After the animation ends,
+	    // set its visibility to GONE as an optimization step (it won't
+	    // participate in layout passes, etc.)
+		findViewById(R.id.mapPopUpLinLayout).animate()
+	            .alpha(0f)
+	            .setDuration(mShortAnimationDuration)
+	            .setListener(new AnimatorListenerAdapter() {
+	                @Override
+	                public void onAnimationEnd(Animator animation) {
+	                	findViewById(R.id.mapPopUpLinLayout).setVisibility(View.INVISIBLE);
+	                }
+	            });
+		findViewById(R.id.mapPopUpView1).animate()
+        	.alpha(0f)
+        	.setDuration(mShortAnimationDuration)
+        	.setListener(new AnimatorListenerAdapter() {
+        		@Override
+        		public void onAnimationEnd(Animator animation) {
+        			findViewById(R.id.mapPopUpView1).setVisibility(View.INVISIBLE);
+        		}
+        	});
+	}
+	
+	private void fadeBubbleIn() {
+		findViewById(R.id.mapPopUpLinLayout).setVisibility(View.VISIBLE);
+		
+		findViewById(R.id.mapPopUpLinLayout).animate()
+        	.alpha(1f)
+        	.setDuration(mShortAnimationDuration)
+        	.setListener(null);
+		
+		findViewById(R.id.mapPopUpView1).setVisibility(View.VISIBLE);
+		
+		findViewById(R.id.mapPopUpView1).animate()
+        	.alpha(1f)
+        	.setDuration(mShortAnimationDuration)
+        	.setListener(null);
+	}
+
 	/*
 	 * Function used when a request to be picked up is map, send information to server
 	 */
