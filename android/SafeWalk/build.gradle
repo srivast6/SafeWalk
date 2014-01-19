@@ -11,8 +11,8 @@ buildscript {
 apply plugin: 'android'
 
 dependencies {
-	compile 'com.loopj.android:android-async-http:1.4.3'
-	compile 'com.google.android:support-v4:r7'
+	compile 'com.loopj.android:android-async-http:1.4.4'
+	//compile 'com.google.android:support-v4:r7'
 	compile 'com.google.android.gms:play-services:4.0.30'
 }
 
@@ -22,6 +22,11 @@ android {
 
 	repositories {
 		mavenCentral()
+	}
+
+	lintOptions {
+		// if true, stop the gradle build if errors are found
+		abortOnError false
 	}
 
 	sourceSets {
