@@ -16,15 +16,12 @@ class RequestHandler(webapp2.RequestHandler):
     # this will be a request from the app for information, server will send json to app.     
     def get(self):
         """Respond to a GET request."""
-        userAgent = str(self.request.headers['User-Agent'])
-        logging.info("userAgent = %s" %userAgent)
         self.response.status = 200
         self.response.headerlist = [("Content-type", "application/json")]
         requests = []
-        if userAgent == "android-async-http/1.4.4 (http://loopj.com/android-async-http)":
-            for req in RequestHandler.openRequests:
-                requests.append(req.toJSON())
-            self.response.write(json.dumps(requests))
+        for req in RequestHandler.openRequests:
+            requests.append(req.toJSON())
+        self.response.write(json.dumps(requests))
         
 
     #respond to POST Request, which will come from Safewalk App
