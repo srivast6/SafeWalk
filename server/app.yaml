@@ -5,12 +5,10 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /
-  script: serv.application
-- url: /request
-  script: serv.application
-- url: /request/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
-  script: serv.application 
-
-
+  - url: /
+    script: serv.application
+  - url: /request
+    script: serv.application
+  - url: /request/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+    script: serv.application 
 
