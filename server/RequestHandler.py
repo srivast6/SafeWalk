@@ -1,3 +1,4 @@
+import datetime
 import time
 import webapp2
 import logging
@@ -5,6 +6,7 @@ import json
 import getRequesterHandler
 from Requester import Requester
 from google.appengine.api.logservice import logservice
+from google.appengine.ext import ndb
 
 class RequestHandler(webapp2.RequestHandler):
     openRequests = []
@@ -19,7 +21,7 @@ class RequestHandler(webapp2.RequestHandler):
         self.response.status = 200
         self.response.headerlist = [("Content-type", "application/json")]
         requests = []
-        for req in RequestHandler.openRequests:
+        for req in Requester.getAllOpenRequests():
             requests.append(req.toJSON())
         self.response.write(json.dumps(requests))
         
@@ -31,8 +33,18 @@ class RequestHandler(webapp2.RequestHandler):
         post_body = self.request.body
         #postBody is a dictionary with key
         #value pairs of json values
-        marked = json.loads(post_body)
-        r = Requester(marked)
+        json_dict = json.loads(post_body)
+        r = Requester(requestId = json_dict["requestId"],
+                name = json_dict["name"],
+                requestTime = datetime.datetime.now(),
+                phoneNumber = json_dict["phoneNumber"],
+                urgency = json_dict["urgency"],
+                startLocation = ndb.GeoPt(json_dict["start_lat"], json_dict["start_long"]),
+                endLocation = ndb.GeoPt(json_dict["end_lat"], json_dict["end_long"]),
+                walkCompleted = False)
+
+        # Add request to datastore
+        r.put()
 
         RequestHandler.openRequests.append(r)
         self.response.status = 200
