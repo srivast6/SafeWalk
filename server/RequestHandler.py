@@ -23,7 +23,7 @@ class RequestHandler(webapp2.RequestHandler):
         requests = []
         for req in Requester.getAllOpenRequests():
             requests.append(req.toJSON())
-        self.response.write(json.dumps(requests))
+        self.response.write(requests)
         
 
     #respond to POST Request, which will come from Safewalk App
@@ -39,8 +39,10 @@ class RequestHandler(webapp2.RequestHandler):
                 requestTime = datetime.datetime.now(),
                 phoneNumber = json_dict["phoneNumber"],
                 urgency = json_dict["urgency"],
-                startLocation = ndb.GeoPt(json_dict["start_lat"], json_dict["start_long"]),
-                endLocation = ndb.GeoPt(json_dict["end_lat"], json_dict["end_long"]),
+                startLocation_lat = str(json_dict["start_lat"]), 
+                startLocation_lon = str(json_dict["start_long"]),
+                endLocation_lat = str(json_dict["end_lat"]), 
+                endLocation_lon = str(json_dict["end_long"]),
                 walkCompleted = False)
 
         # Add request to datastore
