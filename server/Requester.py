@@ -1,13 +1,14 @@
 import datetime
+import simplejson
+import time
 
 from google.appengine.ext import ndb
-
-from flask.json import JSONEncoder
+from google.appengine.ext.ndb import model, query
 
 class Requester(ndb.Model):
     requestId = ndb.StringProperty()
     name = ndb.StringProperty()
-    requestTime = ndb.DateTimeProperty()
+    requestTime = ndb.StringProperty()
     phoneNumber = ndb.StringProperty()
     urgency = ndb.StringProperty()
     startLocation_lat = ndb.StringProperty()
@@ -26,22 +27,7 @@ class Requester(ndb.Model):
         print("endLocation:%s\n" %(self.endLocation))
         print("walkCompleted:%s\n" %(self.walkCompleted))
 
-    @classmethod
-    def toJSON(self):
-        encoder = JSONEncoder()
-        d = self.to_dict()
-        return encoder.default(d)
-        # return json.dumps({'requestId': str(self.requestId),
-        #     'name': str(self.name),
-        #     'requestTime': str(self.requestTime),
-        #     'phoneNumber': str(self.phoneNumber),
-        #     'urgency': str(self.urgency),
-        #     'startLocation_lat': str(self.startLocation_lat),
-        #     'startLocation_lon': str(self.startLocation_lon),
-        #     'endLocation_lat': str(self.endLocation_lat),
-        #     'endLocation_lon': str(self.endLocation_lon),
-        #     'walkCompleted': str(self.walkCompleted)})
-  
+
     @staticmethod
     def getAllOpenRequests():
         return Requester.query(Requester.walkCompleted == False).fetch()
