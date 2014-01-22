@@ -40,10 +40,10 @@ class RequestHandler(webapp2.RequestHandler):
                 requestTime = str(datetime.datetime.now()),
                 phoneNumber = json_dict["phoneNumber"],
                 urgency = json_dict["urgency"],
-                startLocation_lat = str(json_dict["start_lat"]), 
-                startLocation_lon = str(json_dict["start_long"]),
-                endLocation_lat = str(json_dict["end_lat"]), 
-                endLocation_lon = str(json_dict["end_long"]),
+                startLocation_lat = str(json_dict["startLocation_lat"]), 
+                startLocation_lon = str(json_dict["startLocation_lon"]),
+                endLocation_lat = str(json_dict["endLocation_lat"]), 
+                endLocation_lon = str(json_dict["endLocation_lon"]),
                 walkCompleted = False)
 
         # Add request to datastore
