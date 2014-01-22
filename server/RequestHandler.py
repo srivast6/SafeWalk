@@ -22,7 +22,8 @@ class RequestHandler(webapp2.RequestHandler):
         self.response.headerlist = [("Content-type", "application/json")]
         requests = []
         for req in Requester.getAllOpenRequests():
-            requests.append(req.toJSON())
+            requests.append(req.to_dict())
+            # requests.append(encoder.default(req.to_dict()))
         self.response.write(requests)
         
 
@@ -36,7 +37,7 @@ class RequestHandler(webapp2.RequestHandler):
         json_dict = json.loads(post_body)
         r = Requester(requestId = json_dict["requestId"],
                 name = json_dict["name"],
-                requestTime = datetime.datetime.now(),
+                requestTime = str(datetime.datetime.now()),
                 phoneNumber = json_dict["phoneNumber"],
                 urgency = json_dict["urgency"],
                 startLocation_lat = str(json_dict["start_lat"]), 
