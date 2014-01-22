@@ -24,7 +24,7 @@ class RequestHandler(webapp2.RequestHandler):
         for req in Requester.getAllOpenRequests():
             requests.append(req.to_dict())
             # requests.append(encoder.default(req.to_dict()))
-        self.response.write(requests)
+        self.response.write(json.dumps(requests))
         
 
     #respond to POST Request, which will come from Safewalk App
