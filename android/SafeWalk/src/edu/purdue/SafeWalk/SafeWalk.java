@@ -473,7 +473,7 @@ public class SafeWalk extends Activity implements
 			double end_lat = Double.parseDouble(bubbleState.getString("end_lat", "0"));
 			double end_long = Double.parseDouble(bubbleState.getString("end_long", "0"));
 			
-			Requester r = new Requester(userName, time,"219-933-2201", "Not Urgent", location.getLatitude(), location.getLongitude(), start_lat, start_long, end_lat, end_long);
+			Requester r = new Requester(userName, time,"219-933-2201", "Not Urgent", start_lat, start_long, end_lat, end_long);
 			Log.d("json", r.toJSON().toString());
 			StringEntity se = null;
 			

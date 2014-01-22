@@ -16,25 +16,24 @@ public class Requester {
 	private double longitude;
 	private UUID requestId;
 	
-	private double start_lat, start_long, end_lat, end_long;
+	private double startLocation_lat, startLocation_lon, endLocation_lat, endLocation_lon;
 	
-	public Requester(String name, String time, String number, String urgency, Double lat, Double longitude, Double startLat, Double startLong, Double endLat, Double endLong){
+	public Requester(String name, String time, String number, String urgency, Double startLat, Double startLong, Double endLat, Double endLong){
 		this.setName(name);
 		this.setTimeOfRequest(time);
 		this.setPhoneNumber(number);
 		this.setUrgency(urgency);
-		this.setLat(lat);
 		this.setLong(longitude);
 		requestId = UUID.randomUUID();
-		
-		start_lat = startLat;
-		start_long = startLong; 
-		end_lat = endLat; 
-		end_long = endLong; 
+		startLocation_lat = startLat;
+		startLocation_lon = startLong; 
+		endLocation_lat = endLat; 
+		endLocation_lon = endLong; 
 	}
 	
-	public Requester(String id, String name, String time, String number, String urgency, Double lat, Double longitude, Double startLat, Double startLong, Double endLat, Double endLong){
-		this( name,  time,  number,  urgency,  lat,  longitude,  startLat,  startLong,  endLat,  endLong);
+	public Requester(String id, String name, String time, String number, String urgency,Double startLat, Double startLong, Double endLat, Double endLong){
+		this( name,  time,  number,  urgency,startLat,  startLong,  endLat,  endLong);
+		Log.d("startLocation_lon", ""+startLong);
 		//overwrites UUID created on other constructor. 
 		requestId = UUID.fromString(id);
 	}
@@ -98,14 +97,11 @@ public class Requester {
 			jObject.put("requestTime", this.getTimeOfRequest());
 			jObject.put("phoneNumber", this.getPhoneNumber());
 			jObject.put("urgency", this.getUrgency());
-			jObject.put("lat", this.getLat());
-			jObject.put("long", this.getLong());
             jObject.put("requestId", this.requestId.toString());
-            
-            jObject.put("start_lat", start_lat);
-            jObject.put("start_long", start_long);
-            jObject.put("end_lat", end_lat);
-            jObject.put("end_long",end_long);
+            jObject.put("startLocation_lat", startLocation_lat);
+            jObject.put("startLocation_lon", startLocation_lon);
+            jObject.put("endLocation_lat", endLocation_lat);
+            jObject.put("endLocation_lon",endLocation_lon);
 		} catch (JSONException e) {
 			Log.e("Request", "Error occurred", e);
 		}

@@ -123,7 +123,7 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		JSONArray jArray = new JSONArray(httpResponse);
 		for(int i=0; i<jArray.length(); i++){
 			JSONObject j = jArray.getJSONObject(i);
-			r = new Requester(j.getString("requestId"), j.getString("name"), j.getString("requestTime"), j.getString("phoneNumber"), j.getString("urgency"), j.getDouble("lat"),j.getDouble("long"), j.getDouble("start_lat"), j.getDouble("start_long"), j.getDouble("end_lat"), j.getDouble("end_long"));
+			r = new Requester(j.getString("requestId"), j.getString("name"), j.getString("requestTime"), j.getString("phoneNumber"), j.getString("urgency"), j.getDouble("startLocation_lat"),j.getDouble("startLocation_lon"), j.getDouble("endLocation_lat"), j.getDouble("endLocation_lon"));
 			requests.add(r);
 		}
 	}
