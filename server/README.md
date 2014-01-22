@@ -3,6 +3,8 @@ Safewalk Python Server
 
 Runing Server in Dev Mode on Machine
 ========
+ * Install pip (http://www.pip-installer.org/en/latest/installing.html)
+ * Run 'pip install -r requirements.txt -t server/lib' to install server dependencies
  * dev_appserver.py --host=0.0.0.0  --port=80 ~/workspace/SafeWalk/server/
  * If you use this, be sure to change the host string on the app. 
  *
