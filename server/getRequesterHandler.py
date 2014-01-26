@@ -14,11 +14,13 @@ class getRequesterHandler(webapp2.RequestHandler):
 
 
     # this will be a request from the app for information, server will send json to app.     
-    def get(self):
+    def get(self,id):
         """Respond to a GET request."""
-        url = self.request.url[-36:]
-        logging.info("url %s"%url)
-        user = self.getUserByUUID(url)
+        user = self.getUserByUUID(id)
+        user.requestAccepted = True
+        user.put()
+        logging.info("rquestAccepted = %s" %str(user.requestAccepted))
+        
 
 
         self.response.status = 200
@@ -27,27 +29,29 @@ class getRequesterHandler(webapp2.RequestHandler):
                         <header><title>Get a User</title></header>
                         <body>
                                 User Info:
-                                	
-                                
-                       
-                                
+                                    %s<br>
+                                    %s<br>
 
                         </body>
                         </html>
-                        """
+                        """ % ("test","test")
         self.response.write(response)
+        
         
 
     #respond to POST Request, which will come from Safewalk App
     def post(self):
+        url = self.request.url[-36:]
+        user = self.getUserByUUID(url)
+        user.requestAccepted = True
         self.response.status = 200
 
 
-    def getUserByUUID(self,url):
-    	logging.info("size of req %d" %len(RequestHandler.openRequests))
-    	for req in RequestHandler.openRequests:
-    		logging.info("User UUID %s"%str(req.getUUID()))
-    		if req.getUUID() == url:
-    			return req
+    def getUserByUUID(self,id):
+        match = Requester.query(Requester.requestId == id).fetch()
+        logging.info("match %s" %str(match[0]))
+        return match[0]
+
+
 
 
