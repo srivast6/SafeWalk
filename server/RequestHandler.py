@@ -9,7 +9,6 @@ from google.appengine.api.logservice import logservice
 from google.appengine.ext import ndb
 
 class RequestHandler(webapp2.RequestHandler):
-    openRequests = []
     def head(self):
         self.response.status = 200
         self.response.headerlist = [("Content-type", "text/html")]
@@ -49,7 +48,6 @@ class RequestHandler(webapp2.RequestHandler):
         # Add request to datastore
         r.put()
 
-        RequestHandler.openRequests.append(r)
         self.response.status = 200
 
 
