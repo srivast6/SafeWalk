@@ -5,6 +5,7 @@ import json
 import getRequesterHandler
 from RequestHandler import RequestHandler
 from Requester import Requester
+from Users import UsersHandler
 from google.appengine.api.logservice import logservice
 
 #openRequests = []
@@ -43,5 +44,6 @@ class HomeHandler(webapp2.RequestHandler):
 application = webapp2.WSGIApplication([
     webapp2.Route(r'/', handler=HomeHandler, name='home'),
     webapp2.Route('/request',handler=RequestHandler, name='request'),
-    webapp2.Route('/request/<:[0-9a-f]{8}[-][0-9a-f]{4}[-][0-9a-f]{4}[-][0-9a-f]{4}[-][0-9a-f]{12}>/accept',handler=getRequesterHandler.getRequesterHandler,name='getRequesterHandler')
+    webapp2.Route('/request/<:[0-9a-f]{8}[-][0-9a-f]{4}[-][0-9a-f]{4}[-][0-9a-f]{4}[-][0-9a-f]{12}>/accept',handler=getRequesterHandler.getRequesterHandler,name='getRequesterHandler'),
+    webapp2.Route('/users',handler=UsersHandler, name='users')
 ], debug=True)
