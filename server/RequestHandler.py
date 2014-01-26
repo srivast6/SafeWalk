@@ -29,7 +29,6 @@ class RequestHandler(webapp2.RequestHandler):
 
     #respond to POST Request, which will come from Safewalk App
     def post(self):
-        
         #content_len = int(self.response.headers['content-length'])
         post_body = self.request.body
         #postBody is a dictionary with key
@@ -44,7 +43,8 @@ class RequestHandler(webapp2.RequestHandler):
                 startLocation_lon = str(json_dict["startLocation_lon"]),
                 endLocation_lat = str(json_dict["endLocation_lat"]), 
                 endLocation_lon = str(json_dict["endLocation_lon"]),
-                walkCompleted = False)
+                walkCompleted = False,
+                requestAccepted = False)
 
         # Add request to datastore
         r.put()

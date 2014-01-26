@@ -1,5 +1,4 @@
 import datetime
-import simplejson
 import time
 
 from google.appengine.ext import ndb
@@ -16,6 +15,7 @@ class Requester(ndb.Model):
     endLocation_lat = ndb.StringProperty()
     endLocation_lon = ndb.StringProperty()
     walkCompleted = ndb.BooleanProperty()
+    requestAccepted = ndb.BooleanProperty()
 
     @classmethod
     def printInfo(self):
@@ -30,4 +30,4 @@ class Requester(ndb.Model):
 
     @staticmethod
     def getAllOpenRequests():
-        return Requester.query(Requester.walkCompleted == False).fetch()
+        return Requester.query(Requester.requestAccepted == False).fetch()

@@ -1,7 +1,9 @@
 package edu.purdue.SafeWalk;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
 
 import android.app.ActionBar;
@@ -20,6 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 
 public class ListViewRequesterActivity extends ListActivity implements PopupDialog.NoticeDialogListener{
@@ -32,9 +35,9 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 	public static StringEntity se = null;
 	public static String httpResponse = null;
 	static ArrayList<Requester> requests = new ArrayList<Requester>();
-	Requester arrayOfRequests[];
 	Requester r;
 	customHTTPHandler chandler;
+	public static int index;
 	
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -67,7 +70,7 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				
+				index = position;
 		        dialog =  new PopupDialog(getApplicationContext(),position);
 		        dialog.show(getFragmentManager(), "PopUpDialogFragment");
 			}
@@ -81,6 +84,32 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 	@Override
 	public void onPopUpAcceptClick(View v) {
 		// TODO Auto-generated method stub
+		
+		AsyncHttpClient client = new AsyncHttpClient();
+		AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler(){
+			public void onSuccess(String response){
+				//Log.d("response", response);
+			}
+			
+		    @Override
+		    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
+		    {
+		    	Toast.makeText(getApplicationContext(), "No connection to server", Toast.LENGTH_LONG).show();
+		    	Log.d("failure", Integer.toString(statusCode));
+		    }
+		};
+		String message = "accept";
+		StringEntity se = null;
+		try {
+			se = new StringEntity(message);
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String hostname = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_server", "http://optical-sight-386.appspot.com");
+		String url = hostname+"/request"+"/"+requests.get(index).getUUID()+"/accept";
+		Log.d("url", url);
+        client.get(getBaseContext(), hostname+"/request"+"/"+requests.get(index).getUUID()+"/accept",handler);
 		Toast t = Toast.makeText(getApplicationContext(), "Accept Me", Toast.LENGTH_SHORT);
 		t.show();
 		dialog.dismiss();
@@ -127,6 +156,8 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 			requests.add(r);
 		}
 	}
+
+
 }
 
 
