@@ -66,23 +66,7 @@ public class PopupDialog extends DialogFragment {
     	LayoutInflater inflater = this.getActivity().getLayoutInflater();
         // Build the dialog and set up the button click handlers
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        AsyncHttpClient client = new AsyncHttpClient();
-		AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler(){
-			public void onSuccess(String suc){
-				Log.d("uuid response", suc);
-			}
-			
-		    @Override
-		     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
-		     {
-		    	  //Toast.makeText(getApplicationContext(), "No connection to server", Toast.LENGTH_LONG).show();
-		          Log.d("uuid failure", Integer.toString(statusCode));
-		     }
-			
-		};
-		String uuid = ListViewRequesterActivity.requests.get(index).getUUID();
-		Log.d("uuid", uuid);
-		client.get(context, SafeWalk.hostname+"/request"+"/"+uuid,handler);
+
         builder.setView(inflater.inflate(R.layout.pop_up, null));
         return builder.create();
     }
