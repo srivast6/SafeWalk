@@ -146,9 +146,10 @@ public class ListViewRequesterActivity extends ListActivity implements PopupDial
 		while(!chandler.receivedResponse){
 			if(chandler.hasFailed)
 				return;
-
 		}
 		Log.d("response", httpResponse);
+		requests.clear(); // Remove old received requests from list.
+		
 		JSONArray jArray = new JSONArray(httpResponse);
 		for(int i=0; i<jArray.length(); i++){
 			JSONObject j = jArray.getJSONObject(i);
