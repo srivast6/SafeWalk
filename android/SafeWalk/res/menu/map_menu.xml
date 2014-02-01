@@ -3,8 +3,15 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
         android:title="@string/action_settings"/>
+    
+    <item
+        android:id="@+id/action_button"
+        android:orderInCategory="50"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/map_pin"
+        android:title="Do something"/>
     
     <item
         android:id="@+id/action_display_blue"
@@ -21,6 +28,11 @@
         android:checkable="true"
         android:checked="true"
         android:title="Display volunteers"/>
+    
+    
+    <item android:id="@+id/action_login"
+          android:title="Login"
+          android:showAsAction="ifRoom"  />
     
 
 </menu>
