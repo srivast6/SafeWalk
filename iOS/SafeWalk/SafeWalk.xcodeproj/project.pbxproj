@@ -1,0 +1,464 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FCA9EE1018A1BA93000789DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA9EE0F18A1BA93000789DD /* Foundation.framework */; };
+		FCA9EE1218A1BA93000789DD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA9EE1118A1BA93000789DD /* CoreGraphics.framework */; };
+		FCA9EE1418A1BA93000789DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA9EE1318A1BA93000789DD /* UIKit.framework */; };
+		FCA9EE1A18A1BA93000789DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FCA9EE1818A1BA93000789DD /* InfoPlist.strings */; };
+		FCA9EE1C18A1BA93000789DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FCA9EE1B18A1BA93000789DD /* main.m */; };
+		FCA9EE2018A1BA93000789DD /* ACMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FCA9EE1F18A1BA93000789DD /* ACMAppDelegate.m */; };
+		FCA9EE2218A1BA93000789DD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCA9EE2118A1BA93000789DD /* Images.xcassets */; };
+		FCA9EE2918A1BA93000789DD /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA9EE2818A1BA93000789DD /* XCTest.framework */; };
+		FCA9EE2A18A1BA93000789DD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA9EE0F18A1BA93000789DD /* Foundation.framework */; };
+		FCA9EE2B18A1BA93000789DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA9EE1318A1BA93000789DD /* UIKit.framework */; };
+		FCA9EE3318A1BA93000789DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FCA9EE3118A1BA93000789DD /* InfoPlist.strings */; };
+		FCA9EE3518A1BA93000789DD /* SafeWalkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FCA9EE3418A1BA93000789DD /* SafeWalkTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FCA9EE2C18A1BA93000789DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FCA9EE0418A1BA93000789DD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FCA9EE0B18A1BA93000789DD;
+			remoteInfo = SafeWalk;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		FCA9EE0C18A1BA93000789DD /* SafeWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCA9EE0F18A1BA93000789DD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		FCA9EE1118A1BA93000789DD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		FCA9EE1318A1BA93000789DD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		FCA9EE1718A1BA93000789DD /* SafeWalk-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SafeWalk-Info.plist"; sourceTree = "<group>"; };
+		FCA9EE1918A1BA93000789DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FCA9EE1B18A1BA93000789DD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		FCA9EE1D18A1BA93000789DD /* SafeWalk-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SafeWalk-Prefix.pch"; sourceTree = "<group>"; };
+		FCA9EE1E18A1BA93000789DD /* ACMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACMAppDelegate.h; sourceTree = "<group>"; };
+		FCA9EE1F18A1BA93000789DD /* ACMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ACMAppDelegate.m; sourceTree = "<group>"; };
+		FCA9EE2118A1BA93000789DD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		FCA9EE2718A1BA93000789DD /* SafeWalkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SafeWalkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCA9EE2818A1BA93000789DD /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		FCA9EE3018A1BA93000789DD /* SafeWalkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SafeWalkTests-Info.plist"; sourceTree = "<group>"; };
+		FCA9EE3218A1BA93000789DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		FCA9EE3418A1BA93000789DD /* SafeWalkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafeWalkTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FCA9EE0918A1BA93000789DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCA9EE1218A1BA93000789DD /* CoreGraphics.framework in Frameworks */,
+				FCA9EE1418A1BA93000789DD /* UIKit.framework in Frameworks */,
+				FCA9EE1018A1BA93000789DD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCA9EE2418A1BA93000789DD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCA9EE2918A1BA93000789DD /* XCTest.framework in Frameworks */,
+				FCA9EE2B18A1BA93000789DD /* UIKit.framework in Frameworks */,
+				FCA9EE2A18A1BA93000789DD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FCA9EE0318A1BA93000789DD = {
+			isa = PBXGroup;
+			children = (
+				FCA9EE1518A1BA93000789DD /* SafeWalk */,
+				FCA9EE2E18A1BA93000789DD /* SafeWalkTests */,
+				FCA9EE0E18A1BA93000789DD /* Frameworks */,
+				FCA9EE0D18A1BA93000789DD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FCA9EE0D18A1BA93000789DD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FCA9EE0C18A1BA93000789DD /* SafeWalk.app */,
+				FCA9EE2718A1BA93000789DD /* SafeWalkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FCA9EE0E18A1BA93000789DD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FCA9EE0F18A1BA93000789DD /* Foundation.framework */,
+				FCA9EE1118A1BA93000789DD /* CoreGraphics.framework */,
+				FCA9EE1318A1BA93000789DD /* UIKit.framework */,
+				FCA9EE2818A1BA93000789DD /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FCA9EE1518A1BA93000789DD /* SafeWalk */ = {
+			isa = PBXGroup;
+			children = (
+				FCA9EE1E18A1BA93000789DD /* ACMAppDelegate.h */,
+				FCA9EE1F18A1BA93000789DD /* ACMAppDelegate.m */,
+				FCA9EE2118A1BA93000789DD /* Images.xcassets */,
+				FCA9EE1618A1BA93000789DD /* Supporting Files */,
+			);
+			path = SafeWalk;
+			sourceTree = "<group>";
+		};
+		FCA9EE1618A1BA93000789DD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FCA9EE1718A1BA93000789DD /* SafeWalk-Info.plist */,
+				FCA9EE1818A1BA93000789DD /* InfoPlist.strings */,
+				FCA9EE1B18A1BA93000789DD /* main.m */,
+				FCA9EE1D18A1BA93000789DD /* SafeWalk-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FCA9EE2E18A1BA93000789DD /* SafeWalkTests */ = {
+			isa = PBXGroup;
+			children = (
+				FCA9EE3418A1BA93000789DD /* SafeWalkTests.m */,
+				FCA9EE2F18A1BA93000789DD /* Supporting Files */,
+			);
+			path = SafeWalkTests;
+			sourceTree = "<group>";
+		};
+		FCA9EE2F18A1BA93000789DD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FCA9EE3018A1BA93000789DD /* SafeWalkTests-Info.plist */,
+				FCA9EE3118A1BA93000789DD /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FCA9EE0B18A1BA93000789DD /* SafeWalk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCA9EE3818A1BA93000789DD /* Build configuration list for PBXNativeTarget "SafeWalk" */;
+			buildPhases = (
+				FCA9EE0818A1BA93000789DD /* Sources */,
+				FCA9EE0918A1BA93000789DD /* Frameworks */,
+				FCA9EE0A18A1BA93000789DD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SafeWalk;
+			productName = SafeWalk;
+			productReference = FCA9EE0C18A1BA93000789DD /* SafeWalk.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FCA9EE2618A1BA93000789DD /* SafeWalkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCA9EE3B18A1BA93000789DD /* Build configuration list for PBXNativeTarget "SafeWalkTests" */;
+			buildPhases = (
+				FCA9EE2318A1BA93000789DD /* Sources */,
+				FCA9EE2418A1BA93000789DD /* Frameworks */,
+				FCA9EE2518A1BA93000789DD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FCA9EE2D18A1BA93000789DD /* PBXTargetDependency */,
+			);
+			name = SafeWalkTests;
+			productName = SafeWalkTests;
+			productReference = FCA9EE2718A1BA93000789DD /* SafeWalkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FCA9EE0418A1BA93000789DD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = ACM;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Eric Templin";
+				TargetAttributes = {
+					FCA9EE0B18A1BA93000789DD = {
+						DevelopmentTeam = DXU5U29D7C;
+					};
+					FCA9EE2618A1BA93000789DD = {
+						TestTargetID = FCA9EE0B18A1BA93000789DD;
+					};
+				};
+			};
+			buildConfigurationList = FCA9EE0718A1BA93000789DD /* Build configuration list for PBXProject "SafeWalk" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = FCA9EE0318A1BA93000789DD;
+			productRefGroup = FCA9EE0D18A1BA93000789DD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FCA9EE0B18A1BA93000789DD /* SafeWalk */,
+				FCA9EE2618A1BA93000789DD /* SafeWalkTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FCA9EE0A18A1BA93000789DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCA9EE1A18A1BA93000789DD /* InfoPlist.strings in Resources */,
+				FCA9EE2218A1BA93000789DD /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCA9EE2518A1BA93000789DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCA9EE3318A1BA93000789DD /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FCA9EE0818A1BA93000789DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCA9EE2018A1BA93000789DD /* ACMAppDelegate.m in Sources */,
+				FCA9EE1C18A1BA93000789DD /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FCA9EE2318A1BA93000789DD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCA9EE3518A1BA93000789DD /* SafeWalkTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FCA9EE2D18A1BA93000789DD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FCA9EE0B18A1BA93000789DD /* SafeWalk */;
+			targetProxy = FCA9EE2C18A1BA93000789DD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FCA9EE1818A1BA93000789DD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FCA9EE1918A1BA93000789DD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		FCA9EE3118A1BA93000789DD /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FCA9EE3218A1BA93000789DD /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FCA9EE3618A1BA93000789DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		FCA9EE3718A1BA93000789DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FCA9EE3918A1BA93000789DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SafeWalk/SafeWalk-Prefix.pch";
+				INFOPLIST_FILE = "SafeWalk/SafeWalk-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		FCA9EE3A18A1BA93000789DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SafeWalk/SafeWalk-Prefix.pch";
+				INFOPLIST_FILE = "SafeWalk/SafeWalk-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		FCA9EE3C18A1BA93000789DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SafeWalk.app/SafeWalk";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SafeWalk/SafeWalk-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "SafeWalkTests/SafeWalkTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		FCA9EE3D18A1BA93000789DD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SafeWalk.app/SafeWalk";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SafeWalk/SafeWalk-Prefix.pch";
+				INFOPLIST_FILE = "SafeWalkTests/SafeWalkTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FCA9EE0718A1BA93000789DD /* Build configuration list for PBXProject "SafeWalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCA9EE3618A1BA93000789DD /* Debug */,
+				FCA9EE3718A1BA93000789DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FCA9EE3818A1BA93000789DD /* Build configuration list for PBXNativeTarget "SafeWalk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCA9EE3918A1BA93000789DD /* Debug */,
+				FCA9EE3A18A1BA93000789DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		FCA9EE3B18A1BA93000789DD /* Build configuration list for PBXNativeTarget "SafeWalkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCA9EE3C18A1BA93000789DD /* Debug */,
+				FCA9EE3D18A1BA93000789DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FCA9EE0418A1BA93000789DD /* Project object */;
+}

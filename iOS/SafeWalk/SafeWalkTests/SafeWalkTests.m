@@ -2,8 +2,8 @@
 //  SafeWalkTests.m
 //  SafeWalkTests
 //
-//  Created by Aaron Peters on 1/28/14.
-//  Copyright (c) 2014 Aaron Peters. All rights reserved.
+//  Created by Eric Templin on 2/4/14.
+//  Copyright (c) 2014 Eric Templin. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
