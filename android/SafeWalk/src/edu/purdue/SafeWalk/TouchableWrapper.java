@@ -16,13 +16,13 @@ public  class TouchableWrapper extends FrameLayout {
 	private static final long SCROLL_TIME = 5L; // 200 Milliseconds, but you can adjust that to your liking
 	private UpdateMapAfterUserInterection updateMapAfterUserInterection;
 
-	public TouchableWrapper(Context context) {
-		super(context);
+	public TouchableWrapper(MapOverlayHandler mapOverlayHandler) {
+		super(mapOverlayHandler.getContext());
 		// Force the host activity to implement the UpdateMapAfterUserInterection Interface
 		try {
-			updateMapAfterUserInterection = (SafeWalk) context;
+			updateMapAfterUserInterection = mapOverlayHandler;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement UpdateMapAfterUserInterection");
+            throw new ClassCastException(mapOverlayHandler.getContext().toString() + " must implement UpdateMapAfterUserInterection");
         }
 	}
 
