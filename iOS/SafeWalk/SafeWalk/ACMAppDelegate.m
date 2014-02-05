@@ -7,15 +7,22 @@
 //
 
 #import "ACMAppDelegate.h"
+#import "ACMMapViewController.h"
 
 @implementation ACMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    // Setup GMS Services API key (Google Maps)
+    [GMSServices provideAPIKey:@"{AIzaSyDj67tCIvUwA7bHVgkgRHiSrMhRYfjr1v8}"];
+    
+    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    //self.window.rootViewController = [[ACMMapViewController alloc] init];
+    
+    // Override point for customization after application launch.    
+    //self.window.backgroundColor = [UIColor whiteColor];
+    //[self.window makeKeyAndVisible];
+    
     return YES;
 }
 

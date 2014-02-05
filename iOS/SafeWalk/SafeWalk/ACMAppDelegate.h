@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Eric Templin. All rights reserved.
 //
 
+#import <GoogleMaps/GoogleMaps.h>
 #import <UIKit/UIKit.h>
 
 @interface ACMAppDelegate : UIResponder <UIApplicationDelegate>
