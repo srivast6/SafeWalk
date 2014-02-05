@@ -7,6 +7,7 @@
 //
 
 #import "ACMMapViewController.h"
+#import "ACMAppDelegate.h"
 
 @interface ACMMapViewController ()
 
@@ -34,11 +35,35 @@
                                                                  zoom:6];
     gmsMapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
     gmsMapView.myLocationEnabled = YES;
+    gmsMapView.settings.myLocationButton = YES;
+    
+    // Set map center to current location
+    if([CLLocationManager locationServicesEnabled] == NO) {
+        UIAlertView * locationServicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Location Required" message:@"You must enable Location Services to use this app." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:@"Open Settings", nil];
+        [locationServicesDisabledAlert show];
+    }
+    
+    if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted) {
+        UIAlertView * locationNotAuthorizedAlert = [[UIAlertView alloc] initWithTitle:@"Location Required" message:@"You must authorize SafeWalk to access your location to use the app." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:@"Open Settings", nil];
+        //TODO: Set delegate to something that will open up location settings or authorize location.
+        [locationNotAuthorizedAlert show];
+    }
+    
+    ACMAppDelegate * del = [[UIApplication sharedApplication] delegate];
+    del.locationManager = [CLLocationManager alloc];
+    //del.locationManager.delegate = self;
+    //[del.locationManager startUpdatingLocation];
+
+    
     [self setMapView:gmsMapView];
-    //[gmsMapView setNeedsDisplay];
-    //self.navigationController.toolbarHidden = NO;
+    
     [self.navigationController setToolbarHidden:NO];
-    NSLog(@"%d toolbarItems", self.navigationController.toolbarItems.count);
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray*)locations
+{
+    CLLocation * loc = locations.firstObject;
+    [gmsMapView animateToLocation:loc.coordinate];
 }
 
 - (IBAction)callSafeWalkButtonPressed:(UIBarButtonItem*)sender
