@@ -9,7 +9,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <UIKit/UIKit.h>
 
-@interface ACMMapViewController : UIViewController
+@interface ACMMapViewController : UIViewController <CLLocationManagerDelegate>
 
 @property IBOutlet UIView * mapView;
 
