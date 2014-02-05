@@ -12,6 +12,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -143,6 +144,8 @@ public class SafeWalk extends Activity implements
 		}
 	}
 
+	
+	
 	private void initNavDrawer() {
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -340,7 +343,19 @@ public class SafeWalk extends Activity implements
 		         Log.d(TAG, "Login failed!");
 		     }
 		  }
+	}
+	
+	@Override
+	public void onBackPressed()
+	{
+		FragmentManager fm = getFragmentManager();
+		if(fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equals("REQUEST_FRAGMENT"))
+		{
+			fm.popBackStack();
+		} else {
+			super.onBackPressed();
 		}
+	}
 	
 	private void openRequestActivity()
 	{
@@ -365,7 +380,7 @@ public class SafeWalk extends Activity implements
         
         // Add the fragment to the 'fragment_container' FrameLayout
         getFragmentManager().beginTransaction()
-                .add(R.id.fragmentContainer, requestFragment).setTransition(FragmentTransaction.TRANSIT_NONE).commit();
+                .add(R.id.fragmentContainer, requestFragment).addToBackStack("REQUEST_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
 		
 		
 		/*
