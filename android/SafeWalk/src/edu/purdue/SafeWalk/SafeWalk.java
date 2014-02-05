@@ -149,8 +149,7 @@ public class SafeWalk extends Activity implements
 	private void initNavDrawer() {
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.left_drawer);
-		String[] menuItems = new String[] { "Settings",
-				"What is SafeWalk?", "People", "Safewalk Personnel" };
+		final String[] menuItems = new String[] { "What is SafeWalk?", "People", "Safewalk Personnel", "Settings" };
 		drawerList.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, menuItems));
 		drawerList.setOnItemClickListener(new ListView.OnItemClickListener() {
@@ -158,26 +157,27 @@ public class SafeWalk extends Activity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int order,
 					long arg3) {
-
-				if (order == 2) {
+				String item = menuItems[order];
+				
+				if (item.equals("People")) {
 					Intent listIntent = new Intent(SafeWalk.this,
 							ListViewRequesterActivity.class);
 					SafeWalk.this.startActivity(listIntent);
 
-				}else if(order == 0){
+				}else if(item.equals("Settings")){
 					openSettings();
 
-				}else if(order == 3){
+				}else if(item.equals("Safewalk Personnel")){
 					Intent Safewalk_Personnel = new Intent(SafeWalk.this,
 							MapPoliceActivity.class);
 					SafeWalk.this.startActivity(Safewalk_Personnel);
-				}else if(order == 1){
+				}else if(item.equals("What is SafeWalk?")){
 					Intent Safewalk_Personnel = new Intent(SafeWalk.this,
 							AboutActivity.class);
 					SafeWalk.this.startActivity(Safewalk_Personnel);
 				} else {
 					Toast.makeText(SafeWalk.this,
-							"This feature is under construction",
+							"This feature is under construction\nOr unavailable.",
 							Toast.LENGTH_SHORT).show();
 				}
 			}
