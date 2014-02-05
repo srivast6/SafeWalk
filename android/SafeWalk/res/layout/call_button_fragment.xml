@@ -10,7 +10,7 @@
         android:id="@+id/btn_callSafewalk"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_weight=".5"
         android:text="Call SafeWalk" />
 
@@ -18,7 +18,7 @@
         android:id="@+id/btn_callPolice"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="0dp"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_weight=".5"
         android:text="Call Police"
         android:background="@android:color/holo_red_light" />

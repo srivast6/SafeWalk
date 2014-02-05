@@ -12,6 +12,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,7 +36,10 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +49,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.UiSettings;
@@ -57,13 +62,11 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-import edu.purdue.SafeWalk.TouchableWrapper.UpdateMapAfterUserInterection;
 import edu.purdue.SafeWalk.settings.SettingsActivity;
 
 public class SafeWalk extends Activity implements
 		GooglePlayServicesClient.ConnectionCallbacks,
-		GooglePlayServicesClient.OnConnectionFailedListener,
-		UpdateMapAfterUserInterection{
+		GooglePlayServicesClient.OnConnectionFailedListener{
 	private GoogleMap mMap;
 	private LocationClient mLocationClient;
 	ListView drawerList;
@@ -75,6 +78,8 @@ public class SafeWalk extends Activity implements
 	int numRequests; 
 	static final String name = "John Doe";
 	private static final String TAG = "SafeWalk";
+	private static final String PACKAGE = "edu.purdue.SafeWalk";
+	private static final int LOGIN_REQUEST = 1223523513;
 	public static String hostname;
 
 	private static enum BubbleState {
@@ -82,7 +87,7 @@ public class SafeWalk extends Activity implements
 	};
 	
 	private BubbleState mBubbleState = BubbleState.START;
-	private int mShortAnimationDuration; 
+	
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -93,6 +98,52 @@ public class SafeWalk extends Activity implements
 
 		hostname = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_server", "http://optical-sight-386.appspot.com");
 		
+		initNavDrawer();
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
+		getActionBar().setSubtitle("Map");
+
+		// Check for Google Play Services
+		// TODO: This may be throwing the error in the log. 
+		int googlePlayServicesAvailable = GooglePlayServicesUtil
+				.isGooglePlayServicesAvailable(this);
+		if (googlePlayServicesAvailable != ConnectionResult.SUCCESS) {
+			GooglePlayServicesUtil.getErrorDialog(googlePlayServicesAvailable,
+					this, CONNECTION_FAILURE_RESOLUTION_REQUEST).show();
+		}
+
+		mLocationClient = new LocationClient(this, this, this);
+
+		initMap();
+	}
+
+	private void initMap() {
+		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+				.getMap();
+		if (mMap != null) {
+			mMap.setMyLocationEnabled(true);
+			UiSettings mapSettings = mMap.getUiSettings();
+			mapSettings.setTiltGesturesEnabled(false);
+			mapSettings.setRotateGesturesEnabled(false);
+		} else {
+			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+			alertBuilder.setTitle("Error!");
+			alertBuilder.setMessage(this.getResources().getText(
+					R.string.error_no_maps));
+			alertBuilder.setPositiveButton("Close "
+					+ this.getResources().getText(R.string.app_name),
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							SafeWalk.this.finish();
+						}
+					});
+			alertBuilder.show();
+		}
+	}
+
+	private void initNavDrawer() {
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.left_drawer);
 		String[] menuItems = new String[] { "Settings",
@@ -154,47 +205,6 @@ public class SafeWalk extends Activity implements
 
 		// Set the drawer toggle as the DrawerListener
 		drawerLayout.setDrawerListener(mDrawerToggle);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
-		getActionBar().setSubtitle("Map");
-
-		// Check for Google Play Services
-		int googlePlayServicesAvailable = GooglePlayServicesUtil
-				.isGooglePlayServicesAvailable(this);
-		if (googlePlayServicesAvailable != ConnectionResult.SUCCESS) {
-			GooglePlayServicesUtil.getErrorDialog(googlePlayServicesAvailable,
-					this, CONNECTION_FAILURE_RESOLUTION_REQUEST).show();
-		}
-
-		mLocationClient = new LocationClient(this, this, this);
-
-		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-				.getMap();
-		if (mMap != null) {
-			mMap.setMyLocationEnabled(true);
-			UiSettings mapSettings = mMap.getUiSettings();
-			mapSettings.setTiltGesturesEnabled(false);
-			mapSettings.setRotateGesturesEnabled(false);
-		} else {
-			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-			alertBuilder.setTitle("Error!");
-			alertBuilder.setMessage(this.getResources().getText(
-					R.string.error_no_maps));
-			alertBuilder.setPositiveButton("Close "
-					+ this.getResources().getText(R.string.app_name),
-					new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							SafeWalk.this.finish();
-						}
-					});
-			alertBuilder.show();
-		}
-		
-		// Retrieve and cache the system's default "short" animation time.
-        mShortAnimationDuration = getResources().getInteger(
-                android.R.integer.config_shortAnimTime);
-
 	}
 
 	private void openSettings() {
@@ -299,11 +309,88 @@ public class SafeWalk extends Activity implements
         case R.id.action_settings:
         	openSettings();
             return true;
+        case R.id.action_button:
+        	openRequestActivity();
+        	return true; 
+        case R.id.action_login:
+        	openLoginActivity();
+        	return true;
 		}
 		
 		
 		// Handle your other action bar items...
 		return super.onOptionsItemSelected(item);
+	}
+	
+	private void openLoginActivity()
+	{
+		Intent loginIntent = new Intent(this, LoginActivity.class);
+		startActivityForResult(loginIntent, LOGIN_REQUEST);
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		  if (requestCode == LOGIN_REQUEST) {
+
+		     if(resultCode == RESULT_OK){      
+		         String result=data.getStringExtra("result");     
+		         Log.d(TAG, "Login successful: " + result);
+		     }
+		     if (resultCode == RESULT_CANCELED) {    
+		         Log.d(TAG, "Login failed!");
+		     }
+		  }
+		}
+	
+	private void openRequestActivity()
+	{
+		
+		View mapView = findViewById(R.id.mapFrame);
+		
+
+        // Create a new Fragment to be placed in the activity layout
+        MakeRequestFragment requestFragment = new MakeRequestFragment();
+        mMap.snapshot((SnapshotReadyCallback) requestFragment);
+        
+        Bundle b = new Bundle();
+        b.putParcelable("location", mLocationClient.getLastLocation());
+        
+        
+        // In case this activity was started with special instructions from an
+        // Intent, pass the Intent's extras to the fragment as arguments
+        requestFragment.setArguments(getIntent().getExtras());
+        
+        
+        
+        
+        // Add the fragment to the 'fragment_container' FrameLayout
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragmentContainer, requestFragment).setTransition(FragmentTransaction.TRANSIT_NONE).commit();
+		
+		
+		/*
+		
+        int[] screenLocation = new int[2];
+        mapView.getLocationOnScreen(screenLocation);
+        Intent subActivity = new Intent(SafeWalk.this,
+                MakeRequestActivity.class);
+        int orientation = getResources().getConfiguration().orientation;
+        subActivity.
+                putExtra(PACKAGE + ".orientation", orientation).
+                //putExtra(PACKAGE + ".orientation", orientation).
+                putExtra(PACKAGE + ".left", screenLocation[0]).
+                putExtra(PACKAGE + ".top", screenLocation[1]).
+                putExtra(PACKAGE + ".width", mapView.getWidth()). //map
+                putExtra(PACKAGE + ".height", mapView.getHeight()); //map
+        startActivity(subActivity);
+        */
+        
+        //TODO: Map.capture()
+        
+        
+        // Override transitions: we don't want the normal window animation in addition
+        // to our custom one
+        //overridePendingTransition(0, 0);
 	}
 
 	@Override
@@ -336,63 +423,9 @@ public class SafeWalk extends Activity implements
 		mLocationClient.connect();
 	}
 
-	@Override
-	public void onMapDrag() {
-		Log.d(TAG, "onMapDrag()");
-		fadeBubbleOut();
-	}
-
-	@Override
-	public void onMapLift() {
-		Log.d(TAG, "onMapLift()");
-		fadeBubbleIn();
-	}
 	
-	private void fadeBubbleOut() {
-		
-		findViewById(R.id.mapPopUpLinLayout).animate().cancel();
-		findViewById(R.id.mapPopUpView1).animate().cancel();
-		
-	    // Animate the loading view to 0% opacity. After the animation ends,
-	    // set its visibility to GONE as an optimization step (it won't
-	    // participate in layout passes, etc.)
-		findViewById(R.id.mapPopUpLinLayout).animate()
-	            .alpha(0f)
-	            .setDuration(mShortAnimationDuration)
-	            .setListener(new AnimatorListenerAdapter() {
-	                @Override
-	                public void onAnimationEnd(Animator animation) {
-	                	findViewById(R.id.mapPopUpLinLayout).setVisibility(View.INVISIBLE);
-	                }
-	            });
-		findViewById(R.id.mapPopUpView1).animate()
-        	.alpha(0f)
-        	.setDuration(mShortAnimationDuration)
-        	.setListener(new AnimatorListenerAdapter() {
-        		@Override
-        		public void onAnimationEnd(Animator animation) {
-        			findViewById(R.id.mapPopUpView1).setVisibility(View.INVISIBLE);
-        		}
-        	});
-	}
 	
-	private void fadeBubbleIn() {
-		
-		findViewById(R.id.mapPopUpLinLayout).animate().setListener(null).cancel();
-		findViewById(R.id.mapPopUpView1).animate().setListener(null).cancel();
-		
-		findViewById(R.id.mapPopUpLinLayout).setVisibility(View.VISIBLE);
-		findViewById(R.id.mapPopUpLinLayout).animate()
-        	.alpha(1f)
-        	.setDuration(mShortAnimationDuration)
-        	.setListener(null);
-		
-		findViewById(R.id.mapPopUpView1).setVisibility(View.VISIBLE);
-		findViewById(R.id.mapPopUpView1).animate()
-        	.alpha(1f)
-        	.setDuration(mShortAnimationDuration)
-        	.setListener(null);
-	}
+	
 
 	/*
 	 * Function used when a request to be picked up is map, send information to server
@@ -402,6 +435,36 @@ public class SafeWalk extends Activity implements
 		LatLng latlng; 
 		if(mBubbleState == BubbleState.START)
 		{
+			/*
+			TextView tv = new TextView(getApplicationContext());
+			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+			params.addRule(RelativeLayout.BELOW, R.id.mapFrame);
+			//params.addRule(RelativeLayout.ABOVE, R.id.callButtons);
+			
+			tv.setText("Hello, this is dog.");
+			tv.setTextSize(50);
+			tv.setId(12493840);
+			
+			View callButtons = findViewById(R.id.callButtons);
+			
+			RelativeLayout.LayoutParams btn_layout = (RelativeLayout.LayoutParams) callButtons.getLayoutParams();
+			btn_layout.addRule(RelativeLayout.BELOW, 12493840);
+			btn_layout.height = callButtons.getHeight();
+			
+			RelativeLayout mainView = (RelativeLayout) findViewById(R.id.mainView);
+			
+			FrameLayout mapFrame = (FrameLayout) findViewById(R.id.mapFrame);
+			RelativeLayout.LayoutParams mapparams = (RelativeLayout.LayoutParams) mapFrame.getLayoutParams();
+			
+			mapparams.height = 1000; 
+			
+			mapFrame.setLayoutParams(mapparams);
+			mainView.addView(tv, params);
+			callButtons.setLayoutParams(btn_layout);
+			
+			*/
+			//---------
+			
 			latlng = ((CustomMapFragment) getFragmentManager().findFragmentById(R.id.map)).dropPinAtCenter(this, "Start", BitmapDescriptorFactory.HUE_GREEN);
 			
 			SharedPreferences bubbleState = getSharedPreferences("bubbleState", MODE_PRIVATE);
