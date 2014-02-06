@@ -80,28 +80,41 @@ SafeWalk Server API
 * Auth ID
 * Location
 
-###/users/{id}
+### /users
 #### POST (for registering)
-* Name
-* Phone Number
-* Purdue Authorization Token
-* Device ID
+* name (string)
+* phoneNumber (string)
+* currentLocation_lat (string)
+* currentLocation_lng (string)
+* deviceToken (string)
+* * Either a string from Google Cloud Messaging or a byte[] serialized into a string for iOS push notifications.
+* purdueCASServiceTicket (string)
 #### GET
-* Authorization token for all users or specified user in JSON
+* JSON array of all registered users
+* Requires an administrator or SafeWalk employee account to access
 
-
-###/Walkers
+###/users/{id}
+#### POST (for updating user info)
+* name (string, optional)
+* phoneNumber (string, optional)
+* currentLocation_lat (string, optional)
+* currentLocation_lng (string, optional)
+* deviceToken (string, optional)
+* * Either a string from Google Cloud Messaging or a byte[] serialized into a string for iOS push notifications.
+* purdueCASServiceTicket (string, optional)
 #### GET
-* Array of location of walkers
+* JSON object of user with matching id.
 
 ###/users/{id}/update-location
 #### POST
 * Authorization Token
 * Current location
 
-###/users/{id}/update
-#### POST
-* Updated person attributes
+
+
+###/Walkers
+#### GET
+* Array of locations of walkers
 
 ![API Flow](https://raw.github.com/Purdue-ACM-SIGAPP/SafeWalk/master/documentation/images/api-requests.jpg)
 
