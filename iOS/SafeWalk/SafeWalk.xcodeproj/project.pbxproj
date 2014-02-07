@@ -440,9 +440,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/etemplin/SafeWalk/iOS/SafeWalk,
-					/Users/etemplin/SafeWalk/iOS/SafeWalk/Frameworks,
-					/Users/etemplin/Downloads/SafeWalk/ios/SafeWalk/Frameworks,
+					Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SafeWalk/SafeWalk-Prefix.pch";
@@ -462,9 +460,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/etemplin/SafeWalk/iOS/SafeWalk,
-					/Users/etemplin/SafeWalk/iOS/SafeWalk/Frameworks,
-					/Users/etemplin/Downloads/SafeWalk/ios/SafeWalk/Frameworks,
+					Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SafeWalk/SafeWalk-Prefix.pch";
