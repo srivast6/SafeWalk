@@ -6,6 +6,7 @@ import getRequesterHandler
 from RequestHandler import RequestHandler
 from Requester import Requester
 from Users import UsersHandler
+from UserIdHandler import UserIdHandler
 from google.appengine.api.logservice import logservice
 
 #openRequests = []
@@ -24,6 +25,7 @@ class HomeHandler(webapp2.RequestHandler):
     # this will be a request from the app for information, server will send json to app.     
     def get(self):
         """Respond to a GET request."""
+        logging.info("HomeHandler get a GET Request")
         self.response.status = 200
         self.response.headerlist = [("Content-type", "text/html")]
         response = """ <html>
@@ -45,5 +47,6 @@ application = webapp2.WSGIApplication([
     webapp2.Route(r'/', handler=HomeHandler, name='home'),
     webapp2.Route('/request',handler=RequestHandler, name='request'),
     webapp2.Route('/request/<:[0-9a-f]{8}[-][0-9a-f]{4}[-][0-9a-f]{4}[-][0-9a-f]{4}[-][0-9a-f]{12}>/accept',handler=getRequesterHandler.getRequesterHandler,name='getRequesterHandler'),
-    webapp2.Route('/users',handler=UsersHandler, name='users')
+    webapp2.Route('/users',handler=UsersHandler, name='users'),
+    webapp2.Route('/users/',handler=UserIdHandler,name='UserIdHandler')
 ], debug=True)

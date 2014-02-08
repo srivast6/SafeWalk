@@ -26,6 +26,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.provider.Settings.Secure;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -38,6 +39,9 @@ public class LoginActivity extends Activity {
 	 */
 	private static final String[] DUMMY_CREDENTIALS = new String[] {
 			"foo@example.com:hello", "bar@example.com:world", "david@debug.edu:test",  };
+	
+
+	
 
 	/**
 	 * The default email to populate the email field with.
@@ -48,14 +52,27 @@ public class LoginActivity extends Activity {
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
 	private UserLoginTask mAuthTask = null;
+	
+	/**
+	 * Store Default Device ID, Note this will be changed with the phone is wiped.
+	 */
+	private String casTicket = "XXXXX";
+	private String deviceId = null;
+	public static AsyncHttpResponseHandler handler = null;
 
 	// Values for email and password at the time of the login attempt.
 	private String mEmail;
 	private String mPassword;
+	private String mFirstName;
+	private String mLastName;
+	private String mPhoneNumber;
+
 
 	// UI references.
 	private EditText mEmailView;
 	private EditText mPasswordView;
+	private EditText mUsernameView;
+	private EditText mPhoneNumberView;
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
@@ -65,6 +82,20 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
+		deviceId = Secure.getString(getBaseContext().getContentResolver(),Secure.ANDROID_ID); 
+		
+		 handler = new AsyncHttpResponseHandler(){
+			public void onSuccess(String suc){
+				Log.d("response", suc);
+			}
+			
+		    @Override
+		    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
+		    {
+		    	Toast.makeText(getApplicationContext(), "No connection to server", Toast.LENGTH_LONG).show();
+		    	Log.d("failure", Integer.toString(statusCode));
+		    }
+		};
 
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
@@ -85,6 +116,9 @@ public class LoginActivity extends Activity {
 					}
 				});
 
+		mUsernameView = (EditText)findViewById(R.id.username);
+		mPhoneNumberView = (EditText)findViewById(R.id.phoneNumber);
+		
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
@@ -122,6 +156,16 @@ public class LoginActivity extends Activity {
 		// Store values at the time of the login attempt.
 		mEmail = mEmailView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
+		String[] names = mUsernameView.getText().toString().split("\\s+");
+		if(names.length >= 2){
+		mFirstName = names[0].replaceAll("\\s+", "");
+		mLastName = names[1].replaceAll("\\s+", "");
+		} else {
+			mUsernameView.setError(getString(R.string.error_first_and_last_required));
+		}
+		
+		mPhoneNumber = mPhoneNumberView.getText().toString();
+		mPhoneNumber.replaceAll("\\s+", "");
 
 		boolean cancel = false;
 		View focusView = null;
@@ -146,6 +190,16 @@ public class LoginActivity extends Activity {
 			mEmailView.setError(getString(R.string.error_invalid_email));
 			focusView = mEmailView;
 			cancel = true;
+		}
+		
+		// Check for valid name
+	
+		// Check for valid phone number
+		if(!TextUtils.isDigitsOnly(mPhoneNumber)){
+			mPhoneNumberView.setError(getString(R.string.error_invalid_phone_number));
+		} else if(TextUtils.isEmpty(mPhoneNumber)){
+			mPhoneNumberView.setError(getString(R.string.error_field_required));
+			
 		}
 
 		if (cancel) {
@@ -211,6 +265,10 @@ public class LoginActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			// TODO: attempt authentication against a network service.
+			AsyncHttpClient client = new AsyncHttpClient();
+			int id = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).getInt("pref_server", 0);
+
+			client.post("http://optical-sight-386.appspot.com/users?"+"firstName="+mFirstName+"&lastName="+mLastName+"&phoneNumber="+mPhoneNumber+"&currentLocation_lat=0.00"+"&currentLocation_lng=0.00"+"&deviceToken="+deviceId+"&purdueCASServiceTicket="+casTicket, LoginActivity.handler);
 			
 			if(!verifyAccount())
 			{

@@ -1,9 +1,12 @@
 import webapp2
 import json
 from google.appengine.ext import ndb
+from google.appengine.api.logservice import logservice
+import logging
 
 class User(ndb.Model):
-    name = ndb.StringProperty()
+    firstName = ndb.StringProperty()
+    lastName = ndb.StringProperty()
     phoneNumber = ndb.StringProperty()
     currentLocation_lat = ndb.StringProperty()
     currentLocation_lng = ndb.StringProperty()
@@ -11,6 +14,7 @@ class User(ndb.Model):
     deviceToken = ndb.StringProperty() # 32 bytes of data on iOS, String on Android (GCM)
     purdueCASServiceTicket = ndb.StringProperty() # Set https://www.purdue.edu/apps/account/html/cas_presentation_20110407.pdf
     isAdminUser = ndb.BooleanProperty()
+
 
 class UsersHandler(webapp2.RequestHandler):
     def head(self):
@@ -20,7 +24,8 @@ class UsersHandler(webapp2.RequestHandler):
     # Mobile app sends post to create new user
     def post(self):
         self.response.status = 200
-        newUser = User(name=self.request.get("name"),
+        newUser = User(firstName=self.request.get("firstName"),
+                lastName=self.request.get("lastName"),
                 phoneNumber=self.request.get("phoneNumber"),
                 currentLocation_lat=self.request.get("currentLocation_lat"),
                 currentLocation_lng=self.request.get("currentLocation_lng"),
@@ -29,6 +34,7 @@ class UsersHandler(webapp2.RequestHandler):
                 purdueCASServiceTicket=self.request.get("purdueCASServiceTicket"),
                 isAdminUser=False)
         newUser.put()
+
 
 
     # Returns list of all users

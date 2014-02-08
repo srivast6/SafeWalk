@@ -15,3 +15,5 @@ handlers:
     script: serv.application 
   - url: /users
     script: serv.application
+  - url: /users/
+    script: serv.application 
