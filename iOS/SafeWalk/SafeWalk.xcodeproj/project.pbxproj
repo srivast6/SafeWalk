@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FC129B3D18A1FC870022AE16 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC129B3C18A1FC870022AE16 /* GoogleMaps.framework */; };
+		FC1BD32518A4630C00802B7B /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1BD32418A4630C00802B7B /* GoogleMaps.framework */; };
+		FC1BD32718A4632000802B7B /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FC1BD32618A4632000802B7B /* GoogleMaps.bundle */; };
 		FC6ADF3C18A1C233000DDB1C /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC6ADF3B18A1C233000DDB1C /* MainStoryboard.storyboard */; };
 		FC6ADF3F18A1C376000DDB1C /* ACMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6ADF3E18A1C376000DDB1C /* ACMMapViewController.m */; };
 		FC6ADF4218A1C935000DDB1C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC6ADF4118A1C935000DDB1C /* AVFoundation.framework */; };
@@ -34,7 +35,6 @@
 		FCA9EE2B18A1BA93000789DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA9EE1318A1BA93000789DD /* UIKit.framework */; };
 		FCA9EE3318A1BA93000789DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FCA9EE3118A1BA93000789DD /* InfoPlist.strings */; };
 		FCA9EE3518A1BA93000789DD /* SafeWalkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FCA9EE3418A1BA93000789DD /* SafeWalkTests.m */; };
-		FCB6D56318A1FD9700DEEFD1 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FCB6D56218A1FD9700DEEFD1 /* GoogleMaps.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		FC129B3C18A1FC870022AE16 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
+		FC1BD32418A4630C00802B7B /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
+		FC1BD32618A4632000802B7B /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		FC6ADF3B18A1C233000DDB1C /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		FC6ADF3D18A1C376000DDB1C /* ACMMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACMMapViewController.h; sourceTree = "<group>"; };
 		FC6ADF3E18A1C376000DDB1C /* ACMMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACMMapViewController.m; sourceTree = "<group>"; };
@@ -80,7 +81,6 @@
 		FCA9EE3018A1BA93000789DD /* SafeWalkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SafeWalkTests-Info.plist"; sourceTree = "<group>"; };
 		FCA9EE3218A1BA93000789DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FCA9EE3418A1BA93000789DD /* SafeWalkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafeWalkTests.m; sourceTree = "<group>"; };
-		FCB6D56218A1FD9700DEEFD1 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +102,7 @@
 				FC6ADF4218A1C935000DDB1C /* AVFoundation.framework in Frameworks */,
 				FCA9EE1218A1BA93000789DD /* CoreGraphics.framework in Frameworks */,
 				FCA9EE1418A1BA93000789DD /* UIKit.framework in Frameworks */,
-				FC129B3D18A1FC870022AE16 /* GoogleMaps.framework in Frameworks */,
+				FC1BD32518A4630C00802B7B /* GoogleMaps.framework in Frameworks */,
 				FCA9EE1018A1BA93000789DD /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -149,8 +149,8 @@
 		FCA9EE0E18A1BA93000789DD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FCB6D56218A1FD9700DEEFD1 /* GoogleMaps.bundle */,
-				FC129B3C18A1FC870022AE16 /* GoogleMaps.framework */,
+				FC1BD32618A4632000802B7B /* GoogleMaps.bundle */,
+				FC1BD32418A4630C00802B7B /* GoogleMaps.framework */,
 				FC6ADF5718A1C988000DDB1C /* SystemConfiguration.framework */,
 				FC6ADF5518A1C980000DDB1C /* QuartzCore.framework */,
 				FC6ADF5318A1C97A000DDB1C /* OpenGLES.framework */,
@@ -297,7 +297,7 @@
 				FC6ADF3C18A1C233000DDB1C /* MainStoryboard.storyboard in Resources */,
 				FCA9EE1A18A1BA93000789DD /* InfoPlist.strings in Resources */,
 				FCA9EE2218A1BA93000789DD /* Images.xcassets in Resources */,
-				FCB6D56318A1FD9700DEEFD1 /* GoogleMaps.bundle in Resources */,
+				FC1BD32718A4632000802B7B /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,8 +440,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/etemplin/SafeWalk/iOS/SafeWalk,
-					/Users/etemplin/SafeWalk/iOS/SafeWalk/Frameworks,
+					Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SafeWalk/SafeWalk-Prefix.pch";
@@ -461,8 +460,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/etemplin/SafeWalk/iOS/SafeWalk,
-					/Users/etemplin/SafeWalk/iOS/SafeWalk/Frameworks,
+					Frameworks,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SafeWalk/SafeWalk-Prefix.pch";
