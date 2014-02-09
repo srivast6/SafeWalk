@@ -1,15 +1,33 @@
 package edu.purdue.SafeWalk;
 
-import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback;
+import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
+import java.util.List;
 
+import org.apache.http.Header;
+import org.apache.http.entity.StringEntity;
+
+import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.SphericalUtil;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import edu.purdue.SafeWalk.MapData.Building;
+
+import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.animation.TimeInterpolator;
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +38,8 @@ import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 
 public class MakeRequestFragment extends Fragment implements SnapshotReadyCallback{
@@ -27,10 +47,15 @@ public class MakeRequestFragment extends Fragment implements SnapshotReadyCallba
 	private static final TimeInterpolator sDecelerator = new DecelerateInterpolator();
     private static final TimeInterpolator sAccelerator = new AccelerateInterpolator();
 	private static final String PACKAGE_NAME = "edu.purdue.SafeWalk";
+	private static final String TAG = "MakeRequestFragment"; 
 	private int mOriginalOrientation;
 	
 	
 	ImageView mImageView; 
+	
+	TextView mBuildingText;
+	
+	double start_lat, start_long, end_lat, end_long; 
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,7 +64,6 @@ public class MakeRequestFragment extends Fragment implements SnapshotReadyCallba
 		setupActionBar();
 		getActivity().getActionBar().setTitle("Make Request");
 		getActivity().getActionBar().setSubtitle("Confirm Information");
-		
 		
 		
 		
@@ -95,15 +119,95 @@ public class MakeRequestFragment extends Fragment implements SnapshotReadyCallba
 		//End DevBytes Code*/
 		
 	}
-
+	
 	@Override 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState)
 	{
+		Bundle b = getArguments(); 
+		
+		start_lat = b.getDouble("start_lat");
+		start_long = b.getDouble("start_long");
+		end_lat = b.getDouble("end_lat");
+		end_long = b.getDouble("end_long");
+		
+		Log.d(TAG, "Start: " + start_lat + " " + start_long + " End: " + end_lat + " " + end_long);
+		
 		View v = inflater.inflate(R.layout.activity_make_request, container, false);
+		
 		mImageView = (ImageView) v.findViewById(R.id.mapImage);
+		
+		mBuildingText = (TextView) v.findViewById(R.id.txt_building);
+		
+		
+		AsyncTask<Void, Void, String> buildingsTask = new AsyncTask<Void, Void, String>() {
+
+			@Override
+			protected String doInBackground(Void... params) {
+				return getBuildings();
+			}
+			
+			@Override
+			protected void onPostExecute(String text) 
+			{
+				mBuildingText.setText(text);
+			}
+		};
+		buildingsTask.execute();
+		
 		return v; 
 	}
+	
+	private String getBuildings()
+	{
+		MapData mapData = new MapData(this.getActivity().getApplicationContext()); 
+		List<Building> buildings = mapData.getBuildings();
+		
+		double start_dist = -1;
+		double end_dist = -1; 
+		
+		Building best_start = null, best_end = null; 
+		
+		Log.v(TAG, "This is about to get crazy. I hope you don't want the logcat :)");
+		Log.d(TAG, "My Start: " + start_lat + start_long);
+		
+		for(Building b : buildings)
+		{
+			//double s = MapData.distanceBetween(start_lat, start_long, b.lat, b.lng);
+			//double e = MapData.distanceBetween(end_lat, end_long, b.lat, b.lng);
+			
+			double s = SphericalUtil.computeDistanceBetween(new LatLng(start_lat, start_long), new LatLng(b.lat, b.lng));
+			double e = SphericalUtil.computeDistanceBetween(new LatLng(end_lat, end_long), new LatLng(b.lat, b.lng));
+			
+			Log.d(TAG, "Building: " + b.short_name + ":" + b.lat + " " + b.lng);
+			Log.d(TAG, "   Start:   " + s);
+			Log.d(TAG, "     End:   " + e);
+			
+			if(start_dist == -1)
+			{
+				start_dist = s; 
+				best_start = b;
+			}
+			if(end_dist == -1) 
+			{
+				end_dist = e;
+				best_end = b;
+			}
+			
+			if(start_dist > s)
+			{
+				best_start = b; 
+				start_dist = s; 
+			}
+			if(end_dist > e)
+			{
+				best_end = b; 
+				end_dist = e; 
+			}
+		}
+		return best_start.short_name + " to " + best_end.short_name;
+	}
+	
 	
 	/**
 	 * Set up the {@link android.app.ActionBar}.
@@ -124,6 +228,42 @@ public class MakeRequestFragment extends Fragment implements SnapshotReadyCallba
 	public void onSnapshotReady(Bitmap snapshot) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void sendRequest()
+	{
+		AsyncHttpClient client = new AsyncHttpClient();
+	
+		String time = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
+		String userName = "David Tschida";
+		
+		
+		Requester r = new Requester(userName, time,"219-555-2201", "Not Urgent", start_lat, start_long, end_lat, end_long);
+		Log.d("json", r.toJSON().toString());
+		StringEntity se = null;
+		
+		AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler(){
+			public void onSuccess(String suc){
+				Log.d("response", suc);
+			}
+			
+		    @Override
+		    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
+		    {
+		    	Toast.makeText(getActivity().getApplicationContext(), "No connection to server", Toast.LENGTH_LONG).show();
+		    	Log.d("failure", Integer.toString(statusCode));
+		    }
+		};
+		
+        try {
+			se = new StringEntity(r.toJSON().toString());
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String hostname = PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("pref_server", "http://optical-sight-386.appspot.com");
+        client.post(getActivity().getBaseContext(), hostname+"/request", se, "application/json", handler);
+        Log.d("debug", client.toString());
 	}
 
 }
