@@ -49,7 +49,7 @@ public class CustomMapFragment extends MapFragment {
 		mapPin.getLocationOnScreen(location);
 		Point point = new Point(location[0], location[1]);
 
-		activity.findViewById(R.id.mapFrame).getLocationOnScreen(location);
+		activity.findViewById(R.id.map).getLocationOnScreen(location);
 		point.offset(-location[0], -location[1]);
 
 		point.offset(mapPin.getWidth() / 2, mapPin.getHeight());

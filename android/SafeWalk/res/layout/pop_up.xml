@@ -25,16 +25,58 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray" />
 
-    <TextView
-        android:id="@+id/thirdLine"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_weight="0.39"
-        android:drawableLeft="@drawable/ic_contact_picture"
         android:gravity="center_vertical"
-        android:text="Name: todo\nTime Requested: 10:00pm\nPhone Number: 123-456-7890"
-        android:textSize="15sp" />
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight=".3"
+            android:contentDescription="Contact Image"
+            android:padding="4dp"
+            android:src="@drawable/ic_contact_picture" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight=".6"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+                android:text="Name: todo"
+                android:textSize="15sp" />
+            
+            <TextView
+                android:id="@+id/time_requested"
+                android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+                android:text="Time Requested: 10:00pm"
+                android:textSize="15sp" />
+            
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+                android:text="Phone: 123-456-7890"
+                android:textSize="15sp" />
+            
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+            	android:layout_height="wrap_content"
+                android:text="Location: (loc)"
+                android:textSize="15sp" />
+            
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -45,31 +87,28 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/btn_callPolice2"
+            android:id="@+id/btn_call"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="Call" 
-            android:onClick="onPopUpCallClick"/>
+            android:text="Call" />
 
         <Button
-            android:id="@+id/btn_callPolice"
+            android:id="@+id/btn_message"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="Message" 
-            android:onClick="onPopUpMessageClick"/>
+            android:text="Message" />
 
         <Button
-            android:id="@+id/btn_callSafewalk"
+            android:id="@+id/btn_accept"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:text="Accept" 
-            android:onClick="onPopUpAcceptClick"/>
+            android:text="Accept" />
     </LinearLayout>
 
 </LinearLayout>
