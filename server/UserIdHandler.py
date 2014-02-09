@@ -13,7 +13,6 @@ class UserIdHandler(webapp2.RequestHandler):
 
     # Mobile app sends post to check if id exist
     def post(self):
-        #logging.info("keyType %" %type(User.key))
         id = self.request.get("UUID")
         user = (User.get_by_id(int(id)))
         if user == None:
@@ -33,4 +32,27 @@ class UserIdHandler(webapp2.RequestHandler):
 
     # Return data on user with id
     def get(self):
+        id = self.request.get("UUID")
+        user = (User.get_by_id(int(id)))
+        if user == None:
+            userInfo = {}
+            userInfo['validID'] = "false"
+            self.response.write(json.dumps(userInfo))
+            self.response.status = 200
+            return
+            #do stuff
+
+        userInfo = {}
+        userInfo['validID'] = "true"
+        userInfo['firstName'] = user.firstName
+        userInfo['lastName'] = user.lastName
+        userInfo['phoneNumber'] = user.phoneNumber
+        userInfo['currentLocation_lat'] = user.currentLocation_lat
+        userInfo['currentLocation_lng'] = user.currentLocation_lng
+        userInfo['deviceType'] = user.deviceType
+        userInfo['deviceToken'] = user.deviceToken
+        userInfo['purdueCASServiceTicket'] = user.purdueCASServiceTicket
+        userInfo['isAdminUser'] = user.isAdminUser
+
+        self.response.write(json.dumps(userInfo))
         self.response.status = 200

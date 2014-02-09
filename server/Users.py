@@ -34,6 +34,9 @@ class UsersHandler(webapp2.RequestHandler):
                 purdueCASServiceTicket=self.request.get("purdueCASServiceTicket"),
                 isAdminUser=False)
         newUser.put()
+        id = {}
+        id['id'] = str(newUser.key.id())
+        self.response.write(json.dumps(id))
 
 
 
