@@ -1,0 +1,39 @@
+[
+	{
+		"name": "buildings_acad",
+		"schema": [
+			"short_name", "full_name", "lat", "lng"
+		]
+	},
+	{
+		"name": "buildings_admin",
+		"schema": [
+			"short_name", "full_name", "lat", "lng"
+		]
+	},
+	{
+		"name": "buildings_reshall",
+		"schema": [
+			"short_name", "full_name", "lat", "lng"
+		]
+	},
+	{
+		"name": "buildings_dining",
+		"schema": [
+			"short_name", "full_name", "lat", "lng"
+		]
+	},
+	{
+		"name": "buildings_parking",
+		"schema": [
+			"short_name", "full_name", "lat", "lng"
+		]
+	},
+	{
+		"name": "buildings_misc",
+		"schema": [
+			"short_name", "full_name", "lat", "lng"
+		]
+	}
+
+]

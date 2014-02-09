@@ -368,57 +368,6 @@ public class SafeWalk extends Activity implements
 			super.onBackPressed();
 	}
 	
-	private void openRequestActivity()
-	{
-		
-		View mapView = findViewById(R.id.mapFrame);
-		
-
-        // Create a new Fragment to be placed in the activity layout
-        MakeRequestFragment requestFragment = new MakeRequestFragment();
-        mMap.snapshot((SnapshotReadyCallback) requestFragment);
-        
-        Bundle b = new Bundle();
-        b.putParcelable("location", mLocationClient.getLastLocation());
-        
-        
-        // In case this activity was started with special instructions from an
-        // Intent, pass the Intent's extras to the fragment as arguments
-        requestFragment.setArguments(getIntent().getExtras());
-        
-        
-        
-        
-        // Add the fragment to the 'fragment_container' FrameLayout
-        getFragmentManager().beginTransaction()
-                .add(R.id.fragmentContainer, requestFragment).addToBackStack("REQUEST_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
-		
-		
-		/*
-		
-        int[] screenLocation = new int[2];
-        mapView.getLocationOnScreen(screenLocation);
-        Intent subActivity = new Intent(SafeWalk.this,
-                MakeRequestActivity.class);
-        int orientation = getResources().getConfiguration().orientation;
-        subActivity.
-                putExtra(PACKAGE + ".orientation", orientation).
-                //putExtra(PACKAGE + ".orientation", orientation).
-                putExtra(PACKAGE + ".left", screenLocation[0]).
-                putExtra(PACKAGE + ".top", screenLocation[1]).
-                putExtra(PACKAGE + ".width", mapView.getWidth()). //map
-                putExtra(PACKAGE + ".height", mapView.getHeight()); //map
-        startActivity(subActivity);
-        */
-        
-        //TODO: Map.capture()
-        
-        
-        // Override transitions: we don't want the normal window animation in addition
-        // to our custom one
-        //overridePendingTransition(0, 0);
-	}
-
 	@Override
 	public void onConnected(Bundle bun) {
 		Log.d("SafeWalk", "The mLocationHandler has been connected!");
@@ -518,52 +467,71 @@ public class SafeWalk extends Activity implements
 			mBubbleState = BubbleState.CONFIRM;
 		} else if(mBubbleState == BubbleState.CONFIRM)
 		{
-			AsyncHttpClient client = new AsyncHttpClient();
-		
-			String time = java.text.DateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime());
-			String userName = name+numRequests;
-			numRequests++;
 			
-			Location location = mLocationClient.getLastLocation(); 
+			//open request activity...
+			openRequestActivity(); 
 			
-			SharedPreferences bubbleState = getSharedPreferences("bubbleState", MODE_PRIVATE);
-			double start_lat = Double.parseDouble(bubbleState.getString("start_lat", "0"));
-			double start_long = Double.parseDouble(bubbleState.getString("start_long", "0"));
-			double end_lat = Double.parseDouble(bubbleState.getString("end_lat", "0"));
-			double end_long = Double.parseDouble(bubbleState.getString("end_long", "0"));
 			
-			Requester r = new Requester(userName, time,"219-933-2201", "Not Urgent", start_lat, start_long, end_lat, end_long);
-			Log.d("json", r.toJSON().toString());
-			StringEntity se = null;
-			
-			AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler(){
-				public void onSuccess(String suc){
-					Log.d("response", suc);
-				}
-				
-			    @Override
-			    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
-			    {
-			    	Toast.makeText(getApplicationContext(), "No connection to server", Toast.LENGTH_LONG).show();
-			    	Log.d("failure", Integer.toString(statusCode));
-			    }
-			};
-			
-	        try {
-				se = new StringEntity(r.toJSON().toString());
-			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			hostname = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_server", "http://optical-sight-386.appspot.com");
-	        client.post(getBaseContext(), hostname+"/request", se, "application/json", handler);
-	        Log.d("debug", client.toString());
-	        
-	        TextView bubble = (TextView)findViewById(R.id.bubbleText);
+			TextView bubble = (TextView)findViewById(R.id.bubbleText);
 			bubble.setText("Request Pickup Location");
-			
 			mMap.clear();
 	        mBubbleState = BubbleState.START;
+			
 		}
+	}
+	
+	private void openRequestActivity()
+	{
+		
+		View mapView = findViewById(R.id.mapFrame);
+		
+
+        // Create a new Fragment to be placed in the activity layout
+        MakeRequestFragment requestFragment = new MakeRequestFragment();
+        mMap.snapshot((SnapshotReadyCallback) requestFragment);
+        
+        Bundle b = new Bundle();
+        
+        SharedPreferences bubbleState = getSharedPreferences("bubbleState", Activity.MODE_PRIVATE);
+		b.putDouble("start_lat", Double.parseDouble(bubbleState.getString("start_lat", "0")));
+		b.putDouble("start_long", Double.parseDouble(bubbleState.getString("start_long", "0")));
+		b.putDouble("end_lat", Double.parseDouble(bubbleState.getString("end_lat", "0")));
+		b.putDouble("end_long", Double.parseDouble(bubbleState.getString("end_long", "0")));
+		
+        // In case this activity was started with special instructions from an
+        // Intent, pass the Intent's extras to the fragment as arguments
+        requestFragment.setArguments(b);
+        
+        
+        
+        
+        // Add the fragment to the 'fragment_container' FrameLayout
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragmentContainer, requestFragment).addToBackStack("REQUEST_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
+		
+		
+		/*
+		
+        int[] screenLocation = new int[2];
+        mapView.getLocationOnScreen(screenLocation);
+        Intent subActivity = new Intent(SafeWalk.this,
+                MakeRequestActivity.class);
+        int orientation = getResources().getConfiguration().orientation;
+        subActivity.
+                putExtra(PACKAGE + ".orientation", orientation).
+                //putExtra(PACKAGE + ".orientation", orientation).
+                putExtra(PACKAGE + ".left", screenLocation[0]).
+                putExtra(PACKAGE + ".top", screenLocation[1]).
+                putExtra(PACKAGE + ".width", mapView.getWidth()). //map
+                putExtra(PACKAGE + ".height", mapView.getHeight()); //map
+        startActivity(subActivity);
+        */
+        
+        //TODO: Map.capture()
+        
+        
+        // Override transitions: we don't want the normal window animation in addition
+        // to our custom one
+        //overridePendingTransition(0, 0);
 	}
 }
