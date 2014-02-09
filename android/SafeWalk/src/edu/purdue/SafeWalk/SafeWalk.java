@@ -157,13 +157,14 @@ public class SafeWalk extends Activity implements
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int order,
 					long arg3) {
+				DrawerLayout mDrawerLayout;
+				mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+				mDrawerLayout.closeDrawers();
+				
 				String item = menuItems[order];
 				
 				if (item.equals("People")) {
-					Intent listIntent = new Intent(SafeWalk.this,
-							ListViewRequesterActivity.class);
-					SafeWalk.this.startActivity(listIntent);
-
+					openRequestList();
 				}else if(item.equals("Settings")){
 					openSettings();
 
@@ -210,6 +211,18 @@ public class SafeWalk extends Activity implements
 		drawerLayout.setDrawerListener(mDrawerToggle);
 	}
 
+	public void openRequestList()
+	{
+		View mapView = findViewById(R.id.mapFrame);
+		
+        // Create a new Fragment to be placed in the activity layout
+        ListViewRequesterFragment requesterFragment = new ListViewRequesterFragment();
+        
+        // Add the fragment to the 'fragment_container' FrameLayout
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragmentContainer, requesterFragment).addToBackStack("REQUESTS_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
+	}
+	
 	private void openSettings() {
 		Intent setingsIntent = new Intent(SafeWalk.this, SettingsActivity.class);
 		SafeWalk.this.startActivity(setingsIntent);
@@ -349,12 +362,10 @@ public class SafeWalk extends Activity implements
 	public void onBackPressed()
 	{
 		FragmentManager fm = getFragmentManager();
-		if(fm.getBackStackEntryAt(fm.getBackStackEntryCount() - 1).getName().equals("REQUEST_FRAGMENT"))
-		{
-			fm.popBackStack();
-		} else {
+		
+		if(fm.getBackStackEntryCount() > 1) fm.popBackStack();
+		else 
 			super.onBackPressed();
-		}
 	}
 	
 	private void openRequestActivity()
@@ -450,36 +461,6 @@ public class SafeWalk extends Activity implements
 		LatLng latlng; 
 		if(mBubbleState == BubbleState.START)
 		{
-			/*
-			TextView tv = new TextView(getApplicationContext());
-			RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-			params.addRule(RelativeLayout.BELOW, R.id.mapFrame);
-			//params.addRule(RelativeLayout.ABOVE, R.id.callButtons);
-			
-			tv.setText("Hello, this is dog.");
-			tv.setTextSize(50);
-			tv.setId(12493840);
-			
-			View callButtons = findViewById(R.id.callButtons);
-			
-			RelativeLayout.LayoutParams btn_layout = (RelativeLayout.LayoutParams) callButtons.getLayoutParams();
-			btn_layout.addRule(RelativeLayout.BELOW, 12493840);
-			btn_layout.height = callButtons.getHeight();
-			
-			RelativeLayout mainView = (RelativeLayout) findViewById(R.id.mainView);
-			
-			FrameLayout mapFrame = (FrameLayout) findViewById(R.id.mapFrame);
-			RelativeLayout.LayoutParams mapparams = (RelativeLayout.LayoutParams) mapFrame.getLayoutParams();
-			
-			mapparams.height = 1000; 
-			
-			mapFrame.setLayoutParams(mapparams);
-			mainView.addView(tv, params);
-			callButtons.setLayoutParams(btn_layout);
-			
-			*/
-			//---------
-			
 			latlng = ((CustomMapFragment) getFragmentManager().findFragmentById(R.id.map)).dropPinAtCenter(this, "Start", BitmapDescriptorFactory.HUE_GREEN);
 			
 			SharedPreferences bubbleState = getSharedPreferences("bubbleState", MODE_PRIVATE);

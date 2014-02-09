@@ -8,17 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public class RequesterListAdapter extends ArrayAdapter<String>{
+public class RequesterListAdapter extends BaseAdapter{
     private final Context context;
-    private final ArrayList<String> itemsArrayList;
     private final ArrayList<Requester> requests;
 
-    public RequesterListAdapter(Context context, ArrayList<String> itemsArrayList, ArrayList<Requester> requests) {
-        super(context, R.layout.list_item_view, itemsArrayList);
+    public RequesterListAdapter(Context context, ArrayList<Requester> requests) {
+        super();
         this.context = context;
-        this.itemsArrayList = itemsArrayList;
         this.requests = requests;
     }
 
@@ -46,5 +45,23 @@ public class RequesterListAdapter extends ArrayAdapter<String>{
         // 5. retrn rowView
         return rowView;
     }
+
+	@Override
+	public int getCount() {
+		return requests.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		return requests.get(position);
+	}
+
+	/**
+	 * Not really being used... 
+	 */
+	@Override
+	public long getItemId(int position) {
+		return ((Requester) getItem(position)).getUUID().hashCode();
+	}
 }
 
