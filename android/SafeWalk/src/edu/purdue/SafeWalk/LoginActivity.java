@@ -4,6 +4,8 @@ import java.io.UnsupportedEncodingException;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -13,6 +15,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -59,6 +62,9 @@ public class LoginActivity extends Activity {
 	private String casTicket = "XXXXX";
 	private String deviceId = null;
 	public static AsyncHttpResponseHandler handler = null;
+	
+	public static boolean isValidID = false;
+	public static boolean validatedID = false;
 
 	// Values for email and password at the time of the login attempt.
 	private String mEmail;
@@ -82,11 +88,30 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_login);
-		deviceId = Secure.getString(getBaseContext().getContentResolver(),Secure.ANDROID_ID); 
-		
+		deviceId = Secure.getString(getBaseContext().getContentResolver(),Secure.ANDROID_ID);
+		String uuid = getSharedPreferences("pref_server",0).getString("userID", "01");
 		 handler = new AsyncHttpResponseHandler(){
-			public void onSuccess(String suc){
-				Log.d("response", suc);
+			public void onSuccess(String response){
+				Log.d("response", response);
+				JSONObject IdJSON = null;
+				String id = null;
+				try {
+					 IdJSON = new JSONObject(response);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					 id = IdJSON.getString("id");
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				//SharedPreferences.Editor spEditor
+				SharedPreferences settings= getSharedPreferences("pref_server", 0);
+				SharedPreferences.Editor editor = settings.edit();
+				editor.putString("userID", id).commit();
 			}
 			
 		    @Override
@@ -122,6 +147,15 @@ public class LoginActivity extends Activity {
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
+		// If we have a user ID in shared preferences, validate it with the server, and lock the login button
+		// If we have an ID but it is not valid, then something bad happened and the user doesn't have an account.
+		if(!(uuid.equals("01"))){
+			UserLoginTask task = new UserLoginTask();
+			task.verifyAccount();
+			if(LoginActivity.validatedID){
+			findViewById(R.id.sign_in_button).setEnabled(false);
+			}
+		}
 
 		findViewById(R.id.sign_in_button).setOnClickListener(
 				new View.OnClickListener() {
@@ -264,14 +298,10 @@ public class LoginActivity extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
-			AsyncHttpClient client = new AsyncHttpClient();
-			int id = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this).getInt("pref_server", 0);
-
-			client.post("http://optical-sight-386.appspot.com/users?"+"firstName="+mFirstName+"&lastName="+mLastName+"&phoneNumber="+mPhoneNumber+"&currentLocation_lat=0.00"+"&currentLocation_lng=0.00"+"&deviceToken="+deviceId+"&purdueCASServiceTicket="+casTicket, LoginActivity.handler);
-			
 			if(!verifyAccount())
 			{
+				
+				Log.d("account not verified", "account not verified");
 				createAccount();
 			}
 
@@ -281,16 +311,84 @@ public class LoginActivity extends Activity {
 		
 		public boolean verifyAccount()
 		{
+			AsyncHttpClient client = new AsyncHttpClient();
+			 AsyncHttpResponseHandler idHandler = new AsyncHttpResponseHandler(){
+					public void onSuccess(String response){
+						Log.d("IDresponse", response);
+						JSONObject validIDJSON = null;
+						String validID = null;
+						try {
+							validIDJSON = new JSONObject(response);
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						try {
+							validID = validIDJSON.getString("validID");
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						// ValidID will be either true or false
+						if(validID.equals("true")){
+							LoginActivity.isValidID = true;
+						}
+						
+						if(validID.equals("false")){
+							LoginActivity.isValidID = false;
+						}
+						LoginActivity.validatedID = true;
+						
+						
+					}
+					
+				    @Override
+				    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error)
+				    {
+				    	Toast.makeText(getApplicationContext(), "No connection to server", Toast.LENGTH_LONG).show();
+				    	LoginActivity.validatedID = true;
+			
+				    }
+				};
+				
+			idHandler.setUseSynchronousMode(true);
+			String id = getSharedPreferences("pref_server",0).getString("userID", "01");
+			client.get("http://optical-sight-386.appspot.com/users/?"+"UUID="+id, idHandler);
+			// We need to wait for the idHandler to return the response from the server.
+			while(!LoginActivity.validatedID){
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			// Now the idHandler has returned and decided if the id is valid or not
+			 if(LoginActivity.isValidID == false){
+				 return false;
+			 }
+			 else{
+				 return true;
+				 // TODO: Send ID to server and make sure its a valid user id.
+			 }
 			
 			//store user ID in sharedPreferences
-			return true;
 		}
 		
 		public boolean createAccount()
 		{
 			
-			//Store returned user id in shared preferences. 
+			AsyncHttpClient client = new AsyncHttpClient();
+			client.post("http://optical-sight-386.appspot.com/users?"+"firstName="+mFirstName+"&lastName="+mLastName+"&phoneNumber="+mPhoneNumber+"&currentLocation_lat=0.00"+"&currentLocation_lng=0.00"+"&deviceToken="+deviceId+"&purdueCASServiceTicket="+casTicket, LoginActivity.handler);
+			// storing the user id is done in the handler
 			return true; 
+		}
+		
+		protected void onProgressUpdate(Integer integers) {
+				if(integers == 1){
+					Toast.makeText(LoginActivity.this, "You are already logged in", Toast.LENGTH_LONG);
+				}
 		}
 
 		@Override
