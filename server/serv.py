@@ -2,9 +2,9 @@ import time
 import webapp2
 import logging
 import json
-import getRequesterHandler
+import getRequestHandler
 from RequestHandler import RequestHandler
-from Requester import Requester
+from Request import Request
 from Users import UsersHandler
 from UserIdHandler import UserIdHandler
 from google.appengine.api.logservice import logservice
@@ -46,7 +46,7 @@ class HomeHandler(webapp2.RequestHandler):
 application = webapp2.WSGIApplication([
     webapp2.Route(r'/', handler=HomeHandler, name='home'),
     webapp2.Route('/request',handler=RequestHandler, name='request'),
-    webapp2.Route('/request/<:[0-9a-f]{8}[-][0-9a-f]{4}[-][0-9a-f]{4}[-][0-9a-f]{4}[-][0-9a-f]{12}>/accept',handler=getRequesterHandler.getRequesterHandler,name='getRequesterHandler'),
+    webapp2.Route('/request/<:[0-9a-f]{8}[-][0-9a-f]{4}[-][0-9a-f]{4}[-][0-9a-f]{4}[-][0-9a-f]{12}>/accept',handler=getRequestHandler.getRequestHandler,name='getRequestHandler'),
     webapp2.Route('/users',handler=UsersHandler, name='users'),
     webapp2.Route('/users/',handler=UserIdHandler,name='UserIdHandler')
 ], debug=True)

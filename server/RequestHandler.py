@@ -3,8 +3,8 @@ import time
 import webapp2
 import logging
 import json
-import getRequesterHandler
-from Requester import Requester
+import getRequestHandler
+from Request import Request
 from google.appengine.api.logservice import logservice
 from google.appengine.ext import ndb
 
@@ -20,7 +20,7 @@ class RequestHandler(webapp2.RequestHandler):
         self.response.status = 200
         self.response.headerlist = [("Content-type", "application/json")]
         requests = []
-        for req in Requester.getAllOpenRequests():
+        for req in Request.getAllOpenRequests():
             requests.append(req.to_dict())
             # requests.append(encoder.default(req.to_dict()))
         self.response.write(json.dumps(requests))
@@ -33,7 +33,7 @@ class RequestHandler(webapp2.RequestHandler):
         #postBody is a dictionary with key
         #value pairs of json values
         json_dict = json.loads(post_body)
-        r = Requester(requestId = json_dict["requestId"],
+        r = Request(requestId = json_dict["requestId"],
                 name = json_dict["name"],
                 requestTime = str(datetime.datetime.now()),
                 phoneNumber = json_dict["phoneNumber"],
