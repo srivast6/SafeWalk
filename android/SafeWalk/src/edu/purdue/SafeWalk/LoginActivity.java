@@ -340,7 +340,7 @@ public class LoginActivity extends Activity {
 						}
 						LoginActivity.validatedID = true;
 						
-						
+						//TODO: This is where we store all of the data of the user. 
 					}
 					
 				    @Override
