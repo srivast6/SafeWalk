@@ -2,12 +2,12 @@ import time
 import webapp2
 import logging
 import json
-from Requester import Requester
+from Request import Request
 from google.appengine.api.logservice import logservice
 from RequestHandler import RequestHandler
 
 
-class getRequesterHandler(webapp2.RequestHandler):
+class getRequestHandler(webapp2.RequestHandler):
     def head(self):
         self.response.status = 200
         self.response.headerlist = [("Content-type", "text/html")]
@@ -48,7 +48,7 @@ class getRequesterHandler(webapp2.RequestHandler):
 
 
     def getUserByUUID(self,id):
-        match = Requester.query(Requester.requestId == id).fetch()
+        match = Request.query(Request.requestId == id).fetch()
         logging.info("match %s" %str(match[0]))
         return match[0]
 
