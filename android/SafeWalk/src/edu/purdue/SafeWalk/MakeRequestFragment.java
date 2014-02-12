@@ -247,6 +247,20 @@ public class MakeRequestFragment extends Fragment implements
 		mapImage = snapshot;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) 
+	{
+		switch (item.getItemId()) {
+		case R.id.action_confirm:
+			sendRequest();
+			return true; 
+			
+		}
+		
+		return super.onOptionsItemSelected(item);
+	}
+	
+	
 	private void sendRequest() {
 		AsyncHttpClient client = new AsyncHttpClient();
 
@@ -254,7 +268,7 @@ public class MakeRequestFragment extends Fragment implements
 				Calendar.getInstance().getTime());
 		String userName = "David Tschida";
 
-		Requester r = new Requester(userName, time, "219-555-2201",
+		Requester r = new Requester(userName+ (int) (Math.random()*1000), time, "219-555-1242",
 				"Not Urgent", start_lat, start_long, end_lat, end_long);
 		Log.d("json", r.toJSON().toString());
 		StringEntity se = null;
@@ -285,6 +299,8 @@ public class MakeRequestFragment extends Fragment implements
 		client.post(getActivity().getBaseContext(), hostname + "/request", se,
 				"application/json", handler);
 		Log.d("debug", client.toString());
+		
+		getFragmentManager().popBackStack();
 	}
 
 }
