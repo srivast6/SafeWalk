@@ -18,6 +18,7 @@ import edu.purdue.SafeWalk.MapData.Building;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.animation.TimeInterpolator;
 import android.app.Activity;
@@ -55,12 +56,16 @@ public class MakeRequestFragment extends Fragment implements SnapshotReadyCallba
 	
 	TextView mBuildingText;
 	
-	double start_lat, start_long, end_lat, end_long; 
+	double start_lat, start_long, end_lat, end_long;
+	private Bitmap mapImage = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// Show the Up button in the action bar.
+		
+		setHasOptionsMenu(true);
+		
 		setupActionBar();
 		getActivity().getActionBar().setTitle("Make Request");
 		getActivity().getActionBar().setSubtitle("Confirm Information");
@@ -158,6 +163,7 @@ public class MakeRequestFragment extends Fragment implements SnapshotReadyCallba
 		return v; 
 	}
 	
+	
 	private String getBuildings()
 	{
 		MapData mapData = new MapData(this.getActivity().getApplicationContext()); 
@@ -173,15 +179,12 @@ public class MakeRequestFragment extends Fragment implements SnapshotReadyCallba
 		
 		for(Building b : buildings)
 		{
-			//double s = MapData.distanceBetween(start_lat, start_long, b.lat, b.lng);
-			//double e = MapData.distanceBetween(end_lat, end_long, b.lat, b.lng);
-			
 			double s = SphericalUtil.computeDistanceBetween(new LatLng(start_lat, start_long), new LatLng(b.lat, b.lng));
 			double e = SphericalUtil.computeDistanceBetween(new LatLng(end_lat, end_long), new LatLng(b.lat, b.lng));
 			
-			Log.d(TAG, "Building: " + b.short_name + ":" + b.lat + " " + b.lng);
-			Log.d(TAG, "   Start:   " + s);
-			Log.d(TAG, "     End:   " + e);
+			//Log.d(TAG, "Building: " + b.short_name + ":" + b.lat + " " + b.lng);
+			//Log.d(TAG, "   Start:   " + s);
+			//Log.d(TAG, "     End:   " + e);
 			
 			if(start_dist == -1)
 			{
@@ -208,6 +211,31 @@ public class MakeRequestFragment extends Fragment implements SnapshotReadyCallba
 		return best_start.short_name + " to " + best_end.short_name;
 	}
 	
+	@Override
+	public void onViewCreated(final View v, Bundle state)
+	{
+		super.onViewCreated(v, state);
+		new Thread()
+		{
+			public void run()
+			{
+				while(true)
+				{
+					if(mapImage != null)
+						break;
+				}
+				Handler h = new Handler(getActivity().getMainLooper());
+				h.post(new Runnable()
+				{
+					public void run()
+					{
+						((ImageView) v.findViewById(R.id.mapImage)).setImageBitmap(mapImage);
+						
+					}
+				});
+			}
+		}.start();
+	}
 	
 	/**
 	 * Set up the {@link android.app.ActionBar}.
@@ -226,8 +254,8 @@ public class MakeRequestFragment extends Fragment implements SnapshotReadyCallba
 
 	@Override
 	public void onSnapshotReady(Bitmap snapshot) {
-		// TODO Auto-generated method stub
-		
+		Log.v("MAP IMAGE", "Image is ready!!!!!!!!");
+		mapImage = snapshot; 
 	}
 	
 	private void sendRequest()
