@@ -108,8 +108,8 @@ public class PopupDialog extends DialogFragment {
 					@Override
 					public void onFailure(int statusCode, Header[] headers,
 							byte[] responseBody, Throwable error) {
-						Toast.makeText(getActivity().getApplicationContext(),
-								"No connection to server\nPlease call directly.", Toast.LENGTH_LONG).show();
+						//Toast.makeText(getActivity().getApplicationContext(),
+						//		"No connection to server\nPlease call directly.", Toast.LENGTH_LONG).show();
 						Log.d("failure", Integer.toString(statusCode));
 					}
 				};

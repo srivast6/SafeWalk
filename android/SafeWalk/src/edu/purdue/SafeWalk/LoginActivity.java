@@ -112,6 +112,9 @@ public class LoginActivity extends Activity {
 				SharedPreferences settings= getSharedPreferences("pref_profile", 0);
 				SharedPreferences.Editor editor = settings.edit();
 				editor.putString("userID", id).commit();
+				
+				
+				
 			}
 			
 		    @Override
@@ -246,7 +249,7 @@ public class LoginActivity extends Activity {
 			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
 			showProgress(true);
 			mAuthTask = new UserLoginTask();
-			mAuthTask.execute((Void) null);
+			mAuthTask.execute();
 		}
 	}
 
