@@ -45,8 +45,8 @@ class HomeHandler(webapp2.RequestHandler):
 
 application = webapp2.WSGIApplication([
     webapp2.Route(r'/', handler=HomeHandler, name='home'),
-    webapp2.Route('/request',handler=RequestHandler, name='request'),
-    webapp2.Route('/request/<:[0-9a-f]{8}[-][0-9a-f]{4}[-][0-9a-f]{4}[-][0-9a-f]{4}[-][0-9a-f]{12}>/accept',handler=getRequestHandler.getRequestHandler,name='getRequestHandler'),
-    webapp2.Route('/users',handler=UsersHandler, name='users'),
-    webapp2.Route('/users/',handler=UserIdHandler,name='UserIdHandler')
+    webapp2.Route(r'/request',handler=RequestHandler, name='request'),
+    webapp2.Route(r'/request/<requestId:[0-9a-f]{8}[-][0-9a-f]{4}[-][0-9a-f]{4}[-][0-9a-f]{4}[-][0-9a-f]{12}>/accept',handler=getRequestHandler.getRequestHandler,name='getRequestHandler'),
+    webapp2.Route(r'/users',handler=UsersHandler, name='users'),
+    webapp2.Route(r'/users/',handler=UserIdHandler,name='UserIdHandler')
 ], debug=True)
