@@ -7,6 +7,7 @@ import logging
 class User(ndb.Model):
     firstName = ndb.StringProperty()
     lastName = ndb.StringProperty()
+    gcmID = ndb.StringProperty()
     phoneNumber = ndb.StringProperty()
     currentLocation_lat = ndb.StringProperty()
     currentLocation_lng = ndb.StringProperty()
@@ -32,6 +33,7 @@ class UsersHandler(webapp2.RequestHandler):
                 deviceType="Android", #TODO: Get this from the device
                 deviceToken=self.request.get("deviceToken"),
                 purdueCASServiceTicket=self.request.get("purdueCASServiceTicket"),
+                gcmID = self.request.get("gcmID"),
                 isAdminUser=False)
         newUser.put()
         id = {}

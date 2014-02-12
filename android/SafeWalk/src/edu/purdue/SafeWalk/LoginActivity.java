@@ -153,7 +153,7 @@ public class LoginActivity extends Activity {
 			UserLoginTask task = new UserLoginTask();
 			task.verifyAccount();
 			if(LoginActivity.validatedID){
-			findViewById(R.id.sign_in_button).setEnabled(false);
+			//findViewById(R.id.sign_in_button).setEnabled(false);
 			}
 		}
 
@@ -380,7 +380,9 @@ public class LoginActivity extends Activity {
 		{
 			
 			AsyncHttpClient client = new AsyncHttpClient();
-			client.post("http://optical-sight-386.appspot.com/users?"+"firstName="+mFirstName+"&lastName="+mLastName+"&phoneNumber="+mPhoneNumber+"&currentLocation_lat=0.00"+"&currentLocation_lng=0.00"+"&deviceToken="+deviceId+"&purdueCASServiceTicket="+casTicket, LoginActivity.handler);
+			String gcmID = getSharedPreferences("pref_server",0).getString("registration_id", "");
+			Log.d("Sending regID AS", gcmID);
+			client.post("http://optical-sight-386.appspot.com/users?"+"firstName="+mFirstName+"&lastName="+mLastName+"&phoneNumber="+mPhoneNumber+"&currentLocation_lat=0.00"+"&currentLocation_lng=0.00"+"&deviceToken="+deviceId+"&purdueCASServiceTicket="+casTicket+"&gcmID="+gcmID, LoginActivity.handler);
 			// storing the user id is done in the handler
 			return true; 
 		}

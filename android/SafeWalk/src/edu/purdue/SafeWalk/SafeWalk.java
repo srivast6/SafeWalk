@@ -82,6 +82,7 @@ public class SafeWalk extends Activity implements
 	private static final String PACKAGE = "edu.purdue.SafeWalk";
 	private static final int LOGIN_REQUEST = 1223523513;
 	public static String hostname;
+	private CloudMessaging cm;
 
 	private static enum BubbleState {
 		START, END, CONFIRM;
@@ -117,6 +118,7 @@ public class SafeWalk extends Activity implements
 		mLocationClient = new LocationClient(this, this, this);
 
 		initMap();
+		cm = new CloudMessaging(this.getApplicationContext(), this.getSharedPreferences("pref_server", 0));
 	}
 
 	private void initMap() {
