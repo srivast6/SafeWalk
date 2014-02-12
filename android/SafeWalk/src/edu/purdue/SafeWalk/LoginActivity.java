@@ -89,7 +89,7 @@ public class LoginActivity extends Activity {
 
 		setContentView(R.layout.activity_login);
 		deviceId = Secure.getString(getBaseContext().getContentResolver(),Secure.ANDROID_ID);
-		String uuid = getSharedPreferences("pref_server",0).getString("userID", "01");
+		String uuid = getSharedPreferences("pref_profile",0).getString("userID", "01");
 		 handler = new AsyncHttpResponseHandler(){
 			public void onSuccess(String response){
 				Log.d("response", response);
@@ -109,7 +109,7 @@ public class LoginActivity extends Activity {
 				}
 				
 				//SharedPreferences.Editor spEditor
-				SharedPreferences settings= getSharedPreferences("pref_server", 0);
+				SharedPreferences settings= getSharedPreferences("pref_profile", 0);
 				SharedPreferences.Editor editor = settings.edit();
 				editor.putString("userID", id).commit();
 			}
@@ -353,7 +353,7 @@ public class LoginActivity extends Activity {
 				};
 				
 			idHandler.setUseSynchronousMode(true);
-			String id = getSharedPreferences("pref_server",0).getString("userID", "01");
+			String id = getSharedPreferences("pref_profile",0).getString("userID", "01");
 			client.get("http://optical-sight-386.appspot.com/users/?"+"UUID="+id, idHandler);
 			// We need to wait for the idHandler to return the response from the server.
 			while(!LoginActivity.validatedID){
@@ -380,7 +380,7 @@ public class LoginActivity extends Activity {
 		{
 			
 			AsyncHttpClient client = new AsyncHttpClient();
-			String gcmID = getSharedPreferences("pref_server",0).getString("registration_id", "");
+			String gcmID = getSharedPreferences("pref_profile",0).getString("registration_id", "");
 			Log.d("Sending regID AS", gcmID);
 			client.post("http://optical-sight-386.appspot.com/users?"+"firstName="+mFirstName+"&lastName="+mLastName+"&phoneNumber="+mPhoneNumber+"&currentLocation_lat=0.00"+"&currentLocation_lng=0.00"+"&deviceToken="+deviceId+"&purdueCASServiceTicket="+casTicket+"&gcmID="+gcmID, LoginActivity.handler);
 			// storing the user id is done in the handler
