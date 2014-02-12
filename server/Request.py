@@ -4,7 +4,7 @@ import time
 from google.appengine.ext import ndb
 from google.appengine.ext.ndb import model, query
 
-class Requester(ndb.Model):
+class Request(ndb.Model):
     requestId = ndb.StringProperty()
     name = ndb.StringProperty()
     requestTime = ndb.StringProperty()
@@ -30,4 +30,4 @@ class Requester(ndb.Model):
 
     @staticmethod
     def getAllOpenRequests():
-        return Requester.query(Requester.requestAccepted == False).fetch()
+        return Request.query(Request.requestAccepted == False).fetch()
