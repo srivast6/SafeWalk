@@ -118,7 +118,7 @@ public class SafeWalk extends Activity implements
 		mLocationClient = new LocationClient(this, this, this);
 
 		initMap();
-		cm = new CloudMessaging(this.getApplicationContext(), this.getSharedPreferences("pref_server", 0));
+		cm = new CloudMessaging(this.getApplicationContext(), this.getSharedPreferences("pref_profile", 0));
 	}
 
 	private void initMap() {
