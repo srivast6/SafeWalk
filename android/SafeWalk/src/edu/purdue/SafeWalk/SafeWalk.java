@@ -1,47 +1,24 @@
 package edu.purdue.SafeWalk;
 
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Calendar;
-
-import org.apache.http.Header;
-import org.apache.http.entity.StringEntity;
-import org.w3c.dom.Document;
-
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.IntentSender.SendIntentException;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.Point;
-import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -51,31 +28,20 @@ import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.Projection;
-import com.google.android.gms.maps.UiSettings;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import edu.purdue.SafeWalk.settings.SettingsActivity;
 
 public class SafeWalk extends Activity implements
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener{
-	private GoogleMap mMap;
+	GoogleMap mMap;
 	private LocationClient mLocationClient;
 	ListView drawerList;
 	DrawerLayout drawerLayout;
 	ActionBarDrawerToggle mDrawerToggle;
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-	//static double x;
-	//static double y;
 	int numRequests; 
 	static final String name = "John Doe";
 	private static final String TAG = "SafeWalk";
@@ -118,11 +84,11 @@ public class SafeWalk extends Activity implements
 
 	private void pushMapFragment() 
 	{
-		CustomMapFragment mapFragment = new CustomMapFragment();
+		WalkRequestFragment walkRequestFragment = new WalkRequestFragment();
         
         // Add the fragment to the 'fragment_container' FrameLayout
         getFragmentManager().beginTransaction()
-                .add(R.id.fragmentContainer, mapFragment).addToBackStack("MAP_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
+                .add(R.id.fragmentContainer, walkRequestFragment).addToBackStack("WALK_REQUEST_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
 	}
 
 	private void initNavDrawer() {
@@ -381,7 +347,7 @@ public class SafeWalk extends Activity implements
 		mLocationClient.connect();
 	}
 	
-	private void openRequestActivity()
+	void openRequestActivity()
 	{
 		//View mapView = findViewById(R.id.mapFrame);
 		

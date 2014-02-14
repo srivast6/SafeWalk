@@ -16,3 +16,4 @@
     <include layout="@layout/map_popup_bubble" />
 
 </edu.purdue.SafeWalk.TouchableWrapper>
+
