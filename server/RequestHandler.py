@@ -30,6 +30,7 @@ class RequestHandler(webapp2.RequestHandler):
     def post(self):
         #content_len = int(self.response.headers['content-length'])
         post_body = self.request.body
+        print(post_body)
         #postBody is a dictionary with key
         #value pairs of json values
         json_dict = json.loads(post_body)
