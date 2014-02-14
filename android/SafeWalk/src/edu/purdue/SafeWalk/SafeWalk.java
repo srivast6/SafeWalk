@@ -84,13 +84,6 @@ public class SafeWalk extends Activity implements
 	public static String hostname;
 	private CloudMessaging cm;
 
-	private static enum BubbleState {
-		START, END, CONFIRM;
-	};
-	
-	private BubbleState mBubbleState = BubbleState.START;
-	
-	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -117,37 +110,21 @@ public class SafeWalk extends Activity implements
 
 		mLocationClient = new LocationClient(this, this, this);
 
-		initMap();
 		cm = new CloudMessaging(this.getApplicationContext(), this.getSharedPreferences("pref_profile", 0));
+		
+		pushMapFragment();
+		
 	}
 
-	private void initMap() {
-		mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
-				.getMap();
-		if (mMap != null) {
-			mMap.setMyLocationEnabled(true);
-			UiSettings mapSettings = mMap.getUiSettings();
-			mapSettings.setTiltGesturesEnabled(false);
-			mapSettings.setRotateGesturesEnabled(false);
-		} else {
-			AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-			alertBuilder.setTitle("Error!");
-			alertBuilder.setMessage(this.getResources().getText(
-					R.string.error_no_maps));
-			alertBuilder.setPositiveButton("Close "
-					+ this.getResources().getText(R.string.app_name),
-					new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							SafeWalk.this.finish();
-						}
-					});
-			alertBuilder.show();
-		}
+	private void pushMapFragment() 
+	{
+		CustomMapFragment mapFragment = new CustomMapFragment();
+        
+        // Add the fragment to the 'fragment_container' FrameLayout
+        getFragmentManager().beginTransaction()
+                .add(R.id.fragmentContainer, mapFragment).addToBackStack("MAP_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
 	}
 
-	
-	
 	private void initNavDrawer() {
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		drawerList = (ListView) findViewById(R.id.left_drawer);
@@ -215,8 +192,6 @@ public class SafeWalk extends Activity implements
 
 	public void openRequestList()
 	{
-		View mapView = findViewById(R.id.mapFrame);
-		
         // Create a new Fragment to be placed in the activity layout
         ListViewRequesterFragment requesterFragment = new ListViewRequesterFragment();
         
@@ -373,23 +348,29 @@ public class SafeWalk extends Activity implements
 	@Override
 	public void onConnected(Bundle bun) {
 		Log.d("SafeWalk", "The mLocationHandler has been connected!");
-        if(mLocationClient == null || mMap == null) {
-            Log.e("LocationClient", (mLocationClient == null ? "mLocationClient" : "mMap") + " is null!");
-            return;
-        }
-		CameraPosition.Builder cameraPositionBuilder = new CameraPosition.Builder();
-        /*if(mLocationClient.getLastLocation() == null) {
-            Log.e("LocationClient", "Last location is null!");
-            mLocationClient.disconnect();
-            return;
-        }*/
-		cameraPositionBuilder.target(new LatLng(mLocationClient
-				.getLastLocation().getLatitude(), mLocationClient
-				.getLastLocation().getLongitude()));
-		cameraPositionBuilder.zoom((float) 16);
-		mMap.animateCamera(CameraUpdateFactory
-				.newCameraPosition(cameraPositionBuilder.build()));
-		//mLocationClient.disconnect();
+        
+		String fragmentTag = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
+		if(fragmentTag.equals("MAP_FRAGMENT"))
+		{
+			if(mLocationClient == null || mMap == null) {
+	            Log.e("LocationClient", (mLocationClient == null ? "mLocationClient" : "mMap") + " is null!");
+	            return;
+	        }
+	        
+			CameraPosition.Builder cameraPositionBuilder = new CameraPosition.Builder();
+	        /*if(mLocationClient.getLastLocation() == null) {
+	            Log.e("LocationClient", "Last location is null!");
+	            mLocationClient.disconnect();
+	            return;
+	        }*/
+			cameraPositionBuilder.target(new LatLng(mLocationClient
+					.getLastLocation().getLatitude(), mLocationClient
+					.getLastLocation().getLongitude()));
+			cameraPositionBuilder.zoom((float) 16);
+			mMap.animateCamera(CameraUpdateFactory
+					.newCameraPosition(cameraPositionBuilder.build()));
+			//mLocationClient.disconnect();
+		}
 	}
 
 	@Override
@@ -399,95 +380,11 @@ public class SafeWalk extends Activity implements
 		
 		mLocationClient.connect();
 	}
-
-	
-	
-	
-
-	/*
-	 * Function used when a request to be picked up is map, send information to server
-	 */
-	public void onPopUpBubbleClick(View v){
-		
-		LatLng latlng; 
-		if(mBubbleState == BubbleState.START)
-		{
-			latlng = ((CustomMapFragment) getFragmentManager().findFragmentById(R.id.map)).dropPinAtCenter(this, "Start", BitmapDescriptorFactory.HUE_GREEN);
-			
-			SharedPreferences bubbleState = getSharedPreferences("bubbleState", MODE_PRIVATE);
-			SharedPreferences.Editor edit = bubbleState.edit();
-			edit.putString("start_lat", "" + latlng.latitude);
-			edit.putString("start_long", "" + latlng.longitude);
-			edit.commit();
-			
-			TextView bubble = (TextView)findViewById(R.id.bubbleText);
-			bubble.setText("Set Dropoff Location");
-			mBubbleState = BubbleState.END;
-			
-		} else if(mBubbleState == BubbleState.END)
-		{
-			latlng = ((CustomMapFragment) getFragmentManager().findFragmentById(R.id.map)).dropPinAtCenter(this, "End", BitmapDescriptorFactory.HUE_RED);
-			
-			SharedPreferences bubbleState = getSharedPreferences("bubbleState", MODE_PRIVATE);
-			SharedPreferences.Editor edit = bubbleState.edit();
-			edit.putString("end_lat", "" + latlng.latitude);
-			edit.putString("end_long", "" + latlng.longitude);
-			edit.commit();
-			
-			TextView bubble = (TextView)findViewById(R.id.bubbleText);
-			bubble.setText("Confirm Route");
-			
-			LatLng start = new LatLng(Double.parseDouble(bubbleState.getString("start_lat", "0")), Double.parseDouble(bubbleState.getString("start_long", "0")));
-			
-			AsyncTask<LatLng, Void, ArrayList<LatLng>> directionsTask = new AsyncTask<LatLng, Void, ArrayList<LatLng>>() {
-
-				@Override
-				protected ArrayList<LatLng> doInBackground(LatLng... locations) {
-					GMapV2Direction md = new GMapV2Direction();
-					mMap = ((MapFragment) getFragmentManager()
-					                    .findFragmentById(R.id.map)).getMap();
-					Document doc = md.getDocument(locations[0], locations[1],
-					                    GMapV2Direction.MODE_WALKING);
-
-					return md.getDirection(doc);
-				}
-				
-				@Override 
-				protected void onPostExecute(ArrayList<LatLng> directionPoint)
-				{
-					PolylineOptions rectLine = new PolylineOptions().width(3).color(Color.RED);
-
-					for (int i = 0; i < directionPoint.size(); i++) {
-						rectLine.add(directionPoint.get(i));
-					}
-					Polyline polylin = mMap.addPolyline(rectLine);
-				}
-			};
-			//TODO: Add loading bar under actionbar
-			directionsTask.execute(start, latlng);
-			
-			mBubbleState = BubbleState.CONFIRM;
-		} else if(mBubbleState == BubbleState.CONFIRM)
-		{
-			
-			//open request activity...
-			openRequestActivity(); 
-			
-			
-			TextView bubble = (TextView)findViewById(R.id.bubbleText);
-			bubble.setText("Request Pickup Location");
-			mMap.clear();
-	        mBubbleState = BubbleState.START;
-			
-		}
-	}
 	
 	private void openRequestActivity()
 	{
+		//View mapView = findViewById(R.id.mapFrame);
 		
-		View mapView = findViewById(R.id.mapFrame);
-		
-
         // Create a new Fragment to be placed in the activity layout
         MakeRequestFragment requestFragment = new MakeRequestFragment();
         mMap.snapshot((SnapshotReadyCallback) requestFragment);
@@ -504,16 +401,11 @@ public class SafeWalk extends Activity implements
         // Intent, pass the Intent's extras to the fragment as arguments
         requestFragment.setArguments(b);
         
-        
-        
-        
         // Add the fragment to the 'fragment_container' FrameLayout
         getFragmentManager().beginTransaction()
                 .add(R.id.fragmentContainer, requestFragment).addToBackStack("REQUEST_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
 		
-		
 		/*
-		
         int[] screenLocation = new int[2];
         mapView.getLocationOnScreen(screenLocation);
         Intent subActivity = new Intent(SafeWalk.this,
