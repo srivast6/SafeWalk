@@ -105,7 +105,7 @@ public class ListViewRequesterFragment extends ListFragment {
 		chandler.setUseSynchronousMode(true);
 		SafeWalk.hostname = PreferenceManager.getDefaultSharedPreferences(
 				getActivity()).getString("pref_server",
-				"http://optical-sight-386.appspot.com");
+						getString(R.string.pref_server_default));
 		client.get(SafeWalk.hostname + "/request", chandler);
 	}
 

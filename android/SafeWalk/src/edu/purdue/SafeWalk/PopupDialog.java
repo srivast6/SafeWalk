@@ -123,7 +123,7 @@ public class PopupDialog extends DialogFragment {
 				}
 				String hostname = PreferenceManager.getDefaultSharedPreferences(
 						getActivity()).getString("pref_server",
-						"http://optical-sight-386.appspot.com");
+						getString(R.string.pref_server_default));
 				String url = hostname + "/request" + "/"
 						+ requester.getUUID() + "/accept";
 				Log.d("url", url);

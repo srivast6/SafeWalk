@@ -182,8 +182,8 @@ public class MakeRequestFragment extends Fragment implements
 
 				Building best_start = null, best_end = null;
 
-				Log.v(TAG,
-						"This is about to get crazy. I hope you don't want the logcat :)");
+				//Log.v(TAG,
+				//		"This is about to get crazy. I hope you don't want the logcat :)");
 				Log.d(TAG, "My Start: " + start_lat + start_long);
 
 				for (Building b : buildings) {
@@ -325,7 +325,7 @@ public class MakeRequestFragment extends Fragment implements
 		}
 		String hostname = PreferenceManager.getDefaultSharedPreferences(
 				getActivity()).getString("pref_server",
-				"http://optical-sight-386.appspot.com");
+						getString(R.string.pref_server_default));
 		client.post(getActivity().getBaseContext(), hostname + "/request", se,
 				"application/json", handler);
 		Log.d("debug", client.toString());
