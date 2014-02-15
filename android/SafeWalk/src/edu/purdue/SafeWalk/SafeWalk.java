@@ -67,20 +67,20 @@ public class SafeWalk extends Activity implements
 		
 
 		// Check for Google Play Services
-		// TODO: This may be throwing the error in the log. 
+		// TODO: This may be throwing the error in the log. EDIT[DT]: It doesn't seem to be...
 		int googlePlayServicesAvailable = GooglePlayServicesUtil
 				.isGooglePlayServicesAvailable(this);
 		if (googlePlayServicesAvailable != ConnectionResult.SUCCESS) {
+			Log.v(TAG, "Google Play availability" + googlePlayServicesAvailable);
 			GooglePlayServicesUtil.getErrorDialog(googlePlayServicesAvailable,
 					this, CONNECTION_FAILURE_RESOLUTION_REQUEST).show();
 		}
 
 		mLocationClient = new LocationClient(this, this, this);
 
-		cm = new CloudMessaging(this.getApplicationContext(), this.getSharedPreferences("pref_profile", 0));
+		cm = new CloudMessaging(this.getApplicationContext(), this.getSharedPreferences("pref_profile", MODE_PRIVATE));
 		
 		pushMapFragment();
-		
 	}
 
 	private void pushMapFragment() 

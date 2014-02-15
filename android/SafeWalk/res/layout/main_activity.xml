@@ -15,12 +15,12 @@
         android:animateLayoutChanges="true" >
 
         <FrameLayout
-            android:layout_alignParentTop="true"
-            android:id="@+id/fragmentContainer" 
+            android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
-            android:layout_height="500dip"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/callButtons"
+            android:layout_alignParentTop="true"
             android:animateLayoutChanges="true" >
-
             
         </FrameLayout>
 
@@ -30,7 +30,7 @@
 			android:layout_width="fill_parent"
         	android:layout_height="?android:attr/actionBarSize"
         	android:layout_alignParentBottom="true"
-        	android:layout_below="@id/fragmentContainer"
+        	
             tools:layout="@layout/call_button_fragment" 
             android:animateLayoutChanges="true" />
     </RelativeLayout>
