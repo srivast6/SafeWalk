@@ -42,6 +42,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
+import android.support.v4.app.TaskStackBuilder;
 
 public class MakeRequestFragment extends Fragment implements
 		SnapshotReadyCallback {
@@ -51,7 +52,8 @@ public class MakeRequestFragment extends Fragment implements
 	private static final String PACKAGE_NAME = "edu.purdue.SafeWalk";
 	private static final String TAG = "MakeRequestFragment";
 	private int mOriginalOrientation;
-
+	AsyncTask<Void, Void, String> buildingsTask;
+	
 	ImageView mImageView;
 
 	TextView mBuildingText;
@@ -142,67 +144,85 @@ public class MakeRequestFragment extends Fragment implements
 
 		mBuildingText = (TextView) v.findViewById(R.id.txt_building);
 
-		AsyncTask<Void, Void, String> buildingsTask = new AsyncTask<Void, Void, String>() {
+		buildingsTask = new AsyncTask<Void, Void, String>() {
 
 			@Override
 			protected String doInBackground(Void... params) {
-				return getBuildings();
+				String text; 
+				try{
+					text = getBuildings(); 
+				} catch(RuntimeException re)
+				{
+					//If the task was cancelled, this is run. 
+					return null; 
+				}
+				return text; 
 			}
 
 			@Override
+			public void onCancelled(String text)
+			{
+				Log.d("GetBuildingsTask", "Task cancelled before completion...Exiting");
+			}
+			
+			@Override
 			protected void onPostExecute(String text) {
 				mBuildingText.setText(text);
+			}
+			
+			private String getBuildings() {
+				if(isCancelled()) throw new RuntimeException(); 
+				
+				MapData mapData = new MapData(MakeRequestFragment.this.getActivity()
+						.getApplicationContext());
+				List<Building> buildings = mapData.getBuildings();
+
+				double start_dist = -1;
+				double end_dist = -1;
+
+				Building best_start = null, best_end = null;
+
+				Log.v(TAG,
+						"This is about to get crazy. I hope you don't want the logcat :)");
+				Log.d(TAG, "My Start: " + start_lat + start_long);
+
+				for (Building b : buildings) {
+					if(isCancelled()) throw new RuntimeException(); 
+					
+					double s = SphericalUtil.computeDistanceBetween(new LatLng(
+							start_lat, start_long), new LatLng(b.lat, b.lng));
+					double e = SphericalUtil.computeDistanceBetween(new LatLng(end_lat,
+							end_long), new LatLng(b.lat, b.lng));
+
+					// Log.d(TAG, "Building: " + b.short_name + ":" + b.lat + " " +
+					// b.lng);
+					// Log.d(TAG, "   Start:   " + s);
+					// Log.d(TAG, "     End:   " + e);
+
+					if (start_dist == -1) {
+						start_dist = s;
+						best_start = b;
+					}
+					if (end_dist == -1) {
+						end_dist = e;
+						best_end = b;
+					}
+
+					if (start_dist > s) {
+						best_start = b;
+						start_dist = s;
+					}
+					if (end_dist > e) {
+						best_end = b;
+						end_dist = e;
+					}
+				}
+				return best_start.short_name + " to " + best_end.short_name;
 			}
 		};
 		buildingsTask.execute();
 
 		return v;
-	}
-
-	private String getBuildings() {
-		MapData mapData = new MapData(this.getActivity()
-				.getApplicationContext());
-		List<Building> buildings = mapData.getBuildings();
-
-		double start_dist = -1;
-		double end_dist = -1;
-
-		Building best_start = null, best_end = null;
-
-		Log.v(TAG,
-				"This is about to get crazy. I hope you don't want the logcat :)");
-		Log.d(TAG, "My Start: " + start_lat + start_long);
-
-		for (Building b : buildings) {
-			double s = SphericalUtil.computeDistanceBetween(new LatLng(
-					start_lat, start_long), new LatLng(b.lat, b.lng));
-			double e = SphericalUtil.computeDistanceBetween(new LatLng(end_lat,
-					end_long), new LatLng(b.lat, b.lng));
-
-			// Log.d(TAG, "Building: " + b.short_name + ":" + b.lat + " " +
-			// b.lng);
-			// Log.d(TAG, "   Start:   " + s);
-			// Log.d(TAG, "     End:   " + e);
-
-			if (start_dist == -1) {
-				start_dist = s;
-				best_start = b;
-			}
-			if (end_dist == -1) {
-				end_dist = e;
-				best_end = b;
-			}
-
-			if (start_dist > s) {
-				best_start = b;
-				start_dist = s;
-			}
-			if (end_dist > e) {
-				best_end = b;
-				end_dist = e;
-			}
-		}
-		return best_start.short_name + " to " + best_end.short_name;
 	}
 
 	@Override
@@ -224,6 +244,16 @@ public class MakeRequestFragment extends Fragment implements
 				});
 			}
 		}.start();
+	}
+	
+	@Override
+	public void onDetach()
+	{
+		if(buildingsTask != null && buildingsTask.getStatus() != AsyncTask.Status.FINISHED)
+		{
+			buildingsTask.cancel(false);
+		}
+		super.onDetach();
 	}
 
 	/**
