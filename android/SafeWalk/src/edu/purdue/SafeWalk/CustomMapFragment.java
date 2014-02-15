@@ -46,4 +46,6 @@ public class CustomMapFragment extends MapFragment {
 
 		return latlng;
 	}
+	
+	
 }
