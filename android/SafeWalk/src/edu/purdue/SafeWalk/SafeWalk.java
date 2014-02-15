@@ -36,6 +36,7 @@ import edu.purdue.SafeWalk.settings.SettingsActivity;
 public class SafeWalk extends Activity implements
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener{
+	
 	GoogleMap mMap;
 	private LocationClient mLocationClient;
 	ListView drawerList;
@@ -57,13 +58,13 @@ public class SafeWalk extends Activity implements
 		
 		setContentView(R.layout.main_activity);
 
-		hostname = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_server", "http://optical-sight-386.appspot.com");
+		hostname = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_server", getString(R.string.pref_server_default));
 		
 		initNavDrawer();
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
-		getActionBar().setSubtitle("Map");
+		
 
 		// Check for Google Play Services
 		// TODO: This may be throwing the error in the log. 
@@ -88,7 +89,8 @@ public class SafeWalk extends Activity implements
         
         // Add the fragment to the 'fragment_container' FrameLayout
         getFragmentManager().beginTransaction()
-                .add(R.id.fragmentContainer, walkRequestFragment).addToBackStack("WALK_REQUEST_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
+                .add(R.id.fragmentContainer, walkRequestFragment).addToBackStack("MAP_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
+        getActionBar().setSubtitle("Map");
 	}
 
 	private void initNavDrawer() {
@@ -318,6 +320,7 @@ public class SafeWalk extends Activity implements
 		String fragmentTag = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
 		if(fragmentTag.equals("MAP_FRAGMENT"))
 		{
+			Log.v(TAG,"Zooming camera!!!");
 			if(mLocationClient == null || mMap == null) {
 	            Log.e("LocationClient", (mLocationClient == null ? "mLocationClient" : "mMap") + " is null!");
 	            return;
