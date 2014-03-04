@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
+    android:background="#ffffffff"
     android:clickable="true"
     tools:context=".MakeRequestActivity" >
 
@@ -11,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_alignParentTop="true"
-        android:background="#0000FF"
-        android:padding="10dp" />
+        android:padding="1dp" />
 
     <ScrollView
         android:id="@+id/requestinfo"
@@ -27,51 +27,104 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#90909090" />
+            
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FF4444"
                 android:paddingBottom="5dp"
                 android:paddingLeft="7dp"
                 android:paddingRight="7dp"
                 android:paddingTop="5dp" >
 
                 <TextView
-                    android:id="@+id/txt_building"
+                    android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Large Text"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-            </LinearLayout>
+                    android:layout_centerHorizontal="true"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:text="to" />
 
-            <LinearLayout
+                <TextView
+                    android:id="@+id/txt_building1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/textView3"
+                    android:text="Building"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/txt_building2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/textView3"
+                    android:text="Building"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#90909090" />
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#99CC00"
                 android:paddingBottom="5dp"
                 android:paddingLeft="7dp"
                 android:paddingRight="7dp"
                 android:paddingTop="5dp" >
 
+                <TextView
+                    android:id="@+id/txt_describeyourself"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="Describe Yourself"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <View
+                    android:id="@+id/seperater"
+                    android:layout_width="2dp"
+                    android:layout_height="fill_parent"
+                    android:layout_below="@+id/txt_describeyourself"
+                    android:layout_centerHorizontal="true"
+                    android:background="#90909090" />
+
                 <Button
                     android:id="@+id/btn_pic"
                     android:layout_width="wrap_content"
-                    android:layout_height="114dp"
-                    android:layout_weight="1"
-                    android:text="Button" />
+                    android:layout_height="70dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/txt_describeyourself"
+                    android:layout_toLeftOf="@id/seperater"
+                    android:drawableStart="@drawable/ic_action_camera"
+                    android:text="Picture" />
 
                 <Button
                     android:id="@+id/btn_desc"
                     android:layout_width="wrap_content"
-                    android:layout_height="114dp"
-                    android:layout_weight="1"
-                    android:text="Button" />
-            </LinearLayout>
+                    android:layout_height="70dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/txt_describeyourself"
+                    android:layout_toRightOf="@id/seperater"
+                    android:drawableStart="@drawable/ic_action_edit"
+                    android:text="Text" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#90909090" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#AA66CC"
                 android:paddingBottom="5dp"
                 android:paddingLeft="7dp"
                 android:paddingRight="7dp"
@@ -86,7 +139,7 @@
                         android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView" />
+                        android:text="Urgency" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -97,27 +150,31 @@
                             android:id="@+id/btn_urg1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1" />
+                            android:text="!" />
 
                         <Button
                             android:id="@+id/btn_urg2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2" />
+                            android:text="!!" />
 
                         <Button
                             android:id="@+id/btn_urg3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="3" />
+                            android:text="!!!" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#90909090" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#349032"
                 android:paddingBottom="5dp"
                 android:paddingLeft="7dp"
                 android:paddingRight="7dp"
@@ -131,10 +188,14 @@
                     android:textAppearance="?android:attr/textAppearanceLarge" />
             </LinearLayout>
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#90909090" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#34afbc"
                 android:paddingBottom="5dp"
                 android:paddingLeft="7dp"
                 android:paddingRight="7dp"
