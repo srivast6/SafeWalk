@@ -22,7 +22,10 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.animation.TimeInterpolator;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -34,11 +37,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,13 +61,17 @@ public class MakeRequestFragment extends Fragment implements
 	private static final String TAG = "MakeRequestFragment";
 	private int mOriginalOrientation;
 	AsyncTask<Void, Void, String> buildingsTask;
-	
+
 	ImageView mImageView;
 
 	TextView mBuildingText1, mBuildingText2;
-
+	ProgressBar mMapLoading;
+	
+	private String mPersonDescription;
+	
 	double start_lat, start_long, end_lat, end_long;
 	private Bitmap mapImage = null;
+	private Bitmap mUserPhoto;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -146,41 +157,40 @@ public class MakeRequestFragment extends Fragment implements
 
 		mBuildingText1 = (TextView) v.findViewById(R.id.txt_building1);
 		mBuildingText2 = (TextView) v.findViewById(R.id.txt_building2);
-		
 
 		buildingsTask = new AsyncTask<Void, Void, String>() {
 
 			@Override
 			protected String doInBackground(Void... params) {
-				String text; 
-				try{
-					text = getBuildings(); 
-				} catch(RuntimeException re)
-				{
-					//If the task was cancelled, this is run. 
-					return null; 
+				String text;
+				try {
+					text = getBuildings();
+				} catch (RuntimeException re) {
+					// If the task was cancelled, this is run.
+					return null;
 				}
-				return text; 
+				return text;
 			}
 
 			@Override
-			public void onCancelled(String text)
-			{
-				Log.d("GetBuildingsTask", "Task cancelled before completion...Exiting");
+			public void onCancelled(String text) {
+				Log.d("GetBuildingsTask",
+						"Task cancelled before completion...Exiting");
 			}
-			
+
 			@Override
 			protected void onPostExecute(String text) {
 				String[] bldngs = text.split("\\|");
 				mBuildingText1.setText(bldngs[0]);
 				mBuildingText2.setText(bldngs[1]);
 			}
-			
+
 			private String getBuildings() {
-				if(isCancelled()) throw new RuntimeException(); 
-				
-				MapData mapData = new MapData(MakeRequestFragment.this.getActivity()
-						.getApplicationContext());
+				if (isCancelled())
+					throw new RuntimeException();
+
+				MapData mapData = new MapData(MakeRequestFragment.this
+						.getActivity().getApplicationContext());
 				List<Building> buildings = mapData.getBuildings();
 
 				double start_dist = -1;
@@ -188,19 +198,21 @@ public class MakeRequestFragment extends Fragment implements
 
 				Building best_start = null, best_end = null;
 
-				//Log.v(TAG,
-				//		"This is about to get crazy. I hope you don't want the logcat :)");
+				// Log.v(TAG,
+				// "This is about to get crazy. I hope you don't want the logcat :)");
 				Log.d(TAG, "My Start: " + start_lat + start_long);
 
 				for (Building b : buildings) {
-					if(isCancelled()) throw new RuntimeException(); 
-					
+					if (isCancelled())
+						throw new RuntimeException();
+
 					double s = SphericalUtil.computeDistanceBetween(new LatLng(
 							start_lat, start_long), new LatLng(b.lat, b.lng));
-					double e = SphericalUtil.computeDistanceBetween(new LatLng(end_lat,
-							end_long), new LatLng(b.lat, b.lng));
+					double e = SphericalUtil.computeDistanceBetween(new LatLng(
+							end_lat, end_long), new LatLng(b.lat, b.lng));
 
-					// Log.d(TAG, "Building: " + b.short_name + ":" + b.lat + " " +
+					// Log.d(TAG, "Building: " + b.short_name + ":" + b.lat +
+					// " " +
 					// b.lng);
 					// Log.d(TAG, "   Start:   " + s);
 					// Log.d(TAG, "     End:   " + e);
@@ -223,16 +235,81 @@ public class MakeRequestFragment extends Fragment implements
 						end_dist = e;
 					}
 				}
-				String first = (best_start.short_name.contains("?")) ? best_start.full_name.split(" ")[0] : best_start.short_name;
-				String last = (best_end.short_name.contains("?")) ? best_end.full_name.split(" ")[0] : best_end.short_name;
+				String first = (best_start.short_name.contains("?")) ? best_start.full_name
+						.split(" ")[0] : best_start.short_name;
+				String last = (best_end.short_name.contains("?")) ? best_end.full_name
+						.split(" ")[0] : best_end.short_name;
 				return first + "|" + last;
 			}
 		};
 		buildingsTask.execute();
 
+		Button buttonText = (Button) v.findViewById(R.id.btn_desc);
+
+		buttonText.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+				AlertDialog.Builder alert = new AlertDialog.Builder(
+						MakeRequestFragment.this.getActivity());
+
+				alert.setTitle("Describe Yourself");
+				alert.setMessage("What do you look like, so we can find you?");
+
+				// Set an EditText view to get user input
+				final EditText input = new EditText(MakeRequestFragment.this
+						.getActivity());
+				alert.setView(input);
+
+				alert.setPositiveButton("Ok",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								mPersonDescription = input.getText().toString();
+								dialog.dismiss();
+							}
+						});
+
+				alert.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								dialog.dismiss();
+							}
+						});
+
+				alert.show();
+			}
+
+		});
+		
+		Button buttonPic = (Button) v.findViewById(R.id.btn_pic);
+
+		buttonPic.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+		        startActivityForResult(cameraIntent, 1888);
+			}
+			
+		});
+		
+		mMapLoading = (ProgressBar) v.findViewById(R.id.progressBar1);
+		
+		mMapLoading.setIndeterminate(true);
+		
 		return v;
 	}
 
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if( requestCode == 1888 && data != null) {
+	        mUserPhoto = (Bitmap) data.getExtras().get("data");
+	    }
+	}
+	
 	@Override
 	public void onViewCreated(final View v, Bundle state) {
 		super.onViewCreated(v, state);
@@ -247,18 +324,18 @@ public class MakeRequestFragment extends Fragment implements
 					public void run() {
 						((ImageView) v.findViewById(R.id.mapImage))
 								.setImageBitmap(mapImage);
+						mMapLoading.setVisibility(View.GONE);
 
 					}
 				});
 			}
 		}.start();
 	}
-	
+
 	@Override
-	public void onDetach()
-	{
-		if(buildingsTask != null && buildingsTask.getStatus() != AsyncTask.Status.FINISHED)
-		{
+	public void onDetach() {
+		if (buildingsTask != null
+				&& buildingsTask.getStatus() != AsyncTask.Status.FINISHED) {
 			buildingsTask.cancel(false);
 		}
 		super.onDetach();
@@ -286,28 +363,27 @@ public class MakeRequestFragment extends Fragment implements
 	}
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) 
-	{
+	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_confirm:
 			sendRequest();
-			return true; 
-			
+			return true;
+
 		}
-		
+
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	private void sendRequest() {
 		AsyncHttpClient client = new AsyncHttpClient();
 
 		String time = java.text.DateFormat.getDateTimeInstance().format(
 				Calendar.getInstance().getTime());
-		String userName = "David Tschida";
+		String userName = "John Smith";
 
-
-		Requester r = new Requester(userName+ (int) (Math.random()*1000), time, "219-555-1242",
-				"Not Urgent", start_lat, start_long, end_lat, end_long);
+		Requester r = new Requester(userName + (int) (Math.random() * 1000),
+				time, "219-555-1242", "Not Urgent", start_lat, start_long,
+				end_lat, end_long);
 		Log.d("json", r.toJSON().toString());
 		StringEntity se = null;
 
@@ -333,7 +409,7 @@ public class MakeRequestFragment extends Fragment implements
 		}
 		String hostname = PreferenceManager.getDefaultSharedPreferences(
 				getActivity()).getString("pref_server",
-						getString(R.string.pref_server_default));
+				getString(R.string.pref_server_default));
 		client.post(getActivity().getBaseContext(), hostname + "/request", se,
 				"application/json", handler);
 		Log.d("debug", client.toString());
