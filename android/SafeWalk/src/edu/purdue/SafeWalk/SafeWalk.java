@@ -2,6 +2,7 @@ package edu.purdue.SafeWalk;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -310,7 +311,6 @@ public class SafeWalk extends Activity implements
 	public void onBackPressed()
 	{
 		FragmentManager fm = getFragmentManager();
-		
 		if(fm.getBackStackEntryCount() > 1) fm.popBackStack();
 		else 
 			super.onBackPressed();
