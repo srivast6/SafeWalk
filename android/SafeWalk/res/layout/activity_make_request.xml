@@ -139,20 +139,20 @@
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <Button
-                    android:id="@+id/btn_urg1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textView2"
-                    android:layout_toLeftOf="@id/btn_urg2"
-                    android:text="!" />
-
-                <Button
                     android:id="@+id/btn_urg2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView2"
                     android:layout_centerHorizontal="true"
                     android:text="!!" />
+                
+                <Button
+                    android:id="@+id/btn_urg1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textView2"
+                    android:layout_toLeftOf="@id/btn_urg2"
+                    android:text="!" />
 
                 <Button
                     android:id="@+id/btn_urg3"

@@ -1,6 +1,13 @@
 package edu.purdue.SafeWalk;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.cert.Certificate;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLPeerUnverifiedException;
 
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
@@ -69,16 +76,16 @@ public class LoginActivity extends Activity {
 	// Values for email and password at the time of the login attempt.
 	private String mEmail;
 	private String mPassword;
-	private String mFirstName;
-	private String mLastName;
-	private String mPhoneNumber;
+	//private String mFirstName;
+	//private String mLastName;
+	//private String mPhoneNumber;
 
 
 	// UI references.
-	private EditText mEmailView;
+	//private EditText mEmailView;
 	private EditText mPasswordView;
 	private EditText mUsernameView;
-	private EditText mPhoneNumberView;
+	//private EditText mPhoneNumberView;
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
@@ -125,10 +132,12 @@ public class LoginActivity extends Activity {
 		    }
 		};
 
+		/*
 		// Set up the login form.
 		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 		mEmailView = (EditText) findViewById(R.id.email);
 		mEmailView.setText(mEmail);
+		*/
 
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView
@@ -145,7 +154,7 @@ public class LoginActivity extends Activity {
 				});
 
 		mUsernameView = (EditText)findViewById(R.id.username);
-		mPhoneNumberView = (EditText)findViewById(R.id.phoneNumber);
+		//mPhoneNumberView = (EditText)findViewById(R.id.phoneNumber);
 		
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
@@ -187,22 +196,26 @@ public class LoginActivity extends Activity {
 		}
 
 		// Reset errors.
-		mEmailView.setError(null);
+		//mEmailView.setError(null);
 		mPasswordView.setError(null);
 
 		// Store values at the time of the login attempt.
-		mEmail = mEmailView.getText().toString();
+		//mEmail = mEmailView.getText().toString();
 		mPassword = mPasswordView.getText().toString();
+		/*
 		String[] names = mUsernameView.getText().toString().split("\\s+");
 		if(names.length >= 2){
-		mFirstName = names[0].replaceAll("\\s+", "");
+		//mFirstName = names[0].replaceAll("\\s+", "");
 		mLastName = names[1].replaceAll("\\s+", "");
 		} else {
 			mUsernameView.setError(getString(R.string.error_first_and_last_required));
 		}
+		*/
 		
+		/*
 		mPhoneNumber = mPhoneNumberView.getText().toString();
 		mPhoneNumber.replaceAll("\\s+", "");
+		*/
 
 		boolean cancel = false;
 		View focusView = null;
@@ -218,6 +231,7 @@ public class LoginActivity extends Activity {
 			cancel = true;
 		}
 
+		/*
 		// Check for a valid email address.
 		if (TextUtils.isEmpty(mEmail)) {
 			mEmailView.setError(getString(R.string.error_field_required));
@@ -228,9 +242,11 @@ public class LoginActivity extends Activity {
 			focusView = mEmailView;
 			cancel = true;
 		}
+		*/
 		
 		// Check for valid name
 	
+		/*
 		// Check for valid phone number
 		if(!TextUtils.isDigitsOnly(mPhoneNumber)){
 			mPhoneNumberView.setError(getString(R.string.error_invalid_phone_number));
@@ -238,6 +254,7 @@ public class LoginActivity extends Activity {
 			mPhoneNumberView.setError(getString(R.string.error_field_required));
 			
 		}
+		*/
 
 		if (cancel) {
 			// There was an error; don't attempt login and focus the first
@@ -392,6 +409,20 @@ public class LoginActivity extends Activity {
 			client.post(serverName + "/users?"+"firstName="+mFirstName+"&lastName="+mLastName+"&phoneNumber="+mPhoneNumber+"&currentLocation_lat=0.00"+"&currentLocation_lng=0.00"+"&deviceToken="+deviceId+"&purdueCASServiceTicket="+casTicket+"&gcmID="+gcmID, LoginActivity.handler);
 			// storing the user id is done in the handler
 			return true; 
+		}
+		
+		protected String getCASToken(String username, String password) {
+			try {
+				URL loginUrl = new URL("https://www.purdue.edu/apps/account/cas/login?username=" + username + "&password=" + password);
+				HttpsURLConnection conn = (HttpsURLConnection) loginUrl.openConnection();
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return "";
 		}
 		
 		protected void onProgressUpdate(Integer integers) {
