@@ -39,6 +39,7 @@ import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v4.app.NavUtils;
@@ -56,7 +57,7 @@ public class MakeRequestFragment extends Fragment implements
 	
 	ImageView mImageView;
 
-	TextView mBuildingText;
+	TextView mBuildingText1, mBuildingText2;
 
 	double start_lat, start_long, end_lat, end_long;
 	private Bitmap mapImage = null;
@@ -141,8 +142,11 @@ public class MakeRequestFragment extends Fragment implements
 				false);
 
 		mImageView = (ImageView) v.findViewById(R.id.mapImage);
+		mImageView.setScaleType(ScaleType.CENTER_CROP);
 
-		mBuildingText = (TextView) v.findViewById(R.id.txt_building);
+		mBuildingText1 = (TextView) v.findViewById(R.id.txt_building1);
+		mBuildingText2 = (TextView) v.findViewById(R.id.txt_building2);
+		
 
 		buildingsTask = new AsyncTask<Void, Void, String>() {
 
@@ -167,7 +171,9 @@ public class MakeRequestFragment extends Fragment implements
 			
 			@Override
 			protected void onPostExecute(String text) {
-				mBuildingText.setText(text);
+				String[] bldngs = text.split("\\|");
+				mBuildingText1.setText(bldngs[0]);
+				mBuildingText2.setText(bldngs[1]);
 			}
 			
 			private String getBuildings() {
@@ -217,7 +223,9 @@ public class MakeRequestFragment extends Fragment implements
 						end_dist = e;
 					}
 				}
-				return best_start.short_name + " to " + best_end.short_name;
+				String first = (best_start.short_name.contains("?")) ? best_start.full_name.split(" ")[0] : best_start.short_name;
+				String last = (best_end.short_name.contains("?")) ? best_end.full_name.split(" ")[0] : best_end.short_name;
+				return first + "|" + last;
 			}
 		};
 		buildingsTask.execute();
