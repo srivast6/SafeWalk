@@ -25,11 +25,15 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.CancelableCallback;
 import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 
 import edu.purdue.SafeWalk.settings.SettingsActivity;
 
@@ -253,25 +257,25 @@ public class SafeWalk extends Activity implements
 			return true;
 		}
 		
-		SharedPreferences myPreference= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		SharedPreferences.Editor editor = myPreference.edit();
+		
 		switch (item.getItemId()) {
         case R.id.action_display_blue:
+        	SharedPreferences myPreference= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    		SharedPreferences.Editor editor = myPreference.edit();
         	item.setChecked(!item.isChecked());
     		editor.putBoolean("show_blue_lights", item.isChecked());
     		editor.apply();
             return true;
         case R.id.action_display_vols:
+        	SharedPreferences _myPreference= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    		SharedPreferences.Editor _editor = _myPreference.edit();
         	item.setChecked(!item.isChecked());
-    		editor.putBoolean("show_volunteers", item.isChecked());
-    		editor.apply();
+    		_editor.putBoolean("show_volunteers", item.isChecked());
+    		_editor.apply();
             return true;
         case R.id.action_settings:
         	openSettings();
             return true;
-        case R.id.action_button:
-        	openRequestActivity();
-        	return true; 
         case R.id.action_login:
         	openLoginActivity();
         	return true;
@@ -354,16 +358,46 @@ public class SafeWalk extends Activity implements
 		//View mapView = findViewById(R.id.mapFrame);
 		
         // Create a new Fragment to be placed in the activity layout
-        MakeRequestFragment requestFragment = new MakeRequestFragment();
-        mMap.snapshot((SnapshotReadyCallback) requestFragment);
+        final MakeRequestFragment requestFragment = new MakeRequestFragment();
+        
+
+        SharedPreferences bubbleState = getSharedPreferences("bubbleState", Activity.MODE_PRIVATE);
+        
+        LatLng start = new LatLng(Double.parseDouble(bubbleState.getString("start_lat", "0")), Double.parseDouble(bubbleState.getString("start_long", "0")));
+        LatLng end = new LatLng(Double.parseDouble(bubbleState.getString("end_lat", "0")), Double.parseDouble(bubbleState.getString("end_long", "0")));
+        
+        
+        //Calculate the markers to get their position
+        LatLngBounds.Builder lb = new LatLngBounds.Builder();
+        
+        lb.include(start);
+        lb.include(end);
+        
+        LatLngBounds bounds = lb.build();
+        //Change the padding as per needed
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 20);
+        mMap.animateCamera(cu, new CancelableCallback() {
+
+			@Override
+			public void onCancel() {
+				mMap.snapshot((SnapshotReadyCallback) requestFragment);
+				mMap.clear();
+			}
+
+			@Override
+			public void onFinish() {
+				mMap.snapshot((SnapshotReadyCallback) requestFragment);
+				mMap.clear();
+			}
+        	
+        });
         
         Bundle b = new Bundle();
         
-        SharedPreferences bubbleState = getSharedPreferences("bubbleState", Activity.MODE_PRIVATE);
-		b.putDouble("start_lat", Double.parseDouble(bubbleState.getString("start_lat", "0")));
-		b.putDouble("start_long", Double.parseDouble(bubbleState.getString("start_long", "0")));
-		b.putDouble("end_lat", Double.parseDouble(bubbleState.getString("end_lat", "0")));
-		b.putDouble("end_long", Double.parseDouble(bubbleState.getString("end_long", "0")));
+		b.putDouble("start_lat", start.latitude);
+		b.putDouble("start_long", start.longitude);
+		b.putDouble("end_lat", end.latitude);
+		b.putDouble("end_long", end.longitude);
 		
         // In case this activity was started with special instructions from an
         // Intent, pass the Intent's extras to the fragment as arguments

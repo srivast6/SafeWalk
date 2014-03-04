@@ -1,5 +1,7 @@
 package edu.purdue.SafeWalk;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -10,11 +12,15 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class CustomMapFragment extends MapFragment {
 	public View mOriginalContentView;
 	public TouchableWrapper mTouchView;
+	
+	ArrayList<Marker> currentMarkers = new ArrayList<Marker>();
+	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)

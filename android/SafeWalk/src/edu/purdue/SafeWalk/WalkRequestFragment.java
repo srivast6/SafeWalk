@@ -176,7 +176,7 @@ public class WalkRequestFragment extends Fragment {
 			
 			TextView bubble = (TextView)getView().findViewById(R.id.bubbleText);
 			bubble.setText("Request Pickup Location");
-			mMap.clear();
+			
 	        mBubbleState = BubbleState.START;
 			
 		}
