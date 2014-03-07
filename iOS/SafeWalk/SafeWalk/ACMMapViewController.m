@@ -71,9 +71,9 @@
     [self callPhoneNumber:@"tel:765-494-7233"];
 }
 
-- (IBAction)call911ButtonPressed:(UIBarButtonItem*)sender
+- (IBAction)call411ButtonPressed:(UIBarButtonItem*)sender
 {
-    [self callPhoneNumber:@"tel:911"];
+    [self callPhoneNumber:@"tel:411"];
 }
 
 - (void)callPhoneNumber:(NSString*)phoneURL

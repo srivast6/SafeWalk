@@ -15,6 +15,6 @@
 
 - (IBAction)callSafeWalkButtonPressed:(UIBarButtonItem*)sender;
 
-- (IBAction)call911ButtonPressed:(UIBarButtonItem*)sender;
+- (IBAction)call411ButtonPressed:(UIBarButtonItem*)sender;
 
 @end

@@ -14,7 +14,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Setup GMS Services API key (Google Maps)
-    [GMSServices provideAPIKey:@"{AIzaSyDj67tCIvUwA7bHVgkgRHiSrMhRYfjr1v8}"];
+    [GMSServices provideAPIKey:@"AIzaSyC9wZLqc-ctLwevGnSA0w3vYEmIssxRq70"];
+    
+    NSLog(@"Current identifier: %@", [[NSBundle mainBundle] bundleIdentifier]);
     
     //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     //self.window.rootViewController = [[ACMMapViewController alloc] init];
