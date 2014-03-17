@@ -93,7 +93,7 @@ public class SafeWalk extends Activity implements
         
         // Add the fragment to the 'fragment_container' FrameLayout
         getFragmentManager().beginTransaction()
-                .add(R.id.fragmentContainer, walkRequestFragment).addToBackStack("MAP_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
+                .replace(R.id.fragmentContainer, walkRequestFragment).addToBackStack("MAP_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
         getActionBar().setSubtitle("Map");
 	}
 
@@ -311,9 +311,12 @@ public class SafeWalk extends Activity implements
 	public void onBackPressed()
 	{
 		FragmentManager fm = getFragmentManager();
-		if(fm.getBackStackEntryCount() > 1) fm.popBackStack();
+		if(fm.getBackStackEntryCount() > 1) 
+		{
+			fm.popBackStack();
+		}
 		else 
-			super.onBackPressed();
+			finish();
 	}
 	
 	@Override
