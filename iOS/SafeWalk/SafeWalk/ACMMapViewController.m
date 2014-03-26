@@ -16,9 +16,7 @@
 
 @end
 
-@implementation ACMMapViewController {
-    GMSMapView * gmsMapView;
-}
+@implementation ACMMapViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,19 +34,20 @@
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.427605
                                                             longitude:-86.916962
                                                                  zoom:17];
-    gmsMapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+    self.mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
 
     // Padding the map so our buttons still appear:
                                         /*    Top,  L,  Bot,  R   */
     UIEdgeInsets mapInsets = UIEdgeInsetsMake(0.0, 0.0, 50.0, 0.0);
-    gmsMapView.padding = mapInsets;
+    self.mapView.padding = mapInsets;
     
     // Enabling myLocation and adding it to the map:
-    gmsMapView.myLocationEnabled = YES;
-    gmsMapView.settings.myLocationButton = YES;
-    gmsMapView.delegate = self;
+    self.mapView.myLocationEnabled = YES;
+    self.mapView.settings.myLocationButton = YES;
+	[self.mapView.settings setTiltGestures:NO];
+    self.mapView.delegate = self;
     //View appears here:
-    self.view = gmsMapView;
+    self.view = self.mapView;
     
     
     _marker = [[GMSMarker alloc] init];
@@ -56,8 +55,8 @@
     _marker.title = @"Request Pickup";//@"Sydney";
     //_marker.snippet = @"Australia";
     _marker.appearAnimation = kGMSMarkerAnimationNone;
-    _marker.map = gmsMapView;
-    
+    _marker.map = self.mapView;
+
     // Set map center to current location
     if([CLLocationManager locationServicesEnabled] == NO) {
         UIAlertView * locationServicesDisabledAlert = [[UIAlertView alloc] initWithTitle:@"Location Required" message:@"You must enable Location Services to use this app." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:@"Open Settings", nil];
@@ -76,8 +75,6 @@
     //del.locationManager.delegate = self;
     //[del.locationManager startUpdatingLocation];
     
-    [self setMapView:gmsMapView];
-    
     [self.navigationController setToolbarHidden:NO];
 }
 
@@ -91,6 +88,14 @@ didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
 didChangeCameraPosition:(GMSCameraPosition *)cameraPosition {
     _marker.position = cameraPosition.target;
     _marker.map = mapView;
+
+    [self.navigationController setToolbarHidden:NO];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray*)locations
+{
+    CLLocation * loc = locations.firstObject;
+    [self.mapView animateToLocation:loc.coordinate];
 }
 
 - (IBAction)callSafeWalkButtonPressed:(UIBarButtonItem*)sender
