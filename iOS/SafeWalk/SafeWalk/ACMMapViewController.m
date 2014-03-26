@@ -47,7 +47,9 @@
     gmsMapView.myLocationEnabled = YES;
     gmsMapView.settings.myLocationButton = YES;
     gmsMapView.delegate = self;
+    //View appears here:
     self.view = gmsMapView;
+    
     
     _marker = [[GMSMarker alloc] init];
     _marker.position = CLLocationCoordinate2DMake(-33.86, 151.20);
