@@ -33,9 +33,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:-33.86
-                                                            longitude:151.20
-                                                                 zoom:6];
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.427605
+                                                            longitude:-86.916962
+                                                                 zoom:17];
     gmsMapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
 
     // Padding the map so our buttons still appear:
@@ -52,8 +52,8 @@
     
     
     _marker = [[GMSMarker alloc] init];
-    _marker.position = CLLocationCoordinate2DMake(-33.86, 151.20);
-    _marker.title = @"Hello World";//@"Sydney";
+    _marker.position = CLLocationCoordinate2DMake(40.427605, -86.916962);
+    _marker.title = @"Request Pickup";//@"Sydney";
     //_marker.snippet = @"Australia";
     _marker.appearAnimation = kGMSMarkerAnimationNone;
     _marker.map = gmsMapView;

@@ -24,7 +24,7 @@
             </objects>
             <point key="canvasLocation" x="-460" y="-184"/>
         </scene>
-        <!--Map View Controller-->
+        <!--Map View Controller - Purdue SafeWalk-->
         <scene sceneID="Yd8-JX-Aud">
             <objects>
                 <viewController id="59j-Ce-39Q" customClass="ACMMapViewController" sceneMemberID="viewController">
@@ -57,7 +57,13 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" id="LZ4-pA-pcP"/>
+                    <navigationItem key="navigationItem" title="Purdue SafeWalk" id="LZ4-pA-pcP">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="JHw-e6-rMb">
+                            <connections>
+                                <segue destination="Y9H-Lm-xrT" kind="push" id="amQ-tq-Hcv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="YxN-3W-q0Z" id="n7V-Cx-xjO"/>
                     </connections>
@@ -65,6 +71,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wtc-r4-2Ig" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="46" y="-184"/>
+        </scene>
+        <!--Table View Controller - Settings-->
+        <scene sceneID="rtt-c7-iBq">
+            <objects>
+                <tableViewController id="Y9H-Lm-xrT" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="RDC-36-V65">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Sdg-Jw-NlS">
+                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Sdg-Jw-NlS" id="ujH-VV-qzc">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Y9H-Lm-xrT" id="03o-eK-dwv"/>
+                            <outlet property="delegate" destination="Y9H-Lm-xrT" id="Ybg-7l-MIM"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Settings" id="BPt-Vm-P71"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JFO-Em-QbB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="710" y="-184"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
