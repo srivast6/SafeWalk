@@ -110,9 +110,9 @@ didChangeCameraPosition:(GMSCameraPosition *)cameraPosition {
 
 - (void)callPhoneNumber:(NSString*)phoneURL
 {
-    UIDevice *device = [UIDevice currentDevice];
-    if([[device model] isEqualToString:@"iPhone"] ) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",phoneURL]]];
+    NSURL* callNumberURL = [NSURL URLWithString:phoneURL];
+    if([[UIApplication sharedApplication] canOpenURL:callNumberURL] ) {
+        [[UIApplication sharedApplication] openURL:callNumberURL];
     } else {
         [[[UIAlertView alloc] initWithTitle:@"Error" message:@"Your device doesn't support this feature." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
     }
