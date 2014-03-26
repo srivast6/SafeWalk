@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E5A48E6818E2809A005E7B1A /* ACMSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A48E6718E2809A005E7B1A /* ACMSettingsViewController.m */; };
 		FC1BD32518A4630C00802B7B /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1BD32418A4630C00802B7B /* GoogleMaps.framework */; };
 		FC1BD32718A4632000802B7B /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FC1BD32618A4632000802B7B /* GoogleMaps.bundle */; };
 		FC6ADF3C18A1C233000DDB1C /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC6ADF3B18A1C233000DDB1C /* MainStoryboard.storyboard */; };
@@ -48,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E5A48E6618E2809A005E7B1A /* ACMSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACMSettingsViewController.h; sourceTree = "<group>"; };
+		E5A48E6718E2809A005E7B1A /* ACMSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACMSettingsViewController.m; sourceTree = "<group>"; };
 		FC1BD32418A4630C00802B7B /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
 		FC1BD32618A4632000802B7B /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		FC6ADF3B18A1C233000DDB1C /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
@@ -182,6 +185,8 @@
 				FC6ADF3B18A1C233000DDB1C /* MainStoryboard.storyboard */,
 				FC6ADF3D18A1C376000DDB1C /* ACMMapViewController.h */,
 				FC6ADF3E18A1C376000DDB1C /* ACMMapViewController.m */,
+				E5A48E6618E2809A005E7B1A /* ACMSettingsViewController.h */,
+				E5A48E6718E2809A005E7B1A /* ACMSettingsViewController.m */,
 			);
 			path = SafeWalk;
 			sourceTree = "<group>";
@@ -316,6 +321,7 @@
 				FCA9EE2018A1BA93000789DD /* ACMAppDelegate.m in Sources */,
 				FCA9EE1C18A1BA93000789DD /* main.m in Sources */,
 				FC6ADF3F18A1C376000DDB1C /* ACMMapViewController.m in Sources */,
+				E5A48E6818E2809A005E7B1A /* ACMSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
