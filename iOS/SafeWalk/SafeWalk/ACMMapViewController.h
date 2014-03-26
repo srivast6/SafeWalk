@@ -9,9 +9,10 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <UIKit/UIKit.h>
 
-@interface ACMMapViewController : UIViewController <CLLocationManagerDelegate>
+@interface ACMMapViewController : UIViewController <GMSMapViewDelegate>
 
 @property IBOutlet UIView * mapView;
+@property GMSMarker *marker;
 
 - (IBAction)callSafeWalkButtonPressed:(UIBarButtonItem*)sender;
 

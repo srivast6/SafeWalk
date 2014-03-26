@@ -263,9 +263,6 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Eric Templin";
 				TargetAttributes = {
-					FCA9EE0B18A1BA93000789DD = {
-						DevelopmentTeam = DXU5U29D7C;
-					};
 					FCA9EE2618A1BA93000789DD = {
 						TestTargetID = FCA9EE0B18A1BA93000789DD;
 					};

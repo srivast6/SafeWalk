@@ -9,6 +9,9 @@
 #import "ACMMapViewController.h"
 #import "ACMAppDelegate.h"
 
+// Used to read events in the mapView
+#pragma mark - GMSMapViewDelegate
+
 @interface ACMMapViewController ()
 
 @end
@@ -34,8 +37,24 @@
                                                             longitude:151.20
                                                                  zoom:6];
     gmsMapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+
+    // Padding the map so our buttons still appear:
+                                        /*    Top,  L,  Bot,  R   */
+    UIEdgeInsets mapInsets = UIEdgeInsetsMake(0.0, 0.0, 50.0, 0.0);
+    gmsMapView.padding = mapInsets;
+    
+    // Enabling myLocation and adding it to the map:
     gmsMapView.myLocationEnabled = YES;
     gmsMapView.settings.myLocationButton = YES;
+    gmsMapView.delegate = self;
+    self.view = gmsMapView;
+    
+    _marker = [[GMSMarker alloc] init];
+    _marker.position = CLLocationCoordinate2DMake(-33.86, 151.20);
+    _marker.title = @"Hello World";//@"Sydney";
+    //_marker.snippet = @"Australia";
+    _marker.appearAnimation = kGMSMarkerAnimationNone;
+    _marker.map = gmsMapView;
     
     // Set map center to current location
     if([CLLocationManager locationServicesEnabled] == NO) {
@@ -47,23 +66,29 @@
         UIAlertView * locationNotAuthorizedAlert = [[UIAlertView alloc] initWithTitle:@"Location Required" message:@"You must authorize SafeWalk to access your location to use the app." delegate:nil cancelButtonTitle:@"Close" otherButtonTitles:@"Open Settings", nil];
         //TODO: Set delegate to something that will open up location settings or authorize location.
         [locationNotAuthorizedAlert show];
+        
     }
     
     ACMAppDelegate * del = [[UIApplication sharedApplication] delegate];
     del.locationManager = [CLLocationManager alloc];
     //del.locationManager.delegate = self;
     //[del.locationManager startUpdatingLocation];
-
     
     [self setMapView:gmsMapView];
     
     [self.navigationController setToolbarHidden:NO];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray*)locations
-{
-    CLLocation * loc = locations.firstObject;
-    [gmsMapView animateToLocation:loc.coordinate];
+
+- (void)mapView:(GMSMapView *)mapView
+didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
+    NSLog(@"You tapped at %f,%f", coordinate.latitude, coordinate.longitude);
+}
+
+- (void)mapView:(GMSMapView *)mapView
+didChangeCameraPosition:(GMSCameraPosition *)cameraPosition {
+    _marker.position = cameraPosition.target;
+    _marker.map = mapView;
 }
 
 - (IBAction)callSafeWalkButtonPressed:(UIBarButtonItem*)sender
