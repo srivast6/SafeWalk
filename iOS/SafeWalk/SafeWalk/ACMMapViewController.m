@@ -51,9 +51,8 @@
     
     
     _marker = [[GMSMarker alloc] init];
-    _marker.position = CLLocationCoordinate2DMake(40.427605, -86.916962);
-    _marker.title = @"Request Pickup";//@"Sydney";
-    //_marker.snippet = @"Australia";
+    _marker.position = self.mapView.camera.target;
+    _marker.title = @"Request Pickup";
     _marker.appearAnimation = kGMSMarkerAnimationNone;
     _marker.map = self.mapView;
 
