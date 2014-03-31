@@ -36,6 +36,7 @@
 		FCA9EE2B18A1BA93000789DD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCA9EE1318A1BA93000789DD /* UIKit.framework */; };
 		FCA9EE3318A1BA93000789DD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = FCA9EE3118A1BA93000789DD /* InfoPlist.strings */; };
 		FCA9EE3518A1BA93000789DD /* SafeWalkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FCA9EE3418A1BA93000789DD /* SafeWalkTests.m */; };
+		FCD8A72118E9B4FD0025E9C1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FCD8A72018E9B4FD0025E9C1 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		FCA9EE3018A1BA93000789DD /* SafeWalkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SafeWalkTests-Info.plist"; sourceTree = "<group>"; };
 		FCA9EE3218A1BA93000789DD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		FCA9EE3418A1BA93000789DD /* SafeWalkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SafeWalkTests.m; sourceTree = "<group>"; };
+		FCD8A72018E9B4FD0025E9C1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 			children = (
 				FCA9EE1E18A1BA93000789DD /* ACMAppDelegate.h */,
 				FCA9EE1F18A1BA93000789DD /* ACMAppDelegate.m */,
+				FCD8A72018E9B4FD0025E9C1 /* Settings.bundle */,
 				FCA9EE2118A1BA93000789DD /* Images.xcassets */,
 				FCA9EE1618A1BA93000789DD /* Supporting Files */,
 				FC6ADF3B18A1C233000DDB1C /* MainStoryboard.storyboard */,
@@ -298,6 +301,7 @@
 			files = (
 				FC6ADF3C18A1C233000DDB1C /* MainStoryboard.storyboard in Resources */,
 				FCA9EE1A18A1BA93000789DD /* InfoPlist.strings in Resources */,
+				FCD8A72118E9B4FD0025E9C1 /* Settings.bundle in Resources */,
 				FCA9EE2218A1BA93000789DD /* Images.xcassets in Resources */,
 				FC1BD32718A4632000802B7B /* GoogleMaps.bundle in Resources */,
 			);

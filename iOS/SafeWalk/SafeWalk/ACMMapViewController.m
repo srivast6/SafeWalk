@@ -53,6 +53,7 @@
     _marker = [[GMSMarker alloc] init];
     _marker.position = self.mapView.camera.target;
     _marker.title = @"Request Pickup";
+    _marker.snippet = @"5 minutes";
     _marker.appearAnimation = kGMSMarkerAnimationNone;
     _marker.map = self.mapView;
 
