@@ -10,6 +10,7 @@
 		E5A48E6818E2809A005E7B1A /* ACMSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E5A48E6718E2809A005E7B1A /* ACMSettingsViewController.m */; };
 		FC1BD32518A4630C00802B7B /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1BD32418A4630C00802B7B /* GoogleMaps.framework */; };
 		FC1BD32718A4632000802B7B /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FC1BD32618A4632000802B7B /* GoogleMaps.bundle */; };
+		FC22DDA118EB5D5D003F782C /* ACMMapPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = FC22DDA018EB5D5D003F782C /* ACMMapPopup.m */; };
 		FC6ADF3C18A1C233000DDB1C /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC6ADF3B18A1C233000DDB1C /* MainStoryboard.storyboard */; };
 		FC6ADF3F18A1C376000DDB1C /* ACMMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC6ADF3E18A1C376000DDB1C /* ACMMapViewController.m */; };
 		FC6ADF4218A1C935000DDB1C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC6ADF4118A1C935000DDB1C /* AVFoundation.framework */; };
@@ -54,6 +55,8 @@
 		E5A48E6718E2809A005E7B1A /* ACMSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACMSettingsViewController.m; sourceTree = "<group>"; };
 		FC1BD32418A4630C00802B7B /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
 		FC1BD32618A4632000802B7B /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
+		FC22DD9F18EB5D5D003F782C /* ACMMapPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACMMapPopup.h; sourceTree = "<group>"; };
+		FC22DDA018EB5D5D003F782C /* ACMMapPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACMMapPopup.m; sourceTree = "<group>"; };
 		FC6ADF3B18A1C233000DDB1C /* MainStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainStoryboard.storyboard; sourceTree = "<group>"; };
 		FC6ADF3D18A1C376000DDB1C /* ACMMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACMMapViewController.h; sourceTree = "<group>"; };
 		FC6ADF3E18A1C376000DDB1C /* ACMMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACMMapViewController.m; sourceTree = "<group>"; };
@@ -190,6 +193,8 @@
 				FC6ADF3E18A1C376000DDB1C /* ACMMapViewController.m */,
 				E5A48E6618E2809A005E7B1A /* ACMSettingsViewController.h */,
 				E5A48E6718E2809A005E7B1A /* ACMSettingsViewController.m */,
+				FC22DD9F18EB5D5D003F782C /* ACMMapPopup.h */,
+				FC22DDA018EB5D5D003F782C /* ACMMapPopup.m */,
 			);
 			path = SafeWalk;
 			sourceTree = "<group>";
@@ -268,7 +273,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ACM;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Eric Templin";
 				TargetAttributes = {
 					FCA9EE2618A1BA93000789DD = {
@@ -323,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCA9EE2018A1BA93000789DD /* ACMAppDelegate.m in Sources */,
+				FC22DDA118EB5D5D003F782C /* ACMMapPopup.m in Sources */,
 				FCA9EE1C18A1BA93000789DD /* main.m in Sources */,
 				FC6ADF3F18A1C376000DDB1C /* ACMMapViewController.m in Sources */,
 				E5A48E6818E2809A005E7B1A /* ACMSettingsViewController.m in Sources */,
@@ -371,7 +377,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -410,7 +415,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -482,7 +486,6 @@
 		FCA9EE3C18A1BA93000789DD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SafeWalk.app/SafeWalk";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -505,7 +508,6 @@
 		FCA9EE3D18A1BA93000789DD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SafeWalk.app/SafeWalk";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

@@ -44,7 +44,8 @@
     // Enabling myLocation and adding it to the map:
     self.mapView.myLocationEnabled = YES;
     self.mapView.settings.myLocationButton = YES;
-	[self.mapView.settings setTiltGestures:NO];
+	self.mapView.settings.tiltGestures = NO;
+    self.mapView.settings.rotateGestures = NO;
     self.mapView.delegate = self;
     //View appears here:
     self.view = self.mapView;
