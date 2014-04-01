@@ -116,6 +116,14 @@ SafeWalk Server API
 #### GET
 * Array of locations of walkers
 
+###/Authenticate
+#### POST
+* `These parameters should be in the encrypted POST body as members of a JSON object`
+* username (string)
+* password (string)
+* Returns
+* * auth-token (string)
+
 ![API Flow](https://raw.github.com/Purdue-ACM-SIGAPP/SafeWalk/master/documentation/images/api-requests.jpg)
 
 Mobile Client User Interface
