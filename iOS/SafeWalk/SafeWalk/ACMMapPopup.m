@@ -32,6 +32,15 @@
 - (void)drawRect:(CGRect)rect
 {
     // Drawing code
+    CGContextRef con = UIGraphicsGetCurrentContext();
+    CGContextSetRGBFillColor(con, 1.0, 0, 0, 1);
+    CGContextSetRGBStrokeColor(con, 1.0, 1.0, 1.0, 1.0);
+    CGContextMoveToPoint(con, CGRectGetMinX(rect), CGRectGetMinY(rect));
+    CGContextAddLineToPoint(con, CGRectGetMaxX(rect), CGRectGetMinY(rect));
+    CGContextAddLineToPoint(con, CGRectGetMaxX(rect), CGRectGetMaxY(rect));
+    CGContextAddLineToPoint(con, CGRectGetMinX(rect), CGRectGetMaxY(rect));
+    CGContextClosePath(con);
+    CGContextFillPath(con);
     
 }
 
