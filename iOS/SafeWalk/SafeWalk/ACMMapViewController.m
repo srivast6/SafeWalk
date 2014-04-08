@@ -50,7 +50,6 @@
     //View appears here:
     self.view = self.mapView;
     
-    
     _marker = [[GMSMarker alloc] init];
     _marker.position = self.mapView.camera.target;
     _marker.title = @"Request Pickup";
