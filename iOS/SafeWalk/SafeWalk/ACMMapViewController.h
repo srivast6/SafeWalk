@@ -12,7 +12,7 @@
 @interface ACMMapViewController : UIViewController <GMSMapViewDelegate>
 
 @property GMSMarker *marker;
-@property IBOutlet GMSMapView * mapView;
+@property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 
 - (IBAction)callSafeWalkButtonPressed:(UIBarButtonItem*)sender;
 

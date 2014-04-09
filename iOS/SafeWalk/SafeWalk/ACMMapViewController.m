@@ -8,6 +8,7 @@
 
 #import "ACMMapViewController.h"
 #import "ACMAppDelegate.h"
+#import "ACMMapPopup.h"
 
 // Used to read events in the mapView
 #pragma mark - GMSMapViewDelegate
@@ -34,7 +35,7 @@
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.427605
                                                             longitude:-86.916962
                                                                  zoom:17];
-    self.mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+    self.mapView.camera = camera;
 
     // Padding the map so our buttons still appear:
                                         /*    Top,  L,  Bot,  R   */
@@ -47,15 +48,6 @@
 	self.mapView.settings.tiltGestures = NO;
     self.mapView.settings.rotateGestures = NO;
     self.mapView.delegate = self;
-    //View appears here:
-    self.view = self.mapView;
-    
-    _marker = [[GMSMarker alloc] init];
-    _marker.position = self.mapView.camera.target;
-    _marker.title = @"Request Pickup";
-    _marker.snippet = @"5 minutes";
-    _marker.appearAnimation = kGMSMarkerAnimationNone;
-    _marker.map = self.mapView;
 
     // Set map center to current location
     if([CLLocationManager locationServicesEnabled] == NO) {
@@ -74,6 +66,13 @@
     del.locationManager = [CLLocationManager alloc];
     //del.locationManager.delegate = self;
     //[del.locationManager startUpdatingLocation];
+    
+    // Add ACMMapPopup
+    ACMMapPopup * popup = [[ACMMapPopup alloc] init];
+    [popup setFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height/6.)];
+    [popup setCenter:self.mapView.center];
+    [popup setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin];
+    [self.mapView addSubview:popup];
     
     [self.navigationController setToolbarHidden:NO];
 }
