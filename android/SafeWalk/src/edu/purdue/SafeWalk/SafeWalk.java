@@ -99,7 +99,7 @@ public class SafeWalk extends Activity implements
 
 	private void initNavDrawer() {
 		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		drawerList = (ListView) findViewById(R.id.left_drawer);
+		drawerList = (ListView) findViewById(R.id.drawer_list);
 		final String[] menuItems = new String[] { "What is SafeWalk?", "People", "Safewalk Personnel", "Settings" };
 		drawerList.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, menuItems));
@@ -124,9 +124,9 @@ public class SafeWalk extends Activity implements
 							MapPoliceActivity.class);
 					SafeWalk.this.startActivity(Safewalk_Personnel);
 				}else if(item.equals("What is SafeWalk?")){
-					Intent Safewalk_Personnel = new Intent(SafeWalk.this,
+					Intent Safewalk_About = new Intent(SafeWalk.this,
 							AboutActivity.class);
-					SafeWalk.this.startActivity(Safewalk_Personnel);
+					SafeWalk.this.startActivity(Safewalk_About);
 				} else {
 					Toast.makeText(SafeWalk.this,
 							"This feature is under construction\nOr unavailable.",
@@ -138,7 +138,6 @@ public class SafeWalk extends Activity implements
 		final String title, drawerTitle;
 		title = drawerTitle = (String) getTitle();
 
-		drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout,
 				R.drawable.ic_drawer, R.string.drawer_open,
 				R.string.drawer_close) {
@@ -164,12 +163,21 @@ public class SafeWalk extends Activity implements
 
 	public void openRequestList()
 	{
-        // Create a new Fragment to be placed in the activity layout
-        ListViewRequesterFragment requesterFragment = new ListViewRequesterFragment();
-        
-        // Add the fragment to the 'fragment_container' FrameLayout
-        getFragmentManager().beginTransaction()
-                .add(R.id.fragmentContainer, requesterFragment).addToBackStack("REQUESTS_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
+		String fragmentTag = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
+		if(!fragmentTag.equals("REQUESTS_FRAGMENT"))
+		{
+	        // Create a new Fragment to be placed in the activity layout
+	        ListViewRequesterFragment requesterFragment = new ListViewRequesterFragment();
+	        
+	        // Add the fragment to the 'fragment_container' FrameLayout
+	        getFragmentManager().beginTransaction()
+	                .add(R.id.fragmentContainer, requesterFragment).addToBackStack("REQUESTS_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
+		}
+		else 
+		{
+			ListViewRequesterFragment requesterFragment = (ListViewRequesterFragment) getFragmentManager().findFragmentByTag("REQUESTS_FRAGMENT");
+			requesterFragment.getListView().invalidate();
+		}
 	}
 	
 	private void openSettings() {
@@ -232,7 +240,7 @@ public class SafeWalk extends Activity implements
 		
 		// If the nav drawer is open, hide action items related to the content
 		// view
-		boolean drawerOpen = drawerLayout.isDrawerOpen(drawerList);
+		boolean drawerOpen = drawerLayout.isDrawerOpen(drawerLayout.getChildAt(1));
 		// menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
 		return super.onPrepareOptionsMenu(menu);
 	}
