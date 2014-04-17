@@ -29,7 +29,7 @@ class HomeHandler(webapp2.RequestHandler):
         self.response.status = 200
         self.response.headerlist = [("Content-type", "text/html")]
         response = """ <html>
-                        <header><title>SafeWalkS</title></header>
+                        <header><title>SafeWalk</title></header>
                         <body>
                                 SafeWalk Index
                         </body>
