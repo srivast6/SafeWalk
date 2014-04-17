@@ -21,24 +21,8 @@ class getRequestHandler(webapp2.RequestHandler):
         user = self.getRequestByUUID(requestId)
         user.requestAccepted = True
         user.put()
-        logging.info("rquestAccepted = %s" %str(user.requestAccepted))
-        
+        logging.info("requestAccepted = %s" %str(user.requestAccepted))
 
-
-        self.response.status = 200
-        self.response.headerlist = [("Content-type", "text/html")]
-        response = """ <html>
-                        <header><title>Get a User</title></header>
-                        <body>
-                                User Info:
-                                    %s<br>
-                                    %s<br>
-
-                        </body>
-                        </html>
-                        """ % ("test","test")
-        self.response.write(response)
-        
         # Send everyone a push notification about the request being accepted
         gcm = GCM('AIzaSyC6y8uyxPSjxPABKieRa2iB2wLxFVyJuQY')
         data = {'param1': 'value1', 'param2': 'value2', 'appName': 'SafeWalk'}
@@ -51,6 +35,8 @@ class getRequestHandler(webapp2.RequestHandler):
         logging.info("gcm_ids = %s" %str(gcm_ids))
         response = gcm.json_request(registration_ids=gcm_ids, data=data)
         
+        self.response.status = 200;
+        return 
         
 
     #respond to POST Request, which will come from Safewalk App

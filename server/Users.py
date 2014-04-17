@@ -24,6 +24,7 @@ class UsersHandler(webapp2.RequestHandler):
 
     # Mobile app sends post to create new user
     def post(self):
+        logging.info("Creating new user")
         self.response.status = 200
         newUser = User(firstName=self.request.get("firstName"),
                 lastName=self.request.get("lastName"),
@@ -44,9 +45,15 @@ class UsersHandler(webapp2.RequestHandler):
 
     # Returns list of all users
     def get(self):
+        logging.info("Returning list of all user IDs")
         self.response.status = 200
         qry = User.query()
         numToFetch = qry.count()
+        if numToFetch < 1:
+            logging.error("No users in database!")
+            users = []
+            self.response.write(json.dumps(users))
+            return
         results = qry.fetch(numToFetch)
         users = []
         for user in results:

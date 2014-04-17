@@ -16,7 +16,7 @@ class RequestHandler(webapp2.RequestHandler):
 
     # this will be a request from the app for information, server will send json to app.     
     def get(self):
-        """Respond to a GET request."""
+        logging.info("Getting all open requests")
         self.response.status = 200
         self.response.headerlist = [("Content-type", "application/json")]
         requests = []
@@ -28,6 +28,7 @@ class RequestHandler(webapp2.RequestHandler):
 
     #respond to POST Request, which will come from Safewalk App
     def post(self):
+        logging.info("Creating new request")
         #content_len = int(self.response.headers['content-length'])
         post_body = self.request.body
         print(post_body)
