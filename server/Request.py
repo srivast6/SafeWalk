@@ -17,6 +17,20 @@ class Request(ndb.Model):
     walkCompleted = ndb.BooleanProperty()
     requestAccepted = ndb.BooleanProperty()
 
+    def __init__(self,json_dict):
+        self.requestId = json_dict["requestId"]
+        self.name = json_dict["name"]
+        self.requestTime = str(datetime.datetime.now())
+        self.phoneNumber = json_dict["phoneNumber"]
+        self.urgency = json_dict["urgency"]
+        self.startLocation_lat = str(json_dict["startLocation_lat"])
+        self.startLocation_lon = str(json_dict["startLocation_lon"])
+        self.endLocation_lat = str(json_dict["endLocation_lat"])
+        self.endLocation_lon = str(json_dict["endLocation_lon"])
+        self.walkCompleted = False,
+        self.requestAccepted = False
+
+
     @classmethod
     def printInfo(self):
         print("Username:%s\n" %(self.name))
