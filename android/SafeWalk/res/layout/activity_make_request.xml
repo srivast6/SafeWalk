@@ -188,22 +188,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:background="#90909090" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="5dp"
-                android:paddingLeft="7dp"
-                android:paddingRight="7dp"
-                android:paddingTop="5dp" >
-
-                <TextView
-                    android:id="@+id/textView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Large Text"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
