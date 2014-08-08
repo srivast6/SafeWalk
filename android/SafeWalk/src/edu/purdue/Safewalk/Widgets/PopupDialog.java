@@ -1,4 +1,4 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.Safewalk.Widgets;
 
 import java.io.UnsupportedEncodingException;
 
@@ -10,6 +10,11 @@ import org.json.JSONObject;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
+import edu.purdue.SafeWalk.R;
+import edu.purdue.SafeWalk.DataStructures.Requester;
+import edu.purdue.SafeWalk.R.id;
+import edu.purdue.SafeWalk.R.layout;
+import edu.purdue.SafeWalk.R.string;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;

@@ -1,8 +1,14 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.Safewalk.Activities;
 
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 
+import edu.purdue.SafeWalk.R;
+import edu.purdue.SafeWalk.SafeWalk;
+import edu.purdue.SafeWalk.R.drawable;
+import edu.purdue.SafeWalk.R.id;
+import edu.purdue.SafeWalk.R.layout;
+import edu.purdue.SafeWalk.R.string;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;

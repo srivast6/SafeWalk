@@ -1,5 +1,8 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.SafeWalk.Fragments;
 
+import edu.purdue.SafeWalk.R;
+import edu.purdue.SafeWalk.R.id;
+import edu.purdue.SafeWalk.R.layout;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package Interfaces;
+package edu.purdue.SafeWalk.Interfaces;
 
 public interface OnNewRequestFinished {
 	

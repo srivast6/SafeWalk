@@ -1,7 +1,11 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.Safewalk.Adapters;
 
 import java.util.ArrayList;
 
+import edu.purdue.SafeWalk.R;
+import edu.purdue.SafeWalk.DataStructures.Requester;
+import edu.purdue.SafeWalk.R.id;
+import edu.purdue.SafeWalk.R.layout;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;

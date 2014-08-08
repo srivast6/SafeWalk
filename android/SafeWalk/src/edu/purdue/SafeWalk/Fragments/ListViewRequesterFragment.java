@@ -1,4 +1,4 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.SafeWalk.Fragments;
 
 import java.util.ArrayList;
 
@@ -25,6 +25,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.loopj.android.http.AsyncHttpClient;
+
+import edu.purdue.SafeWalk.R;
+import edu.purdue.SafeWalk.SafeWalk;
+import edu.purdue.SafeWalk.customHTTPHandler;
+import edu.purdue.SafeWalk.DataStructures.Requester;
+import edu.purdue.SafeWalk.R.layout;
+import edu.purdue.SafeWalk.R.string;
+import edu.purdue.Safewalk.Adapters.RequesterListAdapter;
+import edu.purdue.Safewalk.Widgets.PopupDialog;
 
 public class ListViewRequesterFragment extends ListFragment {
 

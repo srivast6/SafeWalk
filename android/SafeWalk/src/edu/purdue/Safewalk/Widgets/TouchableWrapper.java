@@ -1,5 +1,6 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.Safewalk.Widgets;
 
+import edu.purdue.SafeWalk.MapItems.MapOverlayHandler;
 import android.content.Context;
 import android.os.SystemClock;
 import android.util.AttributeSet;

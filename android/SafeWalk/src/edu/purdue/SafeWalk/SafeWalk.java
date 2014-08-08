@@ -36,13 +36,20 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 
+import edu.purdue.SafeWalk.Fragments.ListViewRequesterFragment;
+import edu.purdue.SafeWalk.Fragments.MakeRequestFragment;
+import edu.purdue.SafeWalk.Fragments.WalkRequestFragment;
+import edu.purdue.SafeWalk.GCM.CloudMessaging;
 import edu.purdue.SafeWalk.settings.SettingsActivity;
+import edu.purdue.Safewalk.Activities.AboutActivity;
+import edu.purdue.Safewalk.Activities.LoginActivity;
+import edu.purdue.Safewalk.Activities.MapPoliceActivity;
 
 public class SafeWalk extends Activity implements
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener{
 	
-	GoogleMap mMap;
+	public GoogleMap mMap;
 	private LocationClient mLocationClient;
 	ListView drawerList;
 	DrawerLayout drawerLayout;
@@ -364,7 +371,7 @@ public class SafeWalk extends Activity implements
 		mLocationClient.connect();
 	}
 	
-	void openRequestActivity()
+	public void openRequestActivity()
 	{
 		//View mapView = findViewById(R.id.mapFrame);
 		

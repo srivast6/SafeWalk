@@ -1,4 +1,4 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.SafeWalk.MapItems;
 
 import java.io.InputStream;
 import java.util.ArrayList;

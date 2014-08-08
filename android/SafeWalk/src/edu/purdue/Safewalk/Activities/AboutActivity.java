@@ -1,5 +1,8 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.Safewalk.Activities;
 
+import edu.purdue.SafeWalk.R;
+import edu.purdue.SafeWalk.R.layout;
+import edu.purdue.SafeWalk.R.menu;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;

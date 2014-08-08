@@ -1,22 +1,21 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.SafeWalk.Fragments;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Calendar;
+
+
 import java.util.List;
-
-import org.apache.http.Header;
-import org.apache.http.entity.StringEntity;
-
-import tasks.NewRequestTask;
 
 import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.SphericalUtil;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
 
-import edu.purdue.SafeWalk.MapData.Building;
-import Interfaces.OnNewRequestFinished;
+import edu.purdue.SafeWalk.R;
+import edu.purdue.SafeWalk.Interfaces.OnNewRequestFinished;
+import edu.purdue.SafeWalk.MapItems.MapData;
+import edu.purdue.SafeWalk.MapItems.MapData.Building;
+import edu.purdue.SafeWalk.R.id;
+import edu.purdue.SafeWalk.R.layout;
+import edu.purdue.SafeWalk.R.menu;
+import edu.purdue.SafeWalk.Tasks.NewRequestTask;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;

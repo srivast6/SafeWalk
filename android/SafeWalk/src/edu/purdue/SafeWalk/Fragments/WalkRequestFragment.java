@@ -1,4 +1,4 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.SafeWalk.Fragments;
 
 import java.util.ArrayList;
 
@@ -12,6 +12,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import edu.purdue.SafeWalk.R;
+import edu.purdue.SafeWalk.SafeWalk;
+import edu.purdue.SafeWalk.MapItems.CustomMapFragment;
+import edu.purdue.SafeWalk.MapItems.GMapV2Direction;
+import edu.purdue.SafeWalk.MapItems.MapOverlayHandler;
+import edu.purdue.SafeWalk.R.id;
+import edu.purdue.SafeWalk.R.layout;
+import edu.purdue.SafeWalk.R.string;
+import edu.purdue.Safewalk.Widgets.TouchableWrapper;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;

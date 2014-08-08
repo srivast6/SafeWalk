@@ -11,6 +11,8 @@ import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
+import edu.purdue.SafeWalk.Fragments.ListViewRequesterFragment;
+
 public class customHTTPHandler extends AsyncHttpResponseHandler {
 	private String httpResponse = null;
 	char[] response;

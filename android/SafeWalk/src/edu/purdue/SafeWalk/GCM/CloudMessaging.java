@@ -1,4 +1,4 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.SafeWalk.GCM;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;

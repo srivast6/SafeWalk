@@ -18,7 +18,7 @@
  *  Until next week. 
  */
 
-package edu.purdue.SafeWalk;
+package edu.purdue.SafeWalk.MapItems;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,6 +30,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import edu.purdue.SafeWalk.R;
+import edu.purdue.SafeWalk.R.raw;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.MatrixCursor;

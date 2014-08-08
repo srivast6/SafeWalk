@@ -1,4 +1,4 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.SafeWalk.GCM;
 
 import android.app.Activity;
 import android.content.ComponentName;

@@ -33,7 +33,7 @@
  * routes, as an example), it's like 4 lines of code to add in here. 
  */
 
-package edu.purdue.SafeWalk;
+package edu.purdue.SafeWalk.MapItems;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -99,9 +99,11 @@ public class MapData {
 	
 	/** ===== INTERNAL CLASS DEFINITIONS ===== */
 	
-	class Building {
-		String full_name, short_name;
-		double lat, lng;
+	public class Building {
+		public String full_name;
+		public String short_name;
+		public double lat;
+		public double lng;
 	}
 	
 	/** ===== OBJECT MEMBERS ===== */
