@@ -7,6 +7,8 @@ import java.util.List;
 import org.apache.http.Header;
 import org.apache.http.entity.StringEntity;
 
+import tasks.NewRequestTask;
+
 import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.SphericalUtil;
@@ -14,7 +16,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import edu.purdue.SafeWalk.MapData.Building;
-
+import Interfaces.OnNewRequestFinished;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -53,7 +55,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.app.TaskStackBuilder;
 
 public class MakeRequestFragment extends Fragment implements
-		SnapshotReadyCallback {
+		SnapshotReadyCallback, OnNewRequestFinished {
 
 	private static final TimeInterpolator sDecelerator = new DecelerateInterpolator();
 	private static final TimeInterpolator sAccelerator = new AccelerateInterpolator();
@@ -375,45 +377,16 @@ public class MakeRequestFragment extends Fragment implements
 	}
 
 	private void sendRequest() {
-		AsyncHttpClient client = new AsyncHttpClient();
-
-		String time = java.text.DateFormat.getDateTimeInstance().format(
-				Calendar.getInstance().getTime());
-		String userName = "John Smith";
-
-		Requester r = new Requester(userName + (int) (Math.random() * 1000),
-				time, "219-555-1242", "Not Urgent", start_lat, start_long,
-				end_lat, end_long);
-		Log.d("json", r.toJSON().toString());
-		StringEntity se = null;
-
-		AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
-			public void onSuccess(String suc) {
-				Log.d("response", suc);
-			}
-
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					byte[] responseBody, Throwable error) {
-				Toast.makeText(getActivity().getApplicationContext(),
-						"No connection to server", Toast.LENGTH_LONG).show();
-				Log.d("failure", Integer.toString(statusCode));
-			}
-		};
-
-		try {
-			se = new StringEntity(r.toJSON().toString());
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String hostname = PreferenceManager.getDefaultSharedPreferences(
-				getActivity()).getString("pref_server",
-				getString(R.string.pref_server_default));
-		client.post(getActivity().getBaseContext(), hostname + "/request", se,
-				"application/json", handler);
-		Log.d("debug", client.toString());
+		
+		NewRequestTask task = new NewRequestTask(start_lat, start_long, end_lat, end_long,"John Smith", "219-555-1343",getActivity(),this);
+		task.execute();
 		getFragmentManager().popBackStack();
+	}
+
+	@Override
+	public void onNewRequestFinished() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
