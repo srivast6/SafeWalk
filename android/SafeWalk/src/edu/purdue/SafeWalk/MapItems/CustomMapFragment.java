@@ -1,4 +1,4 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.SafeWalk.MapItems;
 
 import java.util.ArrayList;
 
@@ -14,6 +14,10 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import edu.purdue.SafeWalk.R;
+import edu.purdue.SafeWalk.R.id;
+import edu.purdue.Safewalk.Widgets.TouchableWrapper;
 
 public class CustomMapFragment extends MapFragment {
 	public View mOriginalContentView;

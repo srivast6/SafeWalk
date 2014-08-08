@@ -1,8 +1,11 @@
-package edu.purdue.SafeWalk;
+package edu.purdue.SafeWalk.MapItems;
 
 import com.google.android.gms.maps.internal.m;
 
-import edu.purdue.SafeWalk.TouchableWrapper.UpdateMapAfterUserInterection;
+import edu.purdue.SafeWalk.R;
+import edu.purdue.SafeWalk.R.id;
+import edu.purdue.Safewalk.Widgets.TouchableWrapper;
+import edu.purdue.Safewalk.Widgets.TouchableWrapper.UpdateMapAfterUserInterection;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
