@@ -6,6 +6,7 @@ import org.apache.http.entity.StringEntity;
 
 import android.app.ActionBar;
 import android.app.ListFragment;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,12 +31,14 @@ import edu.purdue.SafeWalk.R;
 import edu.purdue.SafeWalk.SafeWalk;
 import edu.purdue.SafeWalk.customHTTPHandler;
 import edu.purdue.SafeWalk.DataStructures.Requester;
+import edu.purdue.SafeWalk.Interfaces.OnAllRequestsReceivedListener;
+import edu.purdue.SafeWalk.Tasks.GetAllRequestsTask;
 import edu.purdue.SafeWalk.R.layout;
 import edu.purdue.SafeWalk.R.string;
 import edu.purdue.Safewalk.Adapters.RequesterListAdapter;
 import edu.purdue.Safewalk.Widgets.PopupDialog;
 
-public class ListViewRequesterFragment extends ListFragment {
+public class ListViewRequesterFragment extends ListFragment implements OnAllRequestsReceivedListener {
 
 	String[] NAMES;
 	private final static String TAG = "ListViewRequesterFragment";
@@ -47,22 +50,26 @@ public class ListViewRequesterFragment extends ListFragment {
 	public static AsyncHttpClient client;
 	public static StringEntity se = null;
 	public static String httpResponse = null;
-	static ArrayList<Requester> requests = new ArrayList<Requester>();
+	static ArrayList<Requester> requests_ = new ArrayList<Requester>();
 	Requester r;
 	customHTTPHandler chandler;
 	public static int index;
+	private ProgressDialog progDialog;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent,
 			Bundle bundle) {
+		
 		return inflater.inflate(R.layout.list_view_requester_activity, null);
 	}
 
 	@Override
 	public void onStart() {
 		super.onStart();
-		chandler = new customHTTPHandler(this);
+		
 		Log.d(TAG, "onStart()");
+		progDialog = new ProgressDialog(getActivity());
+		progDialog.show();
 		getRequests();// starts to communicate to server.
 
 		ActionBar actionBar = getActivity().getActionBar();
@@ -106,16 +113,8 @@ public class ListViewRequesterFragment extends ListFragment {
 	}
 
 	public void getRequests() {
-		AsyncHttpClient client = new AsyncHttpClient();
-		// using our own custom httpHandler to save the response
-		// customHTTPHandler chandler = new customHTTPHandler();
-		// this will be on the main thread, kind of hacky
-		// TODO: add a progress bar for loading
-		chandler.setUseSynchronousMode(true);
-		SafeWalk.hostname = PreferenceManager.getDefaultSharedPreferences(
-				getActivity()).getString("pref_server",
-						getString(R.string.pref_server_default));
-		client.get(SafeWalk.hostname + "/request", chandler);
+		GetAllRequestsTask task = new GetAllRequestsTask(getActivity(),this);
+		task.execute();
 	}
 
 	public void onFailure() {
@@ -125,7 +124,7 @@ public class ListViewRequesterFragment extends ListFragment {
 
 	public void onSuccess() {
 		Log.d("response", httpResponse);
-		requests.clear(); // Remove old received requests from list.
+		requests_.clear(); // Remove old received requests from list.
 
 		JSONArray jArray;
 		try {
@@ -133,19 +132,19 @@ public class ListViewRequesterFragment extends ListFragment {
 			for (int i = 0; i < jArray.length(); i++) {
 				JSONObject j = jArray.getJSONObject(i);
 				r = new Requester(j); //moved to inside class. Makes more sense. 
-				requests.add(r);
+				requests_.add(r);
 			}
 		} catch (JSONException e) {
 			Log.e("JSON Parsing Exception", "JSON failed to parse");
 			e.printStackTrace();
 		}
-		updateList();
+		updateList(requests_);
 	}
 
-	private void updateList() {
+	private void updateList(ArrayList<Requester> requests) {
 		// Create ArrayList of names to be put into ListItems
 		ArrayList<String> stringList = new ArrayList<String>();
-		// Log.d("Size", ""+arrayOfRequests.length);
+		
 		for (int i = 0; i < requests.size(); i++) {
 			stringList.add(requests.get(i).getName());
 		}
@@ -166,5 +165,38 @@ public class ListViewRequesterFragment extends ListFragment {
 				dialog.show(getFragmentManager(), "PopUpDialogFragment");
 			}
 		});
+	}
+
+	@Override
+	public void onAllRequestsReceived(String resp) {
+		// TODO Auto-generated method stub
+		Log.d("debug", "onIT!");
+		JSONObject jObject;
+		ArrayList<Requester> requests = null;
+		try {
+			jObject = new JSONObject(resp);
+			
+		
+		JSONArray jArray;
+		jArray = jObject.getJSONArray("results");
+		requests = new ArrayList<Requester>();
+		Log.d("array-len", ""+jArray.length());
+			for (int i = 0; i < jArray.length(); i++) {
+				JSONObject j = jArray.getJSONObject(i);
+				r = new Requester(j); //moved to inside class. Makes more sense. 
+				Log.d("name", r.getName());
+				requests.add(r);
+			}
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		if(progDialog.isShowing()){
+			progDialog.dismiss();
+		}
+		
+		updateList(requests);
+		
+		
 	}
 }

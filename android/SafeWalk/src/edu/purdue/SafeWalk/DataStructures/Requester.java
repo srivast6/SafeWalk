@@ -51,8 +51,8 @@ public class Requester {
 			requestId = UUID.fromString(data.getString("requestId"));
 			startLocation_lat = data.getDouble("startLocation_lat");
 			startLocation_lon = data.getDouble("startLocation_lon");
-			endLocation_lat = data.getDouble("endLocation_lat");
-			endLocation_lon = data.getDouble("endLocation_lon");
+			endLocation_lat = data.getDouble("end_lat");
+			endLocation_lon = data.getDouble("end_long");
 		} catch (JSONException e) {
 			Log.e("Creating Requester", "Error occurred", e);
 			throw new RuntimeException("Not valid Requester JSON");
