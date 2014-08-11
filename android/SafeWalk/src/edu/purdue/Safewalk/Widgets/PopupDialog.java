@@ -1,4 +1,4 @@
-package edu.purdue.Safewalk.Widgets;
+package edu.purdue.SafeWalk.Widgets;
 
 import java.io.UnsupportedEncodingException;
 

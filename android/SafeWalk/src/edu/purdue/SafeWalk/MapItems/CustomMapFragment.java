@@ -17,7 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import edu.purdue.SafeWalk.R;
 import edu.purdue.SafeWalk.R.id;
-import edu.purdue.Safewalk.Widgets.TouchableWrapper;
+import edu.purdue.SafeWalk.Widgets.TouchableWrapper;
 
 public class CustomMapFragment extends MapFragment {
 	public View mOriginalContentView;

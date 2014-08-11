@@ -35,8 +35,8 @@ import edu.purdue.SafeWalk.Interfaces.OnAllRequestsReceivedListener;
 import edu.purdue.SafeWalk.Tasks.GetAllRequestsTask;
 import edu.purdue.SafeWalk.R.layout;
 import edu.purdue.SafeWalk.R.string;
-import edu.purdue.Safewalk.Adapters.RequesterListAdapter;
-import edu.purdue.Safewalk.Widgets.PopupDialog;
+import edu.purdue.SafeWalk.Adapters.RequesterListAdapter;
+import edu.purdue.SafeWalk.Widgets.PopupDialog;
 
 public class ListViewRequesterFragment extends ListFragment implements OnAllRequestsReceivedListener {
 

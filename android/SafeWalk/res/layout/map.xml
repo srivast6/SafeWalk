@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<edu.purdue.Safewalk.Widgets.TouchableWrapper xmlns:android="http://schemas.android.com/apk/res/android"
+<edu.purdue.SafeWalk.Widgets.TouchableWrapper 
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/tools"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/touchWrapper"
@@ -14,6 +15,7 @@
         class="edu.purdue.SafeWalk.MapItems.CustomMapFragment" />
 
     <include layout="@layout/map_popup_bubble" />
+    
+</edu.purdue.SafeWalk.Widgets.TouchableWrapper>
 
-</edu.purdue.Safewalk.Widgets.TouchableWrapper>
 

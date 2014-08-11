@@ -1,4 +1,4 @@
-package edu.purdue.Safewalk.Widgets;
+package edu.purdue.SafeWalk.Widgets;
 
 import edu.purdue.SafeWalk.MapItems.MapOverlayHandler;
 import android.content.Context;

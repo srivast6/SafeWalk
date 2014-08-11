@@ -20,7 +20,7 @@ import edu.purdue.SafeWalk.MapItems.MapOverlayHandler;
 import edu.purdue.SafeWalk.R.id;
 import edu.purdue.SafeWalk.R.layout;
 import edu.purdue.SafeWalk.R.string;
-import edu.purdue.Safewalk.Widgets.TouchableWrapper;
+import edu.purdue.SafeWalk.Widgets.TouchableWrapper;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;

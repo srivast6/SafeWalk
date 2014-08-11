@@ -1,4 +1,4 @@
-package edu.purdue.Safewalk.Adapters;
+package edu.purdue.SafeWalk.Adapters;
 
 import java.util.ArrayList;
 
