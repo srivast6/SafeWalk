@@ -41,9 +41,8 @@ import edu.purdue.SafeWalk.Fragments.MakeRequestFragment;
 import edu.purdue.SafeWalk.Fragments.WalkRequestFragment;
 import edu.purdue.SafeWalk.GCM.CloudMessaging;
 import edu.purdue.SafeWalk.settings.SettingsActivity;
-import edu.purdue.Safewalk.Activities.AboutActivity;
-import edu.purdue.Safewalk.Activities.LoginActivity;
-import edu.purdue.Safewalk.Activities.MapPoliceActivity;
+import edu.purdue.SafeWalk.Activities.*;
+
 
 public class SafeWalk extends Activity implements
 		GooglePlayServicesClient.ConnectionCallbacks,

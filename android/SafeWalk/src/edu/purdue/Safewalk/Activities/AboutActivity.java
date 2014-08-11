@@ -1,4 +1,4 @@
-package edu.purdue.Safewalk.Activities;
+package edu.purdue.SafeWalk.Activities;
 
 import edu.purdue.SafeWalk.R;
 import edu.purdue.SafeWalk.R.layout;

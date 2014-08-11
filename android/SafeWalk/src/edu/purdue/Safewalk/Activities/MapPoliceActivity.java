@@ -1,4 +1,4 @@
-package edu.purdue.Safewalk.Activities;
+package edu.purdue.SafeWalk.Activities;
 
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
