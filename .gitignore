@@ -13,7 +13,7 @@
 
 # Pip installed files
 server/server/lib
-flask_server/LICENSE
+flask_server/lib
 
 # generated files
 bin/
