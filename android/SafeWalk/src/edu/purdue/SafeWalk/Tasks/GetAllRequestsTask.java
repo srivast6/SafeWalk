@@ -18,11 +18,13 @@ import android.util.Log;
 
 public class GetAllRequestsTask extends AsyncTask<Void,Void,Void> {
 	private Context context;
-	private OnAllRequestsReceivedListener listener;
+	private OnAllRequestsReceivedListener l;
 	
-	public GetAllRequestsTask(Context context, OnAllRequestsReceivedListener listner){
+	public GetAllRequestsTask(Context context, OnAllRequestsReceivedListener l){
 		this.context = context;
-		this.listener = listener;
+		this.l = l;
+		
+		
 		
 	}
 
@@ -30,6 +32,9 @@ public class GetAllRequestsTask extends AsyncTask<Void,Void,Void> {
 	protected Void doInBackground(Void... params) {
 		// TODO Auto-generated method stub
 		Log.d("GETALLREQ", "starting");
+		
+		Log.d("debug-list", this.l.toString());
+		
 		String hostname = PreferenceManager.getDefaultSharedPreferences(context)
 				.getString("pref_server", context.getString(R.string.pref_server_default));
 		HttpClient client = new DefaultHttpClient();
@@ -52,10 +57,12 @@ public class GetAllRequestsTask extends AsyncTask<Void,Void,Void> {
 			e.printStackTrace();
 		}
 		//Log.d("listener",);
-		if(listener != null){
+		if(l != null){
 			Log.d("debug", "calling listener");
-			listener.onAllRequestsReceived(sResp);
+			Log.d("resp",sResp);
+			l.onAllRequestsReceived(sResp);
 		}
+		
 		
 		return null;
 	}

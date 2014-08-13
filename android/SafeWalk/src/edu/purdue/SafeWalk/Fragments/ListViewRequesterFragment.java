@@ -113,8 +113,19 @@ public class ListViewRequesterFragment extends ListFragment implements OnAllRequ
 	}
 
 	public void getRequests() {
-		GetAllRequestsTask task = new GetAllRequestsTask(getActivity(),this);
-		task.execute();
+		final GetAllRequestsTask task = new GetAllRequestsTask(getActivity(),this);
+		this.getActivity().runOnUiThread(new Runnable(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				
+				task.execute();
+				
+			}
+			
+		});
+
 	}
 
 	public void onFailure() {
@@ -172,14 +183,14 @@ public class ListViewRequesterFragment extends ListFragment implements OnAllRequ
 		// TODO Auto-generated method stub
 		Log.d("debug", "onIT!");
 		JSONObject jObject;
-		ArrayList<Requester> requests = null;
+		final ArrayList<Requester> requests = new ArrayList<Requester>() ;
 		try {
 			jObject = new JSONObject(resp);
 			
 		
 		JSONArray jArray;
 		jArray = jObject.getJSONArray("results");
-		requests = new ArrayList<Requester>();
+	
 		Log.d("array-len", ""+jArray.length());
 			for (int i = 0; i < jArray.length(); i++) {
 				JSONObject j = jArray.getJSONObject(i);
@@ -195,7 +206,16 @@ public class ListViewRequesterFragment extends ListFragment implements OnAllRequ
 			progDialog.dismiss();
 		}
 		
-		updateList(requests);
+		getActivity().runOnUiThread(new Runnable(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				updateList(requests);	
+			}
+			
+		});
+		
 		
 		
 	}

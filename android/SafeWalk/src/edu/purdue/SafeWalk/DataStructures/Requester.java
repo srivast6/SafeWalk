@@ -49,8 +49,8 @@ public class Requester {
 			setPhoneNumber(data.getString("phoneNumber"));
 			setUrgency(data.getString("urgency"));
 			requestId = UUID.fromString(data.getString("requestId"));
-			startLocation_lat = data.getDouble("startLocation_lat");
-			startLocation_lon = data.getDouble("startLocation_lon");
+			startLocation_lat = data.getDouble("start_lat");
+			startLocation_lon = data.getDouble("start_long");
 			endLocation_lat = data.getDouble("end_lat");
 			endLocation_lon = data.getDouble("end_long");
 		} catch (JSONException e) {
