@@ -5,7 +5,7 @@ import logging
 from google.appengine.ext import ndb
 from google.appengine.ext.ndb import model, query
 
-class Request(ndb.Model):
+class Requester(ndb.Model):
     requestId = ndb.StringProperty()
     name = ndb.StringProperty()
     requestTime = ndb.StringProperty()
@@ -20,7 +20,7 @@ class Request(ndb.Model):
 
 
     def to_json(self):
-        return {"requestId":self.requestId,
+        return {"requestId":self.key.id(),
                 "name":self.name,
                 "requestTime":self.requestTime,
                 "phoneNumber":self.phoneNumber,
@@ -48,4 +48,4 @@ class Request(ndb.Model):
 
     @staticmethod
     def getAllOpenRequests():
-        return Request.query(Request.requestAccepted == False).fetch()
+        return Requester.query(Requester.requestAccepted == False).fetch()
