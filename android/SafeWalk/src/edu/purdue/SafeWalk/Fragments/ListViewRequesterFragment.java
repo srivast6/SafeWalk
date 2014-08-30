@@ -32,28 +32,26 @@ import edu.purdue.SafeWalk.SafeWalk;
 import edu.purdue.SafeWalk.customHTTPHandler;
 import edu.purdue.SafeWalk.DataStructures.Requester;
 import edu.purdue.SafeWalk.Interfaces.OnAllRequestsReceivedListener;
+import edu.purdue.SafeWalk.Interfaces.OnRequestAcceptedHandler;
 import edu.purdue.SafeWalk.Tasks.GetAllRequestsTask;
 import edu.purdue.SafeWalk.R.layout;
 import edu.purdue.SafeWalk.R.string;
 import edu.purdue.SafeWalk.Adapters.RequesterListAdapter;
 import edu.purdue.SafeWalk.Widgets.PopupDialog;
 
-public class ListViewRequesterFragment extends ListFragment implements OnAllRequestsReceivedListener {
+public class ListViewRequesterFragment extends ListFragment implements OnAllRequestsReceivedListener,OnRequestAcceptedHandler {
 
 	String[] NAMES;
 	private final static String TAG = "ListViewRequesterFragment";
 	public static final String SUCCESS = "edu.purdue.SafeWalk.SUCCESS";
 	public static final String FAILURE = "edu.purdue.SafeWalk.FAILURE";
 	public static final String RESPONSE = "edu.purdue.SafeWalk.RESPONCE_REQUESTS";
-	public static boolean isPopupOpen = false;
 	PopupDialog dialog;
-	public static AsyncHttpClient client;
 	public static StringEntity se = null;
 	public static String httpResponse = null;
 	static ArrayList<Requester> requests_ = new ArrayList<Requester>();
 	Requester r;
-	customHTTPHandler chandler;
-	public static int index;
+	
 	private ProgressDialog progDialog;
 
 	@Override
@@ -111,17 +109,18 @@ public class ListViewRequesterFragment extends ListFragment implements OnAllRequ
 				mMessageReceiver);
 		super.onPause();
 	}
+	
+	public static void refreshRequests(){
+			
+	}
 
 	public void getRequests() {
 		final GetAllRequestsTask task = new GetAllRequestsTask(getActivity(),this);
 		this.getActivity().runOnUiThread(new Runnable(){
-
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				
-				task.execute();
-				
+				task.execute();	
 			}
 			
 		});
@@ -166,13 +165,14 @@ public class ListViewRequesterFragment extends ListFragment implements OnAllRequ
 		this.setListAdapter(listAdapter);
 		ListView lv = this.getListView();
 		lv.setTextFilterEnabled(true);
+		final OnRequestAcceptedHandler handler = (OnRequestAcceptedHandler)this;
 
 		// Anon class for ListView OnClick
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				index = position;
-				dialog = PopupDialog.getInstance(((Requester) getListAdapter().getItem(position)));
+				
+				dialog = PopupDialog.getInstance(((Requester) getListAdapter().getItem(position)),handler);
 				dialog.show(getFragmentManager(), "PopUpDialogFragment");
 			}
 		});
@@ -186,12 +186,8 @@ public class ListViewRequesterFragment extends ListFragment implements OnAllRequ
 		final ArrayList<Requester> requests = new ArrayList<Requester>() ;
 		try {
 			jObject = new JSONObject(resp);
-			
-		
-		JSONArray jArray;
-		jArray = jObject.getJSONArray("results");
-	
-		Log.d("array-len", ""+jArray.length());
+			JSONArray jArray;
+			jArray = jObject.getJSONArray("results");
 			for (int i = 0; i < jArray.length(); i++) {
 				JSONObject j = jArray.getJSONObject(i);
 				r = new Requester(j); //moved to inside class. Makes more sense. 
@@ -216,7 +212,13 @@ public class ListViewRequesterFragment extends ListFragment implements OnAllRequ
 			
 		});
 		
-		
+	}
+
+	@Override
+	public void onRequestAccepted() {
+		// TODO Auto-generated method stub
+		GetAllRequestsTask task = new GetAllRequestsTask(this.getActivity(),this);
+		task.execute();
 		
 	}
 }

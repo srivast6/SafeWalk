@@ -43,6 +43,12 @@
     		android:name="com.google.android.maps.v2.API_KEY"
     		android:value="AIzaSyCSaCIvxEkKv65lbjzy0YGlHHa_BmPDiIg"/>
         
+         <activity
+            android:name="edu.purdue.SafeWalk.Activities.LoginActivity"
+            android:label="LoginActivity"
+            android:screenOrientation="portrait" >
+            </activity>
+        
         
         <activity
             android:name="edu.purdue.SafeWalk.SafeWalk"

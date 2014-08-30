@@ -14,7 +14,7 @@ public class Requester {
 	private String phoneNumber;
 	private String urgency;
 	// location of user.
-	private UUID requestId;
+	private String requestId;
 
 	private double startLocation_lat, startLocation_lon, endLocation_lat,
 			endLocation_lon;
@@ -25,7 +25,7 @@ public class Requester {
 		this.setTimeOfRequest(time);
 		this.setPhoneNumber(number);
 		this.setUrgency(urgency);
-		requestId = UUID.randomUUID();
+		requestId = "";
 		startLocation_lat = startLat;
 		startLocation_lon = startLong;
 		endLocation_lat = endLat;
@@ -38,7 +38,7 @@ public class Requester {
 		this(name, time, number, urgency, startLat, startLong, endLat, endLong);
 		Log.d("startLocation_lon", "" + startLong);
 		// overwrites UUID created on other constructor.
-		requestId = UUID.fromString(id);
+		requestId = id;
 	}
 	
 	public Requester(JSONObject data)
@@ -48,11 +48,11 @@ public class Requester {
 			setTimeOfRequest(data.getString("requestTime"));
 			setPhoneNumber(data.getString("phoneNumber"));
 			setUrgency(data.getString("urgency"));
-			requestId = UUID.fromString(data.getString("requestId"));
-			startLocation_lat = data.getDouble("start_lat");
-			startLocation_lon = data.getDouble("start_long");
-			endLocation_lat = data.getDouble("end_lat");
-			endLocation_lon = data.getDouble("end_long");
+			requestId =data.getString("requestId");
+			startLocation_lat = Double.parseDouble(data.getString("start_lat"));
+			startLocation_lon = Double.parseDouble(data.getString("start_long"));
+			endLocation_lat = Double.parseDouble(data.getString("end_lat"));
+			endLocation_lon = Double.parseDouble(data.getString("end_long"));
 		} catch (JSONException e) {
 			Log.e("Creating Requester", "Error occurred", e);
 			throw new RuntimeException("Not valid Requester JSON");
@@ -92,7 +92,7 @@ public class Requester {
 	}
 
 	public String getUUID() {
-		return requestId.toString();
+		return requestId;
 	}
 	
 	public JSONObject toJSON() {
@@ -102,11 +102,11 @@ public class Requester {
 			jObject.put("requestTime", this.getTimeOfRequest());
 			jObject.put("phoneNumber", this.getPhoneNumber());
 			jObject.put("urgency", this.getUrgency());
-			jObject.put("requestId", this.requestId.toString());
-			jObject.put("startLocation_lat", startLocation_lat);
-			jObject.put("startLocation_lon", startLocation_lon);
-			jObject.put("endLocation_lat", endLocation_lat);
-			jObject.put("endLocation_lon", endLocation_lon);
+			jObject.put("requestId", this.requestId);
+			jObject.put("start_lat", startLocation_lat);
+			jObject.put("start_long", startLocation_lon);
+			jObject.put("end_lat", endLocation_lat);
+			jObject.put("end_long", endLocation_lon);
 		} catch (JSONException e) {
 			Log.e("Request", "Error occurred", e);
 		}

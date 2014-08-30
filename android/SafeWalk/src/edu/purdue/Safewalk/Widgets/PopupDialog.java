@@ -12,6 +12,8 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import edu.purdue.SafeWalk.R;
 import edu.purdue.SafeWalk.DataStructures.Requester;
+import edu.purdue.SafeWalk.Interfaces.OnRequestAcceptedHandler;
+import edu.purdue.SafeWalk.Tasks.AcceptRequestTask;
 import edu.purdue.SafeWalk.R.id;
 import edu.purdue.SafeWalk.R.layout;
 import edu.purdue.SafeWalk.R.string;
@@ -35,11 +37,16 @@ import android.widget.Toast;
 
 
 public class PopupDialog extends DialogFragment {
+	public static String TAG = "PopUpDialog";
+	private Activity a;
+	private OnRequestAcceptedHandler handler;
 
     Requester requester; 
     
-    public PopupDialog()
+    public PopupDialog(OnRequestAcceptedHandler handler)
     {
+    	this.handler = handler;
+    	a = this.getActivity();
     	
     }
   
@@ -100,59 +107,28 @@ public class PopupDialog extends DialogFragment {
 				PopupDialog.this.dismiss();
 			} 
 		});
-        
+        final Activity act = this.getActivity();
         acceptButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				AsyncHttpClient client = new AsyncHttpClient();
-				AsyncHttpResponseHandler handler = new AsyncHttpResponseHandler() {
-					public void onSuccess(String response) {
-						// Log.d("response", response);
-					}
-
-					@Override
-					public void onFailure(int statusCode, Header[] headers,
-							byte[] responseBody, Throwable error) {
-						//Toast.makeText(getActivity().getApplicationContext(),
-						//		"No connection to server\nPlease call directly.", Toast.LENGTH_LONG).show();
-						Log.d("failure", Integer.toString(statusCode));
-					}
-				};
-				String message = "accept";
-				StringEntity se = null;
-				try {
-					se = new StringEntity(message);
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				String hostname = PreferenceManager.getDefaultSharedPreferences(
-						getActivity()).getString("pref_server",
-						getString(R.string.pref_server_default));
-				String url = hostname + "/request" + "/"
-						+ requester.getUUID() + "/accept";
-				Log.d("url", url);
-				client.get(getActivity().getBaseContext(), hostname + "/request" + "/"
-						+ requester.getUUID() + "/accept", handler);
-				Toast t = Toast.makeText(getActivity().getApplicationContext(),
-						"Sending Accept", Toast.LENGTH_SHORT);
-				t.show();
+				AcceptRequestTask task = new AcceptRequestTask(requester.getUUID(),act);
+				task.execute();
 				PopupDialog.this.dismiss();
+				handler.onRequestAccepted();
 			} 
 		});
-        
-        
-        
         builder.setView(v);
         
         return builder.create();
     }
     
-    public static PopupDialog getInstance(Requester request)
+    public static PopupDialog getInstance(Requester request,OnRequestAcceptedHandler handler)
     {
     	Bundle data = new Bundle();
+    	Log.d(TAG, request.toJSON().toString());
+    	
     	data.putString("Request", request.toJSON().toString());
-    	PopupDialog dialog = new PopupDialog();
+    	PopupDialog dialog = new PopupDialog(handler);
     	dialog.setArguments(data);
     	return dialog;
     }
