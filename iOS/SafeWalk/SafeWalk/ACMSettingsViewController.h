@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ACMSettingsViewController : UITableViewController
+@interface ACMSettingsViewController : UITableViewController <UITableViewDelegate>
 
 @end

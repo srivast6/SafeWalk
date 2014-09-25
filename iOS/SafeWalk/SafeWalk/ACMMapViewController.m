@@ -10,10 +10,9 @@
 #import "ACMAppDelegate.h"
 #import "ACMMapPopup.h"
 
-// Used to read events in the mapView
-#pragma mark - GMSMapViewDelegate
-
 @interface ACMMapViewController ()
+
+@property(nonatomic,retain) CLLocationManager *locationManager;
 
 @end
 
@@ -31,10 +30,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    ACMAppDelegate * del = [[UIApplication sharedApplication] delegate];
+    del.locationManager = [CLLocationManager alloc];
+    
+    _locationManager = [[CLLocationManager alloc] init];
+    _locationManager.distanceFilter = kCLDistanceFilterNone;
+    _locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters; // 100 m
+    [_locationManager startUpdatingLocation];
+    
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:40.427605
                                                             longitude:-86.916962
                                                                  zoom:17];
+#warning Need to use commented code below when deploying to mobile phone:
+/*    GMSCameraPosition cameraWithLatitude:_locationManager.location.coordinate.latitude
+                                longitude:_locationManager.location.coordinate.longitude */
+    
     self.mapView.camera = camera;
 
     // Padding the map so our buttons still appear:
@@ -62,17 +73,21 @@
         
     }
     
-    ACMAppDelegate * del = [[UIApplication sharedApplication] delegate];
-    del.locationManager = [CLLocationManager alloc];
-    //del.locationManager.delegate = self;
-    //[del.locationManager startUpdatingLocation];
+    _marker = [[GMSMarker alloc] init];
+    _marker.title = @"Current Location";
+    _marker.position = CLLocationCoordinate2DMake(40.427605, -86.916962);
     
-    // Add ACMMapPopup
+#warning Need to add the commented code below when depolying to physical device:
+                                                 //_locationManager.location.coordinate.latitude
+                                                 //, _locationManager.location.coordinate.longitude);
+    _marker.map = _mapView;
+    
+    /* Add ACMMapPopup
     ACMMapPopup * popup = [[ACMMapPopup alloc] init];
     [popup setFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height/6.)];
     [popup setCenter:self.mapView.center];
     [popup setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin];
-    [self.mapView addSubview:popup];
+    //[self.mapView addSubview:popup]; */
     
     [self.navigationController setToolbarHidden:NO];
 }
@@ -91,11 +106,12 @@ didChangeCameraPosition:(GMSCameraPosition *)cameraPosition {
     [self.navigationController setToolbarHidden:NO];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray*)locations
+// Is this method needed:
+/*- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray*)locations
 {
     CLLocation * loc = locations.firstObject;
     [self.mapView animateToLocation:loc.coordinate];
-}
+}*/
 
 - (IBAction)callSafeWalkButtonPressed:(UIBarButtonItem*)sender
 {

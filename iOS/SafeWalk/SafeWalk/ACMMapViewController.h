@@ -8,6 +8,7 @@
 
 #import <GoogleMaps/GoogleMaps.h>
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface ACMMapViewController : UIViewController <GMSMapViewDelegate>
 
@@ -15,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
 
 - (IBAction)callSafeWalkButtonPressed:(UIBarButtonItem*)sender;
-
 - (IBAction)call411ButtonPressed:(UIBarButtonItem*)sender;
 
 @end

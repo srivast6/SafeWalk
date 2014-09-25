@@ -10,29 +10,29 @@
 	<string>SafeWalk</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>D20CC771-0601-41C2-8FAF-0F7187AF2906</key>
+		<key>6CF943CB330A274FEFA6C90D747183389B0FCFDC</key>
 		<string>https://github.com/Purdue-ACM-SIGAPP/SafeWalk.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>iOS/SafeWalk/SafeWalk.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>D20CC771-0601-41C2-8FAF-0F7187AF2906</key>
+		<key>6CF943CB330A274FEFA6C90D747183389B0FCFDC</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/Purdue-ACM-SIGAPP/SafeWalk.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>D20CC771-0601-41C2-8FAF-0F7187AF2906</string>
+	<string>6CF943CB330A274FEFA6C90D747183389B0FCFDC</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>D20CC771-0601-41C2-8FAF-0F7187AF2906</string>
+			<string>6CF943CB330A274FEFA6C90D747183389B0FCFDC</string>
 			<key>IDESourceControlWCCName</key>
 			<string>SafeWalk</string>
 		</dict>
