@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- The main content view -->
+
+    <RelativeLayout
+        android:id="@+id/mainView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:animateLayoutChanges="true" >
+
+        <FrameLayout
+            android:id="@+id/fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/callButtons"
+            android:layout_alignParentTop="true"
+            android:animateLayoutChanges="true" >
+        </FrameLayout>
+
+        <fragment
+            android:id="@+id/callButtons"
+            android:name="edu.purdue.safewalk.Fragments.CallButtonFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:layout_alignParentBottom="true"
+            android:animateLayoutChanges="true"
+            tools:layout="@layout/call_button_fragment" />
+    </RelativeLayout>
+    <!-- The navigation drawer -->
+
+    <RelativeLayout
+        android:id="@+id/left_drawer"
+        android:layout_width="220dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@android:color/white" >
+
+        <RelativeLayout
+            android:id="@+id/login_view"
+            android:layout_width="220dp"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:clickable="true" >
+
+            <View
+                android:id="@+id/split"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/txt_profile"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_below="@id/split"
+                android:paddingLeft="5dp"
+                android:text="Profile"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/login_name"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@id/txt_profile"
+                android:paddingLeft="5dp"
+                android:text="David Tschida"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/login_id"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_below="@id/login_name"
+                android:paddingLeft="5dp"
+                android:text="dtschida@purdue.edu"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/btn_logout"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:paddingRight="10dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:clickable="true"
+                android:contentDescription="Logout Button"
+                android:src="@drawable/icon_logout" />
+            
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/drawer_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/login_view"
+            android:layout_alignParentTop="true"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="1dp" />
+    </RelativeLayout>
+
+</android.support.v4.widget.DrawerLayout>
