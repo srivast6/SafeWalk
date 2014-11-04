@@ -10,7 +10,7 @@ android {
         }
     }
     defaultConfig {
-        applicationId 'edu.purdue.edu.safewalk'
+        applicationId 'edu.purdue.safewalk'
         minSdkVersion 14
         targetSdkVersion 14
         versionCode 1

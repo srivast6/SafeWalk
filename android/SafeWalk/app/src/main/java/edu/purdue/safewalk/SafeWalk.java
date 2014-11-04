@@ -338,8 +338,6 @@ public class SafeWalk extends Activity implements
 	public void onConnected(Bundle bun) {
 		Log.d("SafeWalk", "The mLocationHandler has been connected!");
 
-
-        /*
 		String fragmentTag = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
 		if(fragmentTag.equals("MAP_FRAGMENT"))
 		{
@@ -348,14 +346,14 @@ public class SafeWalk extends Activity implements
 	            Log.e("LocationClient", (mLocationClient == null ? "mLocationClient" : "mMap") + " is null!");
 	            return;
 	        }
-	        */
-			//CameraPosition.Builder cameraPositionBuilder = new CameraPosition.Builder();
-	        /*if(mLocationClient.getLastLocation() == null) {
+
+			CameraPosition.Builder cameraPositionBuilder = new CameraPosition.Builder();
+	        if(mLocationClient.getLastLocation() == null) {
 	            Log.e("LocationClient", "Last location is null!");
 	            mLocationClient.disconnect();
 	            return;
-	        }*/
-            /*
+	        }
+
 			cameraPositionBuilder.target(new LatLng(mLocationClient
 					.getLastLocation().getLatitude(), mLocationClient
 					.getLastLocation().getLongitude()));
@@ -363,23 +361,17 @@ public class SafeWalk extends Activity implements
 			mMap.animateCamera(CameraUpdateFactory
 					.newCameraPosition(cameraPositionBuilder.build()));
 			//mLocationClient.disconnect();
-			*/
-
-		//}
+		}
 	}
 
 	@Override
 	public void onDisconnected() {
-		
 		Log.d("SafeWalk", "The mLocationHandler has been disconnected...");
-		
 		mLocationClient.connect();
 	}
 	
 	public void openRequestActivity()
 	{
-		//View mapView = findViewById(R.id.mapFrame);
-		
         // Create a new Fragment to be placed in the activity layout
         final MakeRequestFragment requestFragment = new MakeRequestFragment();
         
@@ -428,24 +420,7 @@ public class SafeWalk extends Activity implements
         
         // Add the fragment to the 'fragment_container' FrameLayout
         getFragmentManager().beginTransaction()
-                .add(R.id.fragmentContainer, requestFragment).addToBackStack("REQUEST_FRAGMENT").commit(); //setTransition(FragmentTransaction.TRANSIT_NONE)
-		
-		/*
-        int[] screenLocation = new int[2];
-        mapView.getLocationOnScreen(screenLocation);
-        Intent subActivity = new Intent(SafeWalk.this,
-                MakeRequestActivity.class);
-        int orientation = getResources().getConfiguration().orientation;
-        subActivity.
-                putExtra(PACKAGE + ".orientation", orientation).
-                //putExtra(PACKAGE + ".orientation", orientation).
-                putExtra(PACKAGE + ".left", screenLocation[0]).
-                putExtra(PACKAGE + ".top", screenLocation[1]).
-                putExtra(PACKAGE + ".width", mapView.getWidth()). //map
-                putExtra(PACKAGE + ".height", mapView.getHeight()); //map
-        startActivity(subActivity);
-        */
-        
+                .add(R.id.fragmentContainer, requestFragment).addToBackStack("REQUEST_FRAGMENT").commit();
         //TODO: Map.capture()
         
         
