@@ -4,6 +4,7 @@ import java.util.Calendar;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
@@ -29,9 +30,11 @@ public class SettingsFragment extends PreferenceFragment {
 
 		setupSimplePreferencesScreen();
 
+
 		PreferenceScreen ps = getPreferenceScreen();
 		PreferenceCategory pc = (PreferenceCategory) ps.getPreference(ps
 				.getPreferenceCount() - 2);
+        // Set up click listener for voltuneer mode, 7 clicks needed
 		pc.getPreference(0).setOnPreferenceClickListener(
 				new OnPreferenceClickListener() {
 					public boolean onPreferenceClick(Preference preference) {
@@ -67,6 +70,26 @@ public class SettingsFragment extends PreferenceFragment {
 
 					}
 				});
+
+        // Set up listener for whether to use Dev server or not.
+        pc = (PreferenceCategory)ps.getPreference(0);
+        pc.getPreference(0).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                if (preference instanceof CheckBoxPreference){
+                    CheckBoxPreference checkBoxPreference = (CheckBoxPreference) preference;
+                    SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+                    if(checkBoxPreference.isChecked()){
+                        checkBoxPreference.setSummary("safewalk.parseapp.com");
+                        editor.putString("pref_server","http://safewalk.parseapp.com").commit();
+                    } else {
+                        checkBoxPreference.setSummary("safewalkdev.parseapp.com");
+                        editor.putString("pref_server","http://safewalkdev.parseapp.com").commit();
+                    }
+                }
+                return true;
+            }
+        });
 
 		Preference pref = ps.getPreference(ps.getPreferenceCount() - 1);
 		pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -127,7 +150,6 @@ public class SettingsFragment extends PreferenceFragment {
 		addPreferencesFromResource(R.xml.preferences);
 
 		bindPreferenceSummaryToValue(findPreference("pref_loc_update_frequency"));
-		bindPreferenceSummaryToValue(findPreference("pref_server"));
 	}
 
 	/**

@@ -4,13 +4,12 @@
     <PreferenceCategory
         android:key="pref_key_developer_settings"
         android:title="Developer Settings" >
-
-        <EditTextPreference
-            android:defaultValue="@string/pref_server_default"
-            android:dialogMessage="Server IP"
-            android:dialogTitle="Title"
-            android:key="pref_server"
-            android:title="Dev Server" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="pref_use_dev_server"
+            android:title="Use Development Server"
+            android:summary="safewalkdev.parseapp.com"
+            />
     </PreferenceCategory>
     <PreferenceCategory
         android:key="pref_key_storage_settings"
