@@ -47,8 +47,9 @@
         <item>https://optical-sight-386.appspot.com</item>
         <item>http://0.0.0.0</item>
     </string-array>
+
     <string name="title_activity_make_request">MakeRequestActivity</string>
     <string name="hello_world">Hello world!</string>
- 
+    <string name="title_activity_fakemap">FakemapActivity</string>
 
 </resources>

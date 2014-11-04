@@ -67,6 +67,7 @@ public class SafeWalk extends Activity implements
 		
 		setContentView(R.layout.main_activity);
 
+
 		hostname = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_server", getString(R.string.pref_server_default));
 		
 		initNavDrawer();
@@ -89,6 +90,8 @@ public class SafeWalk extends Activity implements
 		cm = new CloudMessaging(this.getApplicationContext(), this.getSharedPreferences("pref_profile", MODE_PRIVATE));
 		
 		pushMapFragment();
+
+
 	}
 
 	private void pushMapFragment() 
@@ -334,7 +337,9 @@ public class SafeWalk extends Activity implements
 	@Override
 	public void onConnected(Bundle bun) {
 		Log.d("SafeWalk", "The mLocationHandler has been connected!");
-        
+
+
+        /*
 		String fragmentTag = getFragmentManager().getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1).getName();
 		if(fragmentTag.equals("MAP_FRAGMENT"))
 		{
@@ -343,13 +348,14 @@ public class SafeWalk extends Activity implements
 	            Log.e("LocationClient", (mLocationClient == null ? "mLocationClient" : "mMap") + " is null!");
 	            return;
 	        }
-	        
-			CameraPosition.Builder cameraPositionBuilder = new CameraPosition.Builder();
+	        */
+			//CameraPosition.Builder cameraPositionBuilder = new CameraPosition.Builder();
 	        /*if(mLocationClient.getLastLocation() == null) {
 	            Log.e("LocationClient", "Last location is null!");
 	            mLocationClient.disconnect();
 	            return;
 	        }*/
+            /*
 			cameraPositionBuilder.target(new LatLng(mLocationClient
 					.getLastLocation().getLatitude(), mLocationClient
 					.getLastLocation().getLongitude()));
@@ -357,7 +363,9 @@ public class SafeWalk extends Activity implements
 			mMap.animateCamera(CameraUpdateFactory
 					.newCameraPosition(cameraPositionBuilder.build()));
 			//mLocationClient.disconnect();
-		}
+			*/
+
+		//}
 	}
 
 	@Override
