@@ -114,9 +114,10 @@ public class MapJSONParser {
 		for (String file : jsonFiles) {
 			
 			// Get the resource identifier for the JSON file we're parsing
-			int id = context.getResources().getIdentifier("edu.purdue.SafeWalk:raw/"+ file, null, null);
+            String packageName = context.getPackageName();
+			int id = context.getResources().getIdentifier(packageName+":raw/"+ file, null, null);
 			
-			Log.d("JSONParsing", "edu.purdue.SafeWalk:raw/"+ file);
+			Log.d("JSONParsing", packageName+":raw/"+ file);
 			
 			// Create the buffered reader which will read in the json file
 			BufferedReader bfr = new BufferedReader(

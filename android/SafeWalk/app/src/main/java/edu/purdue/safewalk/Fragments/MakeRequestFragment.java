@@ -155,8 +155,10 @@ public class MakeRequestFragment extends Fragment implements
 					text = getBuildings();
 				} catch (RuntimeException re) {
 					// If the task was cancelled, this is run.
+                    Log.d(TAG,"Return null");
 					return null;
 				}
+                Log.d(TAG,"Return text");
 				return text;
 			}
 
@@ -174,8 +176,10 @@ public class MakeRequestFragment extends Fragment implements
 			}
 
 			private String getBuildings() {
+
 				if (isCancelled())
 					throw new RuntimeException();
+
 
 				MapData mapData = new MapData(MakeRequestFragment.this
 						.getActivity().getApplicationContext());
@@ -191,8 +195,10 @@ public class MakeRequestFragment extends Fragment implements
 				Log.d(TAG, "My Start: " + start_lat + start_long);
 
 				for (Building b : buildings) {
+
 					if (isCancelled())
 						throw new RuntimeException();
+
 
 					double s = SphericalUtil.computeDistanceBetween(new LatLng(
 							start_lat, start_long), new LatLng(b.lat, b.lng));
@@ -227,6 +233,7 @@ public class MakeRequestFragment extends Fragment implements
 						.split(" ")[0] : best_start.short_name;
 				String last = (best_end.short_name.contains("?")) ? best_end.full_name
 						.split(" ")[0] : best_end.short_name;
+
 				return first + "|" + last;
 			}
 		};

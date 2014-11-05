@@ -14,6 +14,7 @@ import edu.purdue.safewalk.Interfaces.OnNewRequestFinished;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class NewRequestTask extends AsyncTask<Void,Void,Void> {
 	
@@ -25,6 +26,7 @@ public class NewRequestTask extends AsyncTask<Void,Void,Void> {
 	private String phoneNum;
 	private Context context;
 	private OnNewRequestFinished listener;
+    private String TAG = "NewRequestTask";
 	
 	
 	public NewRequestTask(double start_lat, double start_long, double end_lat, double end_long, String userName, String phonenNum, Context context, OnNewRequestFinished listener){
@@ -60,7 +62,8 @@ public class NewRequestTask extends AsyncTask<Void,Void,Void> {
 		
 		String hostname = PreferenceManager.getDefaultSharedPreferences(context)
 				.getString("pref_server", context.getString(R.string.pref_server_default));
-		HttpClient client = new DefaultHttpClient();
+            Log.d(TAG,"hostname="+hostname);
+            HttpClient client = new DefaultHttpClient();
 		HttpPost postReq = new HttpPost(hostname+"/request");
 		postReq.setEntity(se);
 		postReq.setHeader("Content-type", "application/json");
