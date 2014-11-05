@@ -11,7 +11,7 @@
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="sample_2"
-            android:summary="Sample Description"
+            android:summary="Hello, World"
             android:title="Sample Setting" />
     </PreferenceCategory>
 </PreferenceScreen>
