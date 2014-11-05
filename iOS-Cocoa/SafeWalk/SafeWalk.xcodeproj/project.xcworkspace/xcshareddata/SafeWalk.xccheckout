@@ -14,7 +14,7 @@
 		<string>https://github.com/Purdue-ACM-SIGAPP/SafeWalk.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>iOS/SafeWalk/SafeWalk.xcodeproj/project.xcworkspace</string>
+	<string>iOS-Cocoa/SafeWalk/SafeWalk.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>6CF943CB330A274FEFA6C90D747183389B0FCFDC</key>
