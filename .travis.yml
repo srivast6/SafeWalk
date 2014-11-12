@@ -1,10 +1,21 @@
-before_install:
+language: android
+android:
+    components:
+        - platform-tools
+        - tools
 
-before_script:
-    - mkdir -p vendors
-    - wget -nv https://commondatastorage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.3.zip
-    - unzip -qd vendors google_appengine_1.9.3.zip
-    - pip install -r ./server/requirements.txt -t ./server/server/lib
+        - build-tools-19.1.0
+        
+        - android-14
+
+        - extra-google-google_play_services
+        - extra-google-m2repository
+        - extra-android-m2repository
+        - addon-google_apis-google-14
+
+        - sys-img-x86-android-17
 
 script:
-    - vendors/google_appengine/dev_appserver.py ./server
+    cd android/SafeWalk
+    curl https://slack-files.com/files-pub/T02GY0X1P-F02VA27A3-c55c8b/download/debug.keystore > app/debug.keystore
+    ./gradlew build connectedCheck
