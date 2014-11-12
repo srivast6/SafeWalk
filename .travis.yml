@@ -16,6 +16,6 @@ android:
         - sys-img-x86-android-17
 
 script:
-    cd android/SafeWalk
-    curl https://slack-files.com/files-pub/T02GY0X1P-F02VA27A3-c55c8b/download/debug.keystore > app/debug.keystore
+    cd android/SafeWalk &&
+    curl https://slack-files.com/files-pub/T02GY0X1P-F02VA27A3-c55c8b/download/debug.keystore > app/debug.keystore &&
     ./gradlew build connectedCheck
