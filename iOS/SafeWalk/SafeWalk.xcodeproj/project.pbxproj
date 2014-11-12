@@ -21,6 +21,7 @@
 		FC7F71641A0AD15A00C15E3E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7F71631A0AD15A00C15E3E /* OpenGLES.framework */; };
 		FC7F71661A0AD16100C15E3E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7F71651A0AD16100C15E3E /* QuartzCore.framework */; };
 		FC7F71681A0AD16700C15E3E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7F71671A0AD16700C15E3E /* SystemConfiguration.framework */; };
+		FC8B94661A12DF180072A645 /* map_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = FC8B94651A12DF180072A645 /* map_pin.png */; };
 		FCF7676E1A0ACF7F00CADFB2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7676D1A0ACF7F00CADFB2 /* AppDelegate.swift */; };
 		FCF767701A0ACF7F00CADFB2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7676F1A0ACF7F00CADFB2 /* ViewController.swift */; };
 		FCF767731A0ACF7F00CADFB2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FCF767711A0ACF7F00CADFB2 /* Main.storyboard */; };
@@ -55,6 +56,7 @@
 		FC7F71651A0AD16100C15E3E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FC7F71671A0AD16700C15E3E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FC7F71691A0AD28500C15E3E /* SafeWalk-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SafeWalk-Bridging-Header.h"; sourceTree = "<group>"; };
+		FC8B94651A12DF180072A645 /* map_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_pin.png; sourceTree = "<group>"; };
 		FCF767681A0ACF7F00CADFB2 /* SafeWalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SafeWalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCF7676C1A0ACF7F00CADFB2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FCF7676D1A0ACF7F00CADFB2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 		FCF7676A1A0ACF7F00CADFB2 /* SafeWalk */ = {
 			isa = PBXGroup;
 			children = (
+				FC8B94651A12DF180072A645 /* map_pin.png */,
 				FCF7676D1A0ACF7F00CADFB2 /* AppDelegate.swift */,
 				FCF7676F1A0ACF7F00CADFB2 /* ViewController.swift */,
 				FCF767711A0ACF7F00CADFB2 /* Main.storyboard */,
@@ -251,6 +254,7 @@
 			files = (
 				FCF767731A0ACF7F00CADFB2 /* Main.storyboard in Resources */,
 				FCF767781A0ACF7F00CADFB2 /* LaunchScreen.xib in Resources */,
+				FC8B94661A12DF180072A645 /* map_pin.png in Resources */,
 				FCF767751A0ACF7F00CADFB2 /* Images.xcassets in Resources */,
 				FC7F71501A0AD0F400C15E3E /* GoogleMaps.bundle in Resources */,
 			);
