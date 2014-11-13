@@ -8,20 +8,21 @@ android:
         
         - android-14
 
+        - extra-android-support
         - extra-google-google_play_services
         - extra-google-m2repository
         - extra-android-m2repository
         - addon-google_apis-google-14
 
-        - sys-img-x86-android-17
+        - sys-img-armeabi-v7a-android-17
 
 before_script:
-    - echo no | android create avd --force -n test -t android-17 --abi default/armeabi-v7a
-    - emulator -avd test -no-skin -no-audio -no-window &
-    - android-wait-for-emulator
-    - adb shell input keyevent 82 &
+    #- echo no | android create avd --force -n test -t android-17 --abi default/armeabi-v7a
+    #- emulator -avd test -no-skin -no-audio -no-window &
+    #- android-wait-for-emulator
+    #- adb shell input keyevent 82 &
 
 script:
     - cd android/SafeWalk 
     - curl https://slack-files.com/files-pub/T02GY0X1P-F02VA27A3-c55c8b/download/debug.keystore > app/debug.keystore
-    - ./gradlew build connectedCheck
+    - ./gradlew build
