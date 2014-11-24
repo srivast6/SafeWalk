@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC402DE31A158DEA00831E65 /* SafeWalkMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC402DE21A158DEA00831E65 /* SafeWalkMapView.swift */; };
 		FC7F714E1A0AD0AA00C15E3E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7F714D1A0AD0AA00C15E3E /* GoogleMaps.framework */; };
 		FC7F71501A0AD0F400C15E3E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FC7F714F1A0AD0F400C15E3E /* GoogleMaps.bundle */; };
 		FC7F71521A0AD12600C15E3E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7F71511A0AD12600C15E3E /* AVFoundation.framework */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FC402DE21A158DEA00831E65 /* SafeWalkMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeWalkMapView.swift; sourceTree = "<group>"; };
 		FC7F714D1A0AD0AA00C15E3E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		FC7F714F1A0AD0F400C15E3E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		FC7F71511A0AD12600C15E3E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -138,6 +140,7 @@
 				FC8B94651A12DF180072A645 /* map_pin.png */,
 				FCF7676D1A0ACF7F00CADFB2 /* AppDelegate.swift */,
 				FCF7676F1A0ACF7F00CADFB2 /* ViewController.swift */,
+				FC402DE21A158DEA00831E65 /* SafeWalkMapView.swift */,
 				FCF767711A0ACF7F00CADFB2 /* Main.storyboard */,
 				FCF767741A0ACF7F00CADFB2 /* Images.xcassets */,
 				FCF767761A0ACF7F00CADFB2 /* LaunchScreen.xib */,
@@ -274,6 +277,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC402DE31A158DEA00831E65 /* SafeWalkMapView.swift in Sources */,
 				FCF767701A0ACF7F00CADFB2 /* ViewController.swift in Sources */,
 				FCF7676E1A0ACF7F00CADFB2 /* AppDelegate.swift in Sources */,
 			);

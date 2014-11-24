@@ -22,6 +22,8 @@ class ViewController: UIViewController {
         mapView.settings.myLocationButton = true
         mapView.settings.tiltGestures = false
         mapView.settings.rotateGestures = false
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
