@@ -1,12 +1,18 @@
 package edu.purdue.safewalk.Activities;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.parse.LogInCallback;
+import com.parse.ParseException;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 import edu.purdue.safewalk.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -95,8 +101,47 @@ public class LoginActivity extends Activity {
 				editor.putString("userID", id).commit();
 
 				*/
+        final EditText username = (EditText) findViewById(R.id.username);
+        final EditText phoneNumber = (EditText) findViewById(R.id.phoneNumber);
+        final EditText email = (EditText) findViewById(R.id.email);
+        final EditText password = (EditText) findViewById(R.id.password);
+        Button signInButton = (Button) findViewById(R.id.sign_in_button);
 
-			}
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ParseUser user = new ParseUser();
+                user.setUsername(username.getText().toString());
+                user.setPassword(password.getText().toString());
+                user.setEmail(email.getText().toString());
+                user.put("phone", phoneNumber.getText().toString());
+                user.signUpInBackground(new SignUpCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            finish();
+                        } else {
+                            // Try to login
+                            ParseUser.logInInBackground(username.getText().toString(), password.getText().toString(), new LogInCallback() {
+                                @Override
+                                public void done(ParseUser parseUser, ParseException e) {
+                                    if(e == null) {
+                                        finish();
+                                    } else {
+                                        AlertDialog.Builder ab = new AlertDialog.Builder(LoginActivity.this);
+                                        ab.setTitle("Authentication Error");
+                                        ab.setMessage(e.getLocalizedMessage());
+                                        ab.show();
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
+
+	}
 
 
 
