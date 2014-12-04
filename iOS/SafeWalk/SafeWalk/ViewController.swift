@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var mapView: GMSMapView!
+    @IBOutlet weak var mapView: SafeWalkMapView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +21,7 @@ class ViewController: UIViewController {
         mapView.myLocationEnabled = true
         mapView.settings.myLocationButton = true
         mapView.settings.tiltGestures = false
-        mapView.settings.rotateGestures = false
-        
-        
+        mapView.settings.rotateGestures = false        
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,7 +49,6 @@ class ViewController: UIViewController {
             alertView.show()
         }
     }
-
 
 }
 

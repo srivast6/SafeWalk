@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC15A8811A298ABF0026CA85 /* purdue.gpx in Resources */ = {isa = PBXBuildFile; fileRef = FC15A8801A298ABF0026CA85 /* purdue.gpx */; };
 		FC402DE31A158DEA00831E65 /* SafeWalkMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC402DE21A158DEA00831E65 /* SafeWalkMapView.swift */; };
 		FC7F714E1A0AD0AA00C15E3E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7F714D1A0AD0AA00C15E3E /* GoogleMaps.framework */; };
 		FC7F71501A0AD0F400C15E3E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FC7F714F1A0AD0F400C15E3E /* GoogleMaps.bundle */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FC15A8801A298ABF0026CA85 /* purdue.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = purdue.gpx; sourceTree = "<group>"; };
 		FC402DE21A158DEA00831E65 /* SafeWalkMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeWalkMapView.swift; sourceTree = "<group>"; };
 		FC7F714D1A0AD0AA00C15E3E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
 		FC7F714F1A0AD0F400C15E3E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		FCF7675F1A0ACF7F00CADFB2 = {
 			isa = PBXGroup;
 			children = (
+				FC15A8801A298ABF0026CA85 /* purdue.gpx */,
 				FC7F71671A0AD16700C15E3E /* SystemConfiguration.framework */,
 				FC7F71651A0AD16100C15E3E /* QuartzCore.framework */,
 				FC7F71631A0AD15A00C15E3E /* OpenGLES.framework */,
@@ -257,6 +260,7 @@
 			files = (
 				FCF767731A0ACF7F00CADFB2 /* Main.storyboard in Resources */,
 				FCF767781A0ACF7F00CADFB2 /* LaunchScreen.xib in Resources */,
+				FC15A8811A298ABF0026CA85 /* purdue.gpx in Resources */,
 				FC8B94661A12DF180072A645 /* map_pin.png in Resources */,
 				FCF767751A0ACF7F00CADFB2 /* Images.xcassets in Resources */,
 				FC7F71501A0AD0F400C15E3E /* GoogleMaps.bundle in Resources */,
