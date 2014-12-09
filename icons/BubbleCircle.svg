@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="431" height="431">
+    <desc iVinci="yes" version="4.5" gridStep="20" showGrid="yes" snapToGrid="yes" codePlatform="0"/>
+    <g id="Layer1" opacity="1">
+        <g id="Shape1">
+            <desc shapeID="1" type="0" basicInfo-basicType="4" basicInfo-roundedRectRadius="12" basicInfo-polygonSides="6" basicInfo-starPoints="5" bounding="rect(-208,-208.5,416,417)" text="" font-familyName="Helvetica" font-pixelSize="20" font-bold="0" font-underline="0" font-alignment="1" strokeStyle="0" markerStart="0" markerEnd="0" shadowEnabled="0" shadowOffsetX="0" shadowOffsetY="2" shadowBlur="4" shadowOpacity="160" blurEnabled="0" blurRadius="4" transform="matrix(1,0,0,0.990408,215.5,215.634)" pers-center="0,0" pers-size="0,0" pers-start="0,0" pers-end="0,0" locked="0" mesh="" flag=""/>
+            <path id="shapePath1" d="M7.50002,215.634 C7.50002,101.587 100.625,9.13409 215.5,9.13409 C330.375,9.13412 423.5,101.587 423.5,215.634 C423.5,329.681 330.375,422.134 215.5,422.134 C100.625,422.134 7.49998,329.681 7.50002,215.634 Z" style="stroke:#e5e5e5;stroke-opacity:1;stroke-width:15;stroke-linejoin:miter;stroke-miterlimit:2;stroke-linecap:round;fill:none;"/>
+        </g>
+    </g>
+</svg>

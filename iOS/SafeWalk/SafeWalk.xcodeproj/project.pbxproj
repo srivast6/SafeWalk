@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC074CEF1A30271800954BF2 /* BubbleDot.png in Resources */ = {isa = PBXBuildFile; fileRef = FC074CEE1A30271800954BF2 /* BubbleDot.png */; };
+		FC074CF11A30272200954BF2 /* BubbleCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = FC074CF01A30272200954BF2 /* BubbleCircle.png */; };
 		FC15A8811A298ABF0026CA85 /* purdue.gpx in Resources */ = {isa = PBXBuildFile; fileRef = FC15A8801A298ABF0026CA85 /* purdue.gpx */; };
 		FC402DE31A158DEA00831E65 /* SafeWalkMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC402DE21A158DEA00831E65 /* SafeWalkMapView.swift */; };
 		FC7F714E1A0AD0AA00C15E3E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7F714D1A0AD0AA00C15E3E /* GoogleMaps.framework */; };
@@ -43,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FC074CEE1A30271800954BF2 /* BubbleDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BubbleDot.png; sourceTree = "<group>"; };
+		FC074CF01A30272200954BF2 /* BubbleCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BubbleCircle.png; sourceTree = "<group>"; };
 		FC15A8801A298ABF0026CA85 /* purdue.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = purdue.gpx; sourceTree = "<group>"; };
 		FC402DE21A158DEA00831E65 /* SafeWalkMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeWalkMapView.swift; sourceTree = "<group>"; };
 		FC7F714D1A0AD0AA00C15E3E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
@@ -140,6 +144,8 @@
 		FCF7676A1A0ACF7F00CADFB2 /* SafeWalk */ = {
 			isa = PBXGroup;
 			children = (
+				FC074CF01A30272200954BF2 /* BubbleCircle.png */,
+				FC074CEE1A30271800954BF2 /* BubbleDot.png */,
 				FC8B94651A12DF180072A645 /* map_pin.png */,
 				FCF7676D1A0ACF7F00CADFB2 /* AppDelegate.swift */,
 				FCF7676F1A0ACF7F00CADFB2 /* ViewController.swift */,
@@ -259,11 +265,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCF767731A0ACF7F00CADFB2 /* Main.storyboard in Resources */,
+				FC074CF11A30272200954BF2 /* BubbleCircle.png in Resources */,
 				FCF767781A0ACF7F00CADFB2 /* LaunchScreen.xib in Resources */,
 				FC15A8811A298ABF0026CA85 /* purdue.gpx in Resources */,
 				FC8B94661A12DF180072A645 /* map_pin.png in Resources */,
 				FCF767751A0ACF7F00CADFB2 /* Images.xcassets in Resources */,
 				FC7F71501A0AD0F400C15E3E /* GoogleMaps.bundle in Resources */,
+				FC074CEF1A30271800954BF2 /* BubbleDot.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
