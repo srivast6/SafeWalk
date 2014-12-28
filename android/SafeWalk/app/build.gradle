@@ -19,7 +19,7 @@ android {
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -36,4 +36,5 @@ dependencies {
     compile 'com.loopj.android:android-async-http:1.4.5'
     compile 'com.google.maps.android:android-maps-utils:0.3'
     compile 'com.parse.bolts:bolts-android:1.1.2'
+    compile 'com.squareup.retrofit:retrofit:1.8.0'
 }

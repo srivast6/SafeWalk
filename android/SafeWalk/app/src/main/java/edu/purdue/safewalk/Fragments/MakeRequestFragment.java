@@ -7,12 +7,20 @@ import java.util.List;
 import com.google.android.gms.maps.GoogleMap.SnapshotReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.SphericalUtil;
+import com.parse.Parse;
+import com.parse.ParseUser;
 
+import edu.purdue.safewalk.DataStructures.Requester;
+import edu.purdue.safewalk.Interfaces.SafeWalkAPIServiceInterface;
 import edu.purdue.safewalk.R;
 import edu.purdue.safewalk.Interfaces.OnNewRequestFinished;
 import edu.purdue.safewalk.MapItems.MapData;
 import edu.purdue.safewalk.MapItems.MapData.Building;
+import edu.purdue.safewalk.SafeWalkAPI;
 import edu.purdue.safewalk.Tasks.NewRequestTask;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -41,7 +49,7 @@ import android.widget.ImageView.ScaleType;
 import android.widget.TextView;
 
 public class MakeRequestFragment extends Fragment implements
-		SnapshotReadyCallback, OnNewRequestFinished {
+		SnapshotReadyCallback {
 
 	private static final TimeInterpolator sDecelerator = new DecelerateInterpolator();
 	private static final TimeInterpolator sAccelerator = new AccelerateInterpolator();
@@ -370,16 +378,36 @@ public class MakeRequestFragment extends Fragment implements
 	}
 
 	private void sendRequest() {
-		
-		NewRequestTask task = new NewRequestTask(start_lat, start_long, end_lat, end_long,"John Smith", "219-555-1343",getActivity(),this);
-		task.execute();
-		getFragmentManager().popBackStack();
+
+        ParseUser user = ParseUser.getCurrentUser();
+        if(user == null){
+            Log.d(TAG,"User not logged into Parse");
+        } else {
+            Requester requester = new Requester(user.getUsername(), user.getString("phone"), "Urgent", start_lat, start_long, end_lat, end_long);
+
+            SafeWalkAPIServiceInterface service = SafeWalkAPI.getAPI(getActivity());
+
+            service.newRequest(requester, new Callback<Requester>() {
+                @Override
+                public void success(Requester requester, Response response) {
+                    Log.d(TAG, "NewRequestResponse=" + response.toString());
+                    getFragmentManager().popBackStack();
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d(TAG, "NewRequestError=" + error.toString());
+                    getFragmentManager().popBackStack();
+
+                }
+            });
+
+        }
 	}
 
-	@Override
-	public void onNewRequestFinished() {
-		// TODO Auto-generated method stub
-		
-	}
+
+
+
+
 
 }

@@ -50,7 +50,7 @@ public class NewRequestTask extends AsyncTask<Void,Void,Void> {
 		String userName = "John Smith";
 
 		Requester r = new Requester(userName + (int) (Math.random() * 1000),
-				time, "219-555-1242", "Not Urgent", start_lat, start_long,
+				 "219-555-1242", "Not Urgent", start_lat, start_long,
 				end_lat, end_long);
 		
 		StringEntity se = null;

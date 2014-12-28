@@ -63,7 +63,7 @@ public class PopupDialog extends DialogFragment {
         
         // 4. Set the text for textView 
         nameView.setText("Name: "+requester.getName());
-        timeView.setText("Time Requested: "+ requester.getTimeOfRequest());
+        timeView.setText("Time Requested: "+ " Set this later");
         phoneView.setText("Phone: "+ requester.getPhoneNumber());
         locationView.setText("Location: "+ "0000, 0000" );
 
@@ -97,7 +97,8 @@ public class PopupDialog extends DialogFragment {
         acceptButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				AcceptRequestTask task = new AcceptRequestTask(requester.getUUID(),act);
+                // !! FIX THIS LATER, There was no need for the UUID
+				AcceptRequestTask task = new AcceptRequestTask("",act);
 				task.execute();
 				PopupDialog.this.dismiss();
 				handler.onRequestAccepted();

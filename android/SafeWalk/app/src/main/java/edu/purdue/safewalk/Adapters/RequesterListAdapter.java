@@ -41,7 +41,7 @@ public class RequesterListAdapter extends BaseAdapter{
         Requester requester = requests.get(position);
         // 4. Set the text for textView 
         valueView.setText("Name:"+requester.getName());
-        labelView.setText("Time Of Request:"+ requester.getTimeOfRequest());
+        labelView.setText("Time Of Request:"+ " Set this later");
 
         // 5. retrn rowView
         return rowView;
@@ -60,9 +60,10 @@ public class RequesterListAdapter extends BaseAdapter{
 	/**
 	 * Not really being used... 
 	 */
-	@Override
+
 	public long getItemId(int position) {
-		return ((Requester) getItem(position)).getUUID().hashCode();
+		return 0;
 	}
+
 }
 

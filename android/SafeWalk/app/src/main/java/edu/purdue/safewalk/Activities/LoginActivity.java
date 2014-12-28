@@ -2,7 +2,9 @@ package edu.purdue.safewalk.Activities;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.parse.LogInCallback;
+import com.parse.ParseACL;
 import com.parse.ParseException;
+import com.parse.ParseRole;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
@@ -110,15 +112,23 @@ public class LoginActivity extends Activity {
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ParseUser user = new ParseUser();
+                final ParseUser user = new ParseUser();
                 user.setUsername(username.getText().toString());
                 user.setPassword(password.getText().toString());
                 user.setEmail(email.getText().toString());
                 user.put("phone", phoneNumber.getText().toString());
+                user.put("role","student");
                 user.signUpInBackground(new SignUpCallback() {
                     @Override
                     public void done(ParseException e) {
                         if (e == null) {
+
+                            // If the student is able to login, add them to the student role
+                            ParseACL roleACL = new ParseACL();
+                            roleACL.setPublicReadAccess(false);
+                            ParseRole role = new ParseRole("Student", roleACL);
+                            role.getUsers().add(user);
+                            role.saveInBackground();
                             finish();
                         } else {
                             // Try to login
