@@ -21,22 +21,27 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 
 public class PopupDialog extends DialogFragment {
 	public static String TAG = "PopUpDialog";
 	private Activity a;
 	private OnRequestAcceptedHandler handler;
 
-    Requester requester; 
-    
-    public PopupDialog(OnRequestAcceptedHandler handler)
-    {
-    	this.handler = handler;
-    	a = this.getActivity();
-    	
+    Requester requester;
+
+    public PopupDialog(Requester requester){
+        this.requester = requester;
+
     }
+    
+
   
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        /*
     	JSONObject requestData; 
     	try{
     		requestData = new JSONObject(getArguments().getString("Request"));
@@ -46,6 +51,7 @@ public class PopupDialog extends DialogFragment {
     		throw new RuntimeException();
     	}
     	requester = new Requester(requestData);
+    	*/
     	
     	
     	
@@ -63,9 +69,15 @@ public class PopupDialog extends DialogFragment {
         
         // 4. Set the text for textView 
         nameView.setText("Name: "+requester.getName());
-        timeView.setText("Time Requested: "+ " Set this later");
+        DateFormat df = new SimpleDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'");
+        String date = "";
+        try {
+            date = df.parse(requester.getCreatedAt()).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        timeView.setText("Time Requested: "+ date);
         phoneView.setText("Phone: "+ requester.getPhoneNumber());
-        locationView.setText("Location: "+ "0000, 0000" );
 
         
         Button callButton = (Button) v.findViewById(R.id.btn_call);
@@ -108,17 +120,8 @@ public class PopupDialog extends DialogFragment {
         
         return builder.create();
     }
-    
-    public static PopupDialog getInstance(Requester request,OnRequestAcceptedHandler handler)
-    {
-    	Bundle data = new Bundle();
-    	Log.d(TAG, request.toJSON().toString());
-    	
-    	data.putString("Request", request.toJSON().toString());
-    	PopupDialog dialog = new PopupDialog(handler);
-    	dialog.setArguments(data);
-    	return dialog;
-    }
+
+
 }
 
 

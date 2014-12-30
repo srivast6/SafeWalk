@@ -8,12 +8,18 @@ public class Requester {
 	private String name;
 	private String phoneNumber;
 	private String urgency;
+    private String userId;
+    private String objectId = "";
+    private String updatedAt = "";
+    private String createdAt = "";
+    private boolean isAccepted = false;
+
 	// location of user.
 
 	private double startLocation_lat, startLocation_lon, endLocation_lat,
 			endLocation_lon;
 
-	public Requester(String name,  String number, String urgency,
+	public Requester(String name,String userId,  String number, String urgency,
 			Double startLat, Double startLong, Double endLat, Double endLong) {
 		this.setName(name);
 		this.setPhoneNumber(number);
@@ -22,6 +28,7 @@ public class Requester {
 		startLocation_lon = startLong;
 		endLocation_lat = endLat;
 		endLocation_lon = endLong;
+        this.userId = userId;
 	}
 
 
@@ -88,5 +95,12 @@ public class Requester {
 	public String getUrgency() {
 		return this.urgency;
 	}
+
+    public String getCreatedAt() {return this.createdAt;}
+
+    public String getUpdatedAt() {return this.updatedAt;}
+
+    public String getObjectId() {return this.objectId;}
+
 
 }

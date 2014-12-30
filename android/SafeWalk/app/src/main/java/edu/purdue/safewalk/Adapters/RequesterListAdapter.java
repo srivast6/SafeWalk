@@ -1,6 +1,11 @@
 package edu.purdue.safewalk.Adapters;
 
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.purdue.safewalk.R;
 import edu.purdue.safewalk.DataStructures.Requester;
@@ -14,9 +19,9 @@ import android.widget.TextView;
 
 public class RequesterListAdapter extends BaseAdapter{
     private final Context context;
-    private final ArrayList<Requester> requests;
+    private final List<Requester> requests;
 
-    public RequesterListAdapter(Context context, ArrayList<Requester> requests) {
+    public RequesterListAdapter(Context context, List<Requester> requests) {
         super();
         this.context = context;
         this.requests = requests;
@@ -41,7 +46,14 @@ public class RequesterListAdapter extends BaseAdapter{
         Requester requester = requests.get(position);
         // 4. Set the text for textView 
         valueView.setText("Name:"+requester.getName());
-        labelView.setText("Time Of Request:"+ " Set this later");
+        DateFormat df = new SimpleDateFormat("yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'");
+        String date = "";
+        try {
+            date = df.parse(requester.getCreatedAt()).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        labelView.setText("Time Of Request: "+ date );
 
         // 5. retrn rowView
         return rowView;
@@ -58,7 +70,7 @@ public class RequesterListAdapter extends BaseAdapter{
 	}
 
 	/**
-	 * Not really being used... 
+	 * Not really being used...
 	 */
 
 	public long getItemId(int position) {

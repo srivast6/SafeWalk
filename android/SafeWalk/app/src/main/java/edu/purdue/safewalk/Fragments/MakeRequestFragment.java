@@ -383,7 +383,7 @@ public class MakeRequestFragment extends Fragment implements
         if(user == null){
             Log.d(TAG,"User not logged into Parse");
         } else {
-            Requester requester = new Requester(user.getUsername(), user.getString("phone"), "Urgent", start_lat, start_long, end_lat, end_long);
+            Requester requester = new Requester(user.getUsername(), user.getObjectId(), user.getString("phone"), "Urgent", start_lat, start_long, end_lat, end_long);
 
             SafeWalkAPIServiceInterface service = SafeWalkAPI.getAPI(getActivity());
 
