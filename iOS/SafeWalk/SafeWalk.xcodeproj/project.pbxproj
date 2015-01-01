@@ -10,9 +10,22 @@
 		FC074CEF1A30271800954BF2 /* BubbleDot.png in Resources */ = {isa = PBXBuildFile; fileRef = FC074CEE1A30271800954BF2 /* BubbleDot.png */; };
 		FC074CF11A30272200954BF2 /* BubbleCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = FC074CF01A30272200954BF2 /* BubbleCircle.png */; };
 		FC15A8811A298ABF0026CA85 /* purdue.gpx in Resources */ = {isa = PBXBuildFile; fileRef = FC15A8801A298ABF0026CA85 /* purdue.gpx */; };
+		FC1F8E221A37C84A00EF567C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1F8E211A37C84A00EF567C /* AudioToolbox.framework */; };
+		FC1F8E261A37C85900EF567C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1F8E251A37C85900EF567C /* CoreGraphics.framework */; };
+		FC1F8E281A37C87100EF567C /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1F8E271A37C87100EF567C /* MobileCoreServices.framework */; };
+		FC1F8E2A1A37C87E00EF567C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1F8E291A37C87E00EF567C /* Security.framework */; };
+		FC1F8E2C1A37C88300EF567C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1F8E2B1A37C88300EF567C /* StoreKit.framework */; };
+		FC1F8E2E1A37C89800EF567C /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1F8E2D1A37C89800EF567C /* libstdc++.6.dylib */; };
 		FC402DE31A158DEA00831E65 /* SafeWalkMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC402DE21A158DEA00831E65 /* SafeWalkMapView.swift */; };
-		FC7F714E1A0AD0AA00C15E3E /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7F714D1A0AD0AA00C15E3E /* GoogleMaps.framework */; };
-		FC7F71501A0AD0F400C15E3E /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FC7F714F1A0AD0F400C15E3E /* GoogleMaps.bundle */; };
+		FC64B3161A50F72B00B80338 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B3151A50F72B00B80338 /* GoogleMaps.framework */; };
+		FC64B3181A50F75600B80338 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FC64B3171A50F75600B80338 /* GoogleMaps.bundle */; };
+		FC64B31E1A50F7B600B80338 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B31D1A50F7B600B80338 /* Bolts.framework */; };
+		FC64B3201A50F82F00B80338 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B31F1A50F82F00B80338 /* Parse.framework */; };
+		FC64B3231A50FB4D00B80338 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B3221A50FB4D00B80338 /* libsqlite3.dylib */; };
+		FC64B3291A50FBD500B80338 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B3281A50FBD500B80338 /* ParseUI.framework */; };
+		FC64B3301A55F2E900B80338 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B3241A50FB9200B80338 /* Accounts.framework */; };
+		FC64B3321A55F33B00B80338 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B3311A55F33B00B80338 /* Social.framework */; };
+		FC64B3331A55F36D00B80338 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B32A1A50FBF200B80338 /* ParseCrashReporting.framework */; };
 		FC7F71521A0AD12600C15E3E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7F71511A0AD12600C15E3E /* AVFoundation.framework */; };
 		FC7F71541A0AD12A00C15E3E /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7F71531A0AD12A00C15E3E /* CoreData.framework */; };
 		FC7F71561A0AD12F00C15E3E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7F71551A0AD12F00C15E3E /* CoreLocation.framework */; };
@@ -44,13 +57,43 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		FC64B31C1A50F79200B80338 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		FC074CEE1A30271800954BF2 /* BubbleDot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BubbleDot.png; sourceTree = "<group>"; };
 		FC074CF01A30272200954BF2 /* BubbleCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BubbleCircle.png; sourceTree = "<group>"; };
 		FC15A8801A298ABF0026CA85 /* purdue.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = purdue.gpx; sourceTree = "<group>"; };
+		FC1F8E211A37C84A00EF567C /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		FC1F8E231A37C85100EF567C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		FC1F8E251A37C85900EF567C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		FC1F8E271A37C87100EF567C /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		FC1F8E291A37C87E00EF567C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		FC1F8E2B1A37C88300EF567C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		FC1F8E2D1A37C89800EF567C /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
 		FC402DE21A158DEA00831E65 /* SafeWalkMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SafeWalkMapView.swift; sourceTree = "<group>"; };
-		FC7F714D1A0AD0AA00C15E3E /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMaps.framework; sourceTree = "<group>"; };
-		FC7F714F1A0AD0F400C15E3E /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
+		FC64B3151A50F72B00B80338 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
+		FC64B3171A50F75600B80338 /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
+		FC64B31D1A50F7B600B80338 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Frameworks/Bolts.framework; sourceTree = "<group>"; };
+		FC64B31F1A50F82F00B80338 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
+		FC64B3221A50FB4D00B80338 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		FC64B3241A50FB9200B80338 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		FC64B3261A50FBAA00B80338 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
+		FC64B3281A50FBD500B80338 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseUI.framework; path = Frameworks/ParseUI.framework; sourceTree = "<group>"; };
+		FC64B32A1A50FBF200B80338 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = Frameworks/ParseCrashReporting.framework; sourceTree = "<group>"; };
+		FC64B32B1A50FBF200B80338 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		FC64B32E1A55F22F00B80338 /* libxslt.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxslt.dylib; path = usr/lib/libxslt.dylib; sourceTree = SDKROOT; };
+		FC64B3311A55F33B00B80338 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		FC7F71511A0AD12600C15E3E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		FC7F71531A0AD12A00C15E3E /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		FC7F71551A0AD12F00C15E3E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -82,19 +125,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC64B3331A55F36D00B80338 /* ParseCrashReporting.framework in Frameworks */,
+				FC64B3291A50FBD500B80338 /* ParseUI.framework in Frameworks */,
+				FC64B3321A55F33B00B80338 /* Social.framework in Frameworks */,
+				FC64B3301A55F2E900B80338 /* Accounts.framework in Frameworks */,
+				FC64B3231A50FB4D00B80338 /* libsqlite3.dylib in Frameworks */,
+				FC64B3201A50F82F00B80338 /* Parse.framework in Frameworks */,
+				FC64B31E1A50F7B600B80338 /* Bolts.framework in Frameworks */,
+				FC64B3161A50F72B00B80338 /* GoogleMaps.framework in Frameworks */,
+				FC1F8E2E1A37C89800EF567C /* libstdc++.6.dylib in Frameworks */,
 				FC7F71681A0AD16700C15E3E /* SystemConfiguration.framework in Frameworks */,
+				FC1F8E2C1A37C88300EF567C /* StoreKit.framework in Frameworks */,
+				FC1F8E2A1A37C87E00EF567C /* Security.framework in Frameworks */,
 				FC7F71661A0AD16100C15E3E /* QuartzCore.framework in Frameworks */,
-				FC7F71641A0AD15A00C15E3E /* OpenGLES.framework in Frameworks */,
+				FC1F8E281A37C87100EF567C /* MobileCoreServices.framework in Frameworks */,
 				FC7F71621A0AD15500C15E3E /* libz.dylib in Frameworks */,
+				FC7F71561A0AD12F00C15E3E /* CoreLocation.framework in Frameworks */,
+				FC1F8E261A37C85900EF567C /* CoreGraphics.framework in Frameworks */,
+				FC1F8E221A37C84A00EF567C /* AudioToolbox.framework in Frameworks */,
+				FC7F71641A0AD15A00C15E3E /* OpenGLES.framework in Frameworks */,
 				FC7F71601A0AD14F00C15E3E /* libicucore.dylib in Frameworks */,
 				FC7F715E1A0AD14700C15E3E /* libc++.dylib in Frameworks */,
 				FC7F715C1A0AD14100C15E3E /* ImageIO.framework in Frameworks */,
 				FC7F715A1A0AD13C00C15E3E /* GLKit.framework in Frameworks */,
 				FC7F71581A0AD13600C15E3E /* CoreText.framework in Frameworks */,
-				FC7F71561A0AD12F00C15E3E /* CoreLocation.framework in Frameworks */,
 				FC7F71541A0AD12A00C15E3E /* CoreData.framework in Frameworks */,
 				FC7F71521A0AD12600C15E3E /* AVFoundation.framework in Frameworks */,
-				FC7F714E1A0AD0AA00C15E3E /* GoogleMaps.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,10 +164,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		FCF7675F1A0ACF7F00CADFB2 = {
+		FC64B3141A50F67D00B80338 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FC15A8801A298ABF0026CA85 /* purdue.gpx */,
+				FC64B3311A55F33B00B80338 /* Social.framework */,
+				FC64B32E1A55F22F00B80338 /* libxslt.dylib */,
+				FC64B32A1A50FBF200B80338 /* ParseCrashReporting.framework */,
+				FC64B32B1A50FBF200B80338 /* ParseFacebookUtils.framework */,
+				FC64B3281A50FBD500B80338 /* ParseUI.framework */,
+				FC64B3261A50FBAA00B80338 /* Twitter.framework */,
+				FC64B3241A50FB9200B80338 /* Accounts.framework */,
+				FC64B3221A50FB4D00B80338 /* libsqlite3.dylib */,
+				FC64B31F1A50F82F00B80338 /* Parse.framework */,
+				FC64B31D1A50F7B600B80338 /* Bolts.framework */,
+				FC64B3171A50F75600B80338 /* GoogleMaps.bundle */,
+				FC64B3151A50F72B00B80338 /* GoogleMaps.framework */,
 				FC7F71671A0AD16700C15E3E /* SystemConfiguration.framework */,
 				FC7F71651A0AD16100C15E3E /* QuartzCore.framework */,
 				FC7F71631A0AD15A00C15E3E /* OpenGLES.framework */,
@@ -124,8 +191,22 @@
 				FC7F71551A0AD12F00C15E3E /* CoreLocation.framework */,
 				FC7F71531A0AD12A00C15E3E /* CoreData.framework */,
 				FC7F71511A0AD12600C15E3E /* AVFoundation.framework */,
-				FC7F714F1A0AD0F400C15E3E /* GoogleMaps.bundle */,
-				FC7F714D1A0AD0AA00C15E3E /* GoogleMaps.framework */,
+				FC1F8E2D1A37C89800EF567C /* libstdc++.6.dylib */,
+				FC1F8E2B1A37C88300EF567C /* StoreKit.framework */,
+				FC1F8E291A37C87E00EF567C /* Security.framework */,
+				FC1F8E271A37C87100EF567C /* MobileCoreServices.framework */,
+				FC1F8E251A37C85900EF567C /* CoreGraphics.framework */,
+				FC1F8E231A37C85100EF567C /* CFNetwork.framework */,
+				FC1F8E211A37C84A00EF567C /* AudioToolbox.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FCF7675F1A0ACF7F00CADFB2 = {
+			isa = PBXGroup;
+			children = (
+				FC64B3141A50F67D00B80338 /* Frameworks */,
+				FC15A8801A298ABF0026CA85 /* purdue.gpx */,
 				FCF7676A1A0ACF7F00CADFB2 /* SafeWalk */,
 				FCF767801A0ACF7F00CADFB2 /* SafeWalkTests */,
 				FCF767691A0ACF7F00CADFB2 /* Products */,
@@ -194,6 +275,7 @@
 				FCF767641A0ACF7F00CADFB2 /* Sources */,
 				FCF767651A0ACF7F00CADFB2 /* Frameworks */,
 				FCF767661A0ACF7F00CADFB2 /* Resources */,
+				FC64B31C1A50F79200B80338 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -270,8 +352,8 @@
 				FC15A8811A298ABF0026CA85 /* purdue.gpx in Resources */,
 				FC8B94661A12DF180072A645 /* map_pin.png in Resources */,
 				FCF767751A0ACF7F00CADFB2 /* Images.xcassets in Resources */,
-				FC7F71501A0AD0F400C15E3E /* GoogleMaps.bundle in Resources */,
 				FC074CEF1A30271800954BF2 /* BubbleDot.png in Resources */,
+				FC64B3181A50F75600B80338 /* GoogleMaps.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,12 +499,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = SafeWalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SafeWalk/SafeWalk-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -434,12 +519,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				DEAD_CODE_STRIPPING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = SafeWalk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "SafeWalk/SafeWalk-Bridging-Header.h";
 			};

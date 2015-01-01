@@ -16,6 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        ParseCrashReporting.enable()
+        
+        // Purdue SafeWalk Dev Configuration
+        Parse.setApplicationId("GjlGGMBrZc8ND6K9NKKzkLdSC3iWgAvBFuAzZAYO", clientKey: "8X5KQCJH4SZGtJInDhyzjgScF7I4VG8V2PKpMZP8")
+        
         GMSServices.provideAPIKey("AIzaSyC9wZLqc-ctLwevGnSA0w3vYEmIssxRq70");
         return true
     }
