@@ -21,7 +21,7 @@ class ViewController: UIViewController {
         mapView.myLocationEnabled = true
         mapView.settings.myLocationButton = true
         mapView.settings.tiltGestures = false
-        mapView.settings.rotateGestures = false        
+        mapView.settings.rotateGestures = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -35,6 +35,10 @@ class ViewController: UIViewController {
     
     @IBAction func callPoliceButtonPressed(UIButton) {
         self.callPhoneNumber("tel:411")
+    }
+    
+    @IBAction func mapBubblePressed(UIView) {
+        
     }
     
     func callPhoneNumber(phoneURL:NSString) {

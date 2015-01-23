@@ -16,7 +16,7 @@
 		FC1F8E2A1A37C87E00EF567C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1F8E291A37C87E00EF567C /* Security.framework */; };
 		FC1F8E2E1A37C89800EF567C /* libstdc++.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1F8E2D1A37C89800EF567C /* libstdc++.6.dylib */; };
 		FC402DE31A158DEA00831E65 /* SafeWalkMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC402DE21A158DEA00831E65 /* SafeWalkMapView.swift */; };
-		FC64B3161A50F72B00B80338 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B3151A50F72B00B80338 /* GoogleMaps.framework */; };
+		FC64B3161A50F72B00B80338 /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B3151A50F72B00B80338 /* GoogleMaps.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		FC64B3181A50F75600B80338 /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FC64B3171A50F75600B80338 /* GoogleMaps.bundle */; };
 		FC64B31E1A50F7B600B80338 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B31D1A50F7B600B80338 /* Bolts.framework */; };
 		FC64B3201A50F82F00B80338 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC64B31F1A50F82F00B80338 /* Parse.framework */; };
@@ -124,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC1F8E2E1A37C89800EF567C /* libstdc++.6.dylib in Frameworks */,
 				FC64B3331A55F36D00B80338 /* ParseCrashReporting.framework in Frameworks */,
 				FC64B3291A50FBD500B80338 /* ParseUI.framework in Frameworks */,
 				FC64B3321A55F33B00B80338 /* Social.framework in Frameworks */,
@@ -132,7 +133,6 @@
 				FC64B3201A50F82F00B80338 /* Parse.framework in Frameworks */,
 				FC64B31E1A50F7B600B80338 /* Bolts.framework in Frameworks */,
 				FC64B3161A50F72B00B80338 /* GoogleMaps.framework in Frameworks */,
-				FC1F8E2E1A37C89800EF567C /* libstdc++.6.dylib in Frameworks */,
 				FC7F71681A0AD16700C15E3E /* SystemConfiguration.framework in Frameworks */,
 				FC1F8E2A1A37C87E00EF567C /* Security.framework in Frameworks */,
 				FC7F71661A0AD16100C15E3E /* QuartzCore.framework in Frameworks */,
@@ -274,6 +274,7 @@
 				FCF767651A0ACF7F00CADFB2 /* Frameworks */,
 				FCF767661A0ACF7F00CADFB2 /* Resources */,
 				FC64B31C1A50F79200B80338 /* Embed Frameworks */,
+				FC1712981A5A2747009F67CD /* Upload symbols to Parse */,
 			);
 			buildRules = (
 			);
@@ -363,6 +364,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		FC1712981A5A2747009F67CD /* Upload symbols to Parse */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Upload symbols to Parse";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=/usr/local/bin:$PATH\ncd parse\n\nparse symbols \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FCF767641A0ACF7F00CADFB2 /* Sources */ = {
